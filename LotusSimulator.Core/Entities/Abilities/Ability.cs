@@ -1,4 +1,4 @@
-﻿namespace LotusSimulator.Entities.Abilities
+﻿namespace LotusSimulator.Core.Entities.Abilities
 {
     public class Ability
     {

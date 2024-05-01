@@ -17,7 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LotusSimulator\LotusSimulator.csproj" />
+    <ProjectReference Include="..\Cards\LotusSimulator.Cards.csproj" />
+    <ProjectReference Include="..\LotusSimulator.Core\LotusSimulator.Core.csproj" />
   </ItemGroup>
 
 </Project>

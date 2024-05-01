@@ -1,10 +1,44 @@
-﻿using LotusSimulator.Entities.Players;
-using LotusSimulator.Entities.Turn;
+﻿using LotusSimulator.Core.Entities.Players;
+using LotusSimulator.Core.Entities.Spell;
+using LotusSimulator.Core.Entities.Turn;
 
 namespace LotusSimulator.Managers
 {
     public class GameManager
     {
+        public bool AttemptCastSpell(string mode)
+        {
+            return true;
+        }
+
+        public void CastSpell(Core.Entities.Card.Card card)
+        {
+            var spell = CardToSpell(card);
+        }
+
+        private void ResolveSpell(Spell spell)
+        {
+
+        }
+
+        private Spell CardToSpell(Core.Entities.Card.Card card)
+        {
+            var spell = new Spell();
+            spell.Abilities = card.Abilities;
+            spell.Colors = card.Colors;
+            spell.Controller = card.Controller;
+            spell.ManaCost = card.ManaCost;
+            spell.Name = card.Name;
+            spell.Owner = card.Owner;
+
+            return spell;
+        }
+
+        public void PlayLand(Core.Entities.Card.Card card)
+        {
+
+        }
+
         public Turn CreateTurn(Player forPlayer)
         {
             var turn = new Turn();

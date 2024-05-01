@@ -1,4 +1,4 @@
-﻿namespace LotusSimulator.Entities.Counters
+﻿namespace LotusSimulator.Core.Entities.Counters
 {
     public class Counter
     {

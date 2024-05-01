@@ -1,4 +1,4 @@
-﻿namespace LotusSimulator.Entities.GameObjects
+﻿namespace LotusSimulator.Core.Entities.GameObjects
 {
     public enum ObjectSuperType
     {

@@ -1,6 +1,6 @@
-﻿using LotusSimulator.Entities.Players;
+﻿using LotusSimulator.Core.Entities.Players;
 
-namespace LotusSimulator.Entities.Turn
+namespace LotusSimulator.Core.Entities.Turn
 {
     public class Turn
     {

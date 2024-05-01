@@ -1,6 +1,6 @@
-﻿using LotusSimulator.Entities.Players;
+﻿using LotusSimulator.Core.Entities.Players;
 
-namespace LotusSimulator.Entities.Zones
+namespace LotusSimulator.Core.Entities.Zones
 {
     public class Hand
     {

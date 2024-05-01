@@ -1,4 +1,4 @@
-﻿namespace LotusSimulator.Entities.Mana
+﻿namespace LotusSimulator.Core.Entities.Mana
 {
     public enum ManaColor
     {

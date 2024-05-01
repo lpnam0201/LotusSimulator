@@ -1,7 +1,7 @@
-﻿namespace LotusSimulator.Entities.Mana
+﻿namespace LotusSimulator.Core.Entities.Mana
 {
-    public class ManaCost
+    public abstract class ManaCost
     {
-        public IList<Mana> Mana { get; set; } = new List<Mana>();
+        
     }
 }

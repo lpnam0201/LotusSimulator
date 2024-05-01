@@ -1,6 +1,6 @@
-﻿using LotusSimulator.Entities.Zones;
+﻿using LotusSimulator.Core.Entities.Zones;
 
-namespace LotusSimulator.Entities.Players
+namespace LotusSimulator.Core.Entities.Players
 {
     public class Player
     {

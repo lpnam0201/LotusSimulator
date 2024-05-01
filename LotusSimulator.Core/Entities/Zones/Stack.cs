@@ -1,4 +1,4 @@
-﻿namespace LotusSimulator.Entities.Zones
+﻿namespace LotusSimulator.Core.Entities.Zones
 {
     public class Stack
     {

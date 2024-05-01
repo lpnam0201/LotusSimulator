@@ -1,6 +1,6 @@
-﻿using LotusSimulator.Entities.Card;
+﻿using LotusSimulator.Core.Entities.Card;
 
-namespace LotusSimulator.Entities.Zones
+namespace LotusSimulator.Core.Entities.Zones
 {
     public class Battlefield
     {
