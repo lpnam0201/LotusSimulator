@@ -1,0 +1,6 @@
+﻿namespace LotusSimulator.Entities.Turn
+{
+    public class CombatPhase : Phase
+    {
+    }
+}
