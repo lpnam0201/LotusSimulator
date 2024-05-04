@@ -9,23 +9,24 @@ using System.Threading.Tasks;
 
 namespace LotusSimulator.Client.Layout
 {
-    public class LayoutManager
+    public class Separator
     {
-        private TwoPlayersLayout _twoPlayersLayout;
-
-        public LayoutManager()
-        {
-            _twoPlayersLayout = new TwoPlayersLayout();
-        }
+        public int X { get; set; }
+        public int Y { get; set; }
+        public int Width { get; set; }
+        public int Height { get; set; }
 
         public void Draw(GameTime gameTime)
         {
-            _twoPlayersLayout.Draw(gameTime);
+            var whiteBar = new Texture2D(HostedService.GraphicsDevice, 1, 1);
+            whiteBar.SetData(new[] { Color.White });
+
+            HostedService.SpriteBatch.Draw(whiteBar, new Rectangle(X, Y, Width, Height), Color.White);
         }
 
         public void Update(GameTime gameTime)
         {
-            _twoPlayersLayout.Update(gameTime);
+            
         }
     }
 }

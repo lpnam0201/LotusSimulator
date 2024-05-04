@@ -1,4 +1,5 @@
 ﻿using LotusSimulator.Client.DependencyInjection;
+using LotusSimulator.Client.Layout;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -10,11 +11,11 @@ namespace LotusSimulator.Client
         public Game Game => this;
 
         private Texture2D _mtgCardBack;
-        private SpriteBatch _spriteBatch;
+        private LayoutManager _layoutManager;
 
-        public LotusSimulatorGame()
+        public LotusSimulatorGame(LayoutManager layoutManager)
         {
-            
+            _layoutManager = layoutManager;
         }
 
         protected override void Initialize()
@@ -26,8 +27,8 @@ namespace LotusSimulator.Client
 
         protected override void LoadContent()
         {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _mtgCardBack = this.Content.Load<Texture2D>("mtg_card_back");
+            //_mtgCardBack = this.Content.Load<Texture2D>("mtg_card_back");
+            //_mtgCardBack = this.Content.Load<Texture2D>("life_total");
             
 
             // TODO: use this.Content to load your game content here
@@ -39,6 +40,7 @@ namespace LotusSimulator.Client
                 Exit();
 
             // TODO: Add your update logic here
+            _layoutManager.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -47,21 +49,11 @@ namespace LotusSimulator.Client
         {
             GraphicsDevice.Clear(Color.LightGray);
 
-            _spriteBatch.Begin();
+            HostedService.SpriteBatch.Begin();
 
-            var initialX = 100;
-            var initialY = 100;
-            var cardRectangle = new Rectangle(initialX, initialY, 100, 139);
+            _layoutManager.Draw(gameTime);
 
-
-            var sourceRectangle = new Rectangle(0, 0, _mtgCardBack.Width, _mtgCardBack.Height);
-            for (var i = 0; i < 30; i++)
-            {
-                cardRectangle.X = initialX - i;
-                cardRectangle.Y = initialY - i;
-                _spriteBatch.Draw(_mtgCardBack, cardRectangle, sourceRectangle, color: Color.White);
-            }
-            _spriteBatch.End();
+            HostedService.SpriteBatch.End();
 
             base.Draw(gameTime);
         }

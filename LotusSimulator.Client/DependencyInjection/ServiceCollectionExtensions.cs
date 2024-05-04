@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using LotusSimulator.Client.Layout;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,8 @@ namespace LotusSimulator.Client.DependencyInjection
         public static void AddGameConfiguration(this IServiceCollection services)
         {
             services.AddSingleton<IGame, LotusSimulatorGame>();
-            services.AddSingleton<IGameDependencyProvider, GameDependencyProvider>();
+            services.AddSingleton<LayoutManager>();
+            services.AddSingleton<TwoPlayersLayout>();
             
         }
     }

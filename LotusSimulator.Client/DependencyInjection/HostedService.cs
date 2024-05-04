@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -12,26 +13,36 @@ namespace LotusSimulator.Client.DependencyInjection
 {
     public class HostedService : IHostedService
     {
+        public static SpriteBatch SpriteBatch { get; private set; }
+        public static GraphicsDeviceManager GraphicsDeviceManager { get; private set; }
+        public static GraphicsDevice GraphicsDevice { get; private set; }
+        public static ContentManager ContentManager { get; private set; }
+
         private readonly IGame _game;
         private readonly IHostApplicationLifetime _appLifetime;
 
-        public HostedService(IGame game, IHostApplicationLifetime appLifetime, IGameDependencyProvider gameDependencyProvider)
+        public HostedService(IGame game, IHostApplicationLifetime appLifetime)
         {
             _game = game;
             _appLifetime = appLifetime;
 
-            var graphicsDeviceManager = gameDependencyProvider.GetGraphicsDeviceManager();
-            if (graphicsDeviceManager != null)
+            GraphicsDeviceManager = new GraphicsDeviceManager(game.Game);
+            if (GraphicsDeviceManager != null)
             {
-                graphicsDeviceManager.ApplyChanges();
+                GraphicsDeviceManager.ApplyChanges();
             }
 
-            graphicsDeviceManager.IsFullScreen = false;
-            graphicsDeviceManager.PreferredBackBufferWidth = game.Game.GraphicsDevice.Adapter.CurrentDisplayMode.Width;
-            graphicsDeviceManager.PreferredBackBufferHeight = game.Game.GraphicsDevice.Adapter.CurrentDisplayMode.Height;
-            graphicsDeviceManager.ApplyChanges();
+            GraphicsDeviceManager.IsFullScreen = false;
+            GraphicsDeviceManager.PreferredBackBufferWidth = game.Game.GraphicsDevice.Adapter.CurrentDisplayMode.Width;
+            GraphicsDeviceManager.PreferredBackBufferHeight = game.Game.GraphicsDevice.Adapter.CurrentDisplayMode.Height;
+            GraphicsDeviceManager.ApplyChanges();
             game.Game.Content.RootDirectory = "Content";
             game.Game.IsMouseVisible = true;
+            game.Game.Window.AllowUserResizing = true;
+
+            SpriteBatch = new SpriteBatch(game.Game.GraphicsDevice);
+            GraphicsDevice = game.Game.GraphicsDevice;
+            ContentManager = game.Game.Content;
         }
 
         public Task StartAsync(CancellationToken cancellationToken)

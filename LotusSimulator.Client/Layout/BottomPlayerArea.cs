@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LotusSimulator.Client.BattlefieldLayout
+namespace LotusSimulator.Client.Layout
 {
-    public class BattlefieldArea
+    internal class BottomPlayerArea
     {
     }
 }
