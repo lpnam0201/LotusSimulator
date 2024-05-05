@@ -1,6 +1,5 @@
 ﻿using LotusSimulator.Client.DependencyInjection;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,33 +8,36 @@ using System.Threading.Tasks;
 
 namespace LotusSimulator.Client.Layout
 {
-    public class TwoPlayersLayout
+    public class FourPlayersLayout
     {
         private const int PlayerAreaWidth = 800;
         private const int PlayerAreaHeight = 450;
 
-        public TwoPlayersLayout()
+        private const int TopPlayerHorizontalGap = 1920 - PlayerAreaWidth * 2;
+        private const int FirstTopPlayerDistFromLeft = 0;
+        private const int SecondTopPlayerDistFromLeft = FirstTopPlayerDistFromLeft + PlayerAreaWidth + TopPlayerHorizontalGap;
+
+        public FourPlayersLayout()
         {
         }
 
         public void Draw(GameTime gameTime)
         {
-            DrawTopPlayerArea(gameTime);
+            DrawTopPlayerArea(gameTime, FirstTopPlayerDistFromLeft);
+            DrawTopPlayerArea(gameTime, SecondTopPlayerDistFromLeft);
 
             DrawSeparator(gameTime);
         }
 
         public void Update(GameTime gameTime)
         {
-            
+
         }
 
-        private void DrawTopPlayerArea(GameTime gameTime)
+        private void DrawTopPlayerArea(GameTime gameTime, int x)
         {
-            var displayWidth = HostedService.GraphicsDevice.Adapter.CurrentDisplayMode.Width;
-
             var topPlayer = new TopPlayerArea();
-            topPlayer.X = displayWidth / 2 - PlayerAreaWidth / 2;
+            topPlayer.X = x;
             topPlayer.Y = 0;
 
             topPlayer.Width = PlayerAreaWidth;
