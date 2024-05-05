@@ -18,10 +18,10 @@ namespace LotusSimulator.Client.Layout
 
         public void Draw(GameTime gameTime)
         {
-            var whiteBar = new Texture2D(HostedService.GraphicsDevice, 1, 1);
+            var whiteBar = new Texture2D(GlobalInstances.GraphicsDevice, 1, 1);
             whiteBar.SetData(new[] { Color.White });
 
-            HostedService.SpriteBatch.Draw(whiteBar, new Rectangle(X, Y, Width, Height), Color.White);
+            GlobalInstances.SpriteBatch.Draw(whiteBar, new Rectangle(X, Y, Width, Height), Color.White);
         }
 
         public void Update(GameTime gameTime)

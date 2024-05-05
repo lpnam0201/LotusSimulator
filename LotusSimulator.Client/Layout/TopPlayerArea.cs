@@ -65,9 +65,9 @@ namespace LotusSimulator.Client.Layout
 
         public void Draw(GameTime gameTime)
         {
-            var greenBar = new Texture2D(HostedService.GraphicsDevice, 1, 1);
+            var greenBar = new Texture2D(GlobalInstances.GraphicsDevice, 1, 1);
             greenBar.SetData(new[] { Color.Yellow });
-            HostedService.SpriteBatch.Draw(greenBar, new Rectangle(X, Y, Width, Height), Color.White);
+            GlobalInstances.SpriteBatch.Draw(greenBar, new Rectangle(X, Y, Width, Height), Color.White);
 
             DrawHand(gameTime);
             DrawDeck(gameTime);

@@ -18,8 +18,13 @@ namespace LotusSimulator.Client.Layout
 
         private const int BottomPlayerDistFromTop = PlayerAreaHeight + SeparatorHeight;
 
+        private TopPlayerArea _topPlayerArea;
+        private BottomPlayerArea _bottomPlayerArea;
+
         public TwoPlayersLayout()
         {
+            _topPlayerArea = new TopPlayerArea();
+            _bottomPlayerArea = new BottomPlayerArea();
         }
 
         public void Draw(GameTime gameTime)
@@ -32,35 +37,34 @@ namespace LotusSimulator.Client.Layout
 
         public void Update(GameTime gameTime)
         {
-            
+            _topPlayerArea.Update(gameTime);
+            _bottomPlayerArea.Update(gameTime);
         }
 
         private void DrawTopPlayerArea(GameTime gameTime)
         {
-            var displayWidth = HostedService.GraphicsDevice.Adapter.CurrentDisplayMode.Width;
+            var displayWidth = GlobalInstances.GraphicsDevice.Adapter.CurrentDisplayMode.Width;
 
-            var topPlayer = new TopPlayerArea();
-            topPlayer.X = displayWidth / 2 - PlayerAreaWidth / 2;
-            topPlayer.Y = 0;
+            _topPlayerArea.X = displayWidth / 2 - PlayerAreaWidth / 2;
+            _topPlayerArea.Y = 0;
 
-            topPlayer.Width = PlayerAreaWidth;
-            topPlayer.Height = PlayerAreaHeight;
+            _topPlayerArea.Width = PlayerAreaWidth;
+            _topPlayerArea.Height = PlayerAreaHeight;
 
-            topPlayer.Draw(gameTime);
+            _topPlayerArea.Draw(gameTime);
         }
 
         private void DrawBottomPlayerArea(GameTime gameTime)
         {
-            var displayWidth = HostedService.GraphicsDevice.Adapter.CurrentDisplayMode.Width;
+            var displayWidth = GlobalInstances.GraphicsDevice.Adapter.CurrentDisplayMode.Width;
 
-            var topPlayer = new BottomPlayerArea();
-            topPlayer.X = displayWidth / 2 - PlayerAreaWidth / 2;
-            topPlayer.Y = BottomPlayerDistFromTop;
+            _bottomPlayerArea.X = displayWidth / 2 - PlayerAreaWidth / 2;
+            _bottomPlayerArea.Y = BottomPlayerDistFromTop;
 
-            topPlayer.Width = PlayerAreaWidth;
-            topPlayer.Height = PlayerAreaHeight;
+            _bottomPlayerArea.Width = PlayerAreaWidth;
+            _bottomPlayerArea.Height = PlayerAreaHeight;
 
-            topPlayer.Draw(gameTime);
+            _bottomPlayerArea.Draw(gameTime);
         }
 
         private void DrawSeparator(GameTime gameTime)
@@ -69,7 +73,7 @@ namespace LotusSimulator.Client.Layout
             separator.X = 0;
             separator.Y = PlayerAreaHeight;
 
-            var displayWidth = HostedService.GraphicsDevice.Adapter.CurrentDisplayMode.Width;
+            var displayWidth = GlobalInstances.GraphicsDevice.Adapter.CurrentDisplayMode.Width;
             separator.Width = displayWidth;
             separator.Height = SeparatorHeight;
 

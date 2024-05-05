@@ -11,8 +11,8 @@ namespace LotusSimulator.Client.Layout
 {
     public class LifeOrb
     {
-        private Texture2D _lifeOrb = HostedService.ContentManager.Load<Texture2D>("life_total");
-        private SpriteFont _lifeFont = HostedService.ContentManager.Load<SpriteFont>("LifeTotal");
+        //private Texture2D _lifeOrb = HostedService.ContentManager.Load<Texture2D>("life_total");
+        //private SpriteFont _lifeFont = HostedService.ContentManager.Load<SpriteFont>("LifeTotal");
 
         public int X { get; set; }
         public int Y { get; set; }
@@ -21,9 +21,9 @@ namespace LotusSimulator.Client.Layout
 
         public void Draw()
         {
-            var sourceRectangle = new Rectangle(0, 0, _lifeOrb.Width, _lifeOrb.Height);
-            var destinationRectangle = new Rectangle(X, Y, Width, Height);
-            HostedService.SpriteBatch.Draw(_lifeOrb, destinationRectangle, sourceRectangle, Color.White);
+            //var sourceRectangle = new Rectangle(0, 0, _lifeOrb.Width, _lifeOrb.Height);
+            //var destinationRectangle = new Rectangle(X, Y, Width, Height);
+            //GlobalInstances.SpriteBatch.Draw(_lifeOrb, destinationRectangle, sourceRectangle, Color.White);
 
             //HostedService.SpriteBatch.DrawString(_lifeFont, "20", new Vector2(X, Y), Color.White);
         }

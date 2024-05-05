@@ -1,6 +1,7 @@
 ﻿using LotusSimulator.Client.DependencyInjection;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Myra.Graphics2D.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace LotusSimulator.Client.Layout
     {
         private TwoPlayersLayout _twoPlayersLayout;
         private FourPlayersLayout _fourPlayersLayout;
+        private bool isDrawn = false;
 
         public LayoutManager()
         {
@@ -22,9 +24,22 @@ namespace LotusSimulator.Client.Layout
 
         public void Draw(GameTime gameTime)
         {
-            //_fourPlayersLayout.Draw(gameTime);
+            if (!isDrawn)
+            {
+                isDrawn = true;
+            }
             _twoPlayersLayout.Draw(gameTime);
+
+            if (!isshow)
+            {
+                isshow = true;
+                var dialog = Dialog.CreateMessageBox("ABC", "xyz");
+                dialog.ZIndex = 100;
+                dialog.ShowModal(GlobalInstances.Desktop, new Point(0, 0));
+            }
         }
+
+        private bool isshow = false;
 
         public void Update(GameTime gameTime)
         {

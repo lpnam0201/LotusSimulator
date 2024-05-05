@@ -1,7 +1,10 @@
 ﻿using LotusSimulator.Client.DependencyInjection;
+using LotusSimulator.Client.Global;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Myra;
+using Myra.Graphics2D.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +18,7 @@ namespace LotusSimulator.Client.Card
         public const int CardWidth = 50;
         public const int CardHeight = 70;
 
-        private Texture2D _forest = HostedService.ContentManager.Load<Texture2D>("forest");
-        private Texture2D _mtgBack = HostedService.ContentManager.Load<Texture2D>("mtg_card_back");
+        //private Texture2D _forest = HostedService.ContentManager.Load<Texture2D>("forest");
 
         public bool IsTapped { get; set; }
 
@@ -29,12 +31,60 @@ namespace LotusSimulator.Client.Card
 
         public void Update(GameTime gameTime)
         {
+            var mouseState = Mouse.GetState();
+            if (mouseState.RightButton == ButtonState.Pressed
+                && IsInHitBox(mouseState))
+            {
+                if (GlobalInstances.Desktop.ContextMenu == null
+                    && GlobalInstances.Desktop.TouchPosition != null)
+                {
+                    var container = new VerticalStackPanel
+                    {
+                        Spacing = 4
+                    };
 
+                    var menuItem1 = new MenuItem();
+                    menuItem1.Text = "Start New Game";
+                    menuItem1.Selected += (s, a) =>
+                    {
+                        Console.WriteLine("CLICKED");
+                    };
+
+                    var menuItem2 = new MenuItem();
+                    menuItem2.Text = "Options";
+
+                    var menuItem3 = new MenuItem();
+                    menuItem3.Text = "Quit";
+
+                    var verticalMenu = new VerticalMenu();
+
+                    verticalMenu.Items.Add(menuItem1);
+                    verticalMenu.Items.Add(menuItem2);
+                    verticalMenu.Items.Add(menuItem3);
+
+                    container.Widgets.Add(verticalMenu);
+
+                    GlobalInstances.Desktop.ShowContextMenu(container, GlobalInstances.Desktop.TouchPosition.Value);
+                }
+            };
         }
+
+        private bool IsInHitBox(MouseState mouseState)
+        {
+            if (mouseState.X >= X && mouseState.X <= X + Width
+                && mouseState.Y > Y && mouseState.Y <= Y + Height)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+
 
         public void Draw(GameTime gameTime)
         {
-            HostedService.SpriteBatch.Draw(_mtgBack, new Rectangle(X, Y, Width, Height), Color.White);
+            GlobalInstances.SpriteBatch.Draw(ContentTextures.MTGBack, new Rectangle(X, Y, Width, Height), Color.White);
         }
     }
 }

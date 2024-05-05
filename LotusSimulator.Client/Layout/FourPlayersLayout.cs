@@ -76,7 +76,7 @@ namespace LotusSimulator.Client.Layout
             separator.X = 0;
             separator.Y = PlayerAreaHeight;
 
-            var displayWidth = HostedService.GraphicsDevice.Adapter.CurrentDisplayMode.Width;
+            var displayWidth = GlobalInstances.GraphicsDevice.Adapter.CurrentDisplayMode.Width;
             separator.Width = displayWidth;
             separator.Height = SeparatorHeight;
 

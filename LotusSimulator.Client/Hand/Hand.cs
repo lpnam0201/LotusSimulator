@@ -31,10 +31,10 @@ namespace LotusSimulator.Client.Hand
 
         public void Draw(GameTime gameTime)
         {
-            var greenBar = new Texture2D(HostedService.GraphicsDevice, 1, 1);
+            var greenBar = new Texture2D(GlobalInstances.GraphicsDevice, 1, 1);
             greenBar.SetData(new[] { Color.Green });
 
-            HostedService.SpriteBatch.Draw(greenBar, new Rectangle(X, Y, Width, Height), Color.White);
+            GlobalInstances.SpriteBatch.Draw(greenBar, new Rectangle(X, Y, Width, Height), Color.White);
 
             var numberOfCards = Cards.Count;
             var numberOfGaps = Cards.Count - 1;

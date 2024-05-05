@@ -10,16 +10,16 @@ namespace LotusSimulator.Client
         [STAThread]
         private static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            new LotusSimulatorGame().Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-            .ConfigureServices((hostContext, services) =>
-            {
-                services.AddHostedService<HostedService>();
-                services.AddGameConfiguration();
-            });
+        //public static IHostBuilder CreateHostBuilder(string[] args) =>
+        //    Host.CreateDefaultBuilder(args)
+        //    .ConfigureServices((hostContext, services) =>
+        //    {
+        //        services.AddHostedService<HostedService>();
+        //        services.AddGameConfiguration();
+        //    });
     }
 }
 

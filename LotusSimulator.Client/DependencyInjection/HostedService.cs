@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Myra.Graphics2D.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,74 +12,60 @@ using System.Threading.Tasks;
 
 namespace LotusSimulator.Client.DependencyInjection
 {
-    public class HostedService : IHostedService
-    {
-        public static SpriteBatch SpriteBatch { get; private set; }
-        public static GraphicsDeviceManager GraphicsDeviceManager { get; private set; }
-        public static GraphicsDevice GraphicsDevice { get; private set; }
-        public static ContentManager ContentManager { get; private set; }
+    //public class HostedService : IHostedService
+    //{
+    //    public static SpriteBatch SpriteBatch { get; private set; }
+    //    public static GraphicsDeviceManager GraphicsDeviceManager { get; private set; }
+    //    public static GraphicsDevice GraphicsDevice { get; private set; }
+    //    public static ContentManager ContentManager { get; private set; }
+    //    public static Desktop Desktop { get; set; }
 
-        private readonly IGame _game;
-        private readonly IHostApplicationLifetime _appLifetime;
+    //    private readonly IGame _game;
+    //    private readonly IHostApplicationLifetime _appLifetime;
 
-        public HostedService(IGame game, IHostApplicationLifetime appLifetime)
-        {
-            _game = game;
-            _appLifetime = appLifetime;
+    //    public HostedService(IGame game, IHostApplicationLifetime appLifetime)
+    //    {
+    //        _game = game;
+    //        _appLifetime = appLifetime;
 
-            GraphicsDeviceManager = new GraphicsDeviceManager(game.Game);
-            if (GraphicsDeviceManager != null)
-            {
-                GraphicsDeviceManager.ApplyChanges();
-            }
+            
+            
+    //    }
 
-            GraphicsDeviceManager.IsFullScreen = false;
-            GraphicsDeviceManager.PreferredBackBufferWidth = game.Game.GraphicsDevice.Adapter.CurrentDisplayMode.Width;
-            GraphicsDeviceManager.PreferredBackBufferHeight = game.Game.GraphicsDevice.Adapter.CurrentDisplayMode.Height;
-            GraphicsDeviceManager.ApplyChanges();
-            game.Game.Content.RootDirectory = "Content";
-            game.Game.IsMouseVisible = true;
-            game.Game.Window.AllowUserResizing = true;
+    //    public Task StartAsync(CancellationToken cancellationToken)
+    //    {
+    //        _appLifetime.ApplicationStarted.Register(OnStarted);
+    //        _appLifetime.ApplicationStopping.Register(OnStopping);
+    //        _appLifetime.ApplicationStopped.Register(OnStopped);
 
-            SpriteBatch = new SpriteBatch(game.Game.GraphicsDevice);
-            GraphicsDevice = game.Game.GraphicsDevice;
-            ContentManager = game.Game.Content;
-        }
+    //        _game.Exiting += OnGameExiting;
 
-        public Task StartAsync(CancellationToken cancellationToken)
-        {
-            _appLifetime.ApplicationStarted.Register(OnStarted);
-            _appLifetime.ApplicationStopping.Register(OnStopping);
-            _appLifetime.ApplicationStopped.Register(OnStopped);
+    //        return Task.CompletedTask;
+    //    }
 
-            _game.Exiting += OnGameExiting;
+    //    private void OnGameExiting(object sender, System.EventArgs e)
+    //    {
+    //        StopAsync(new CancellationToken());
+    //    }
 
-            return Task.CompletedTask;
-        }
+    //    public Task StopAsync(CancellationToken cancellationToken)
+    //    {
+    //        _appLifetime.StopApplication();
 
-        private void OnGameExiting(object sender, System.EventArgs e)
-        {
-            StopAsync(new CancellationToken());
-        }
+    //        return Task.CompletedTask;
+    //    }
 
-        public Task StopAsync(CancellationToken cancellationToken)
-        {
-            _appLifetime.StopApplication();
+    //    private void OnStarted()
+    //    {
+    //        _game.Run();
+    //    }
 
-            return Task.CompletedTask;
-        }
+    //    private void OnStopping()
+    //    {
+    //    }
 
-        private void OnStarted()
-        {
-            _game.Run();
-        }
-
-        private void OnStopping()
-        {
-        }
-
-        private void OnStopped()
-        {
-        }
-    }
+    //    private void OnStopped()
+    //    {
+    //    }
+    //}
 }
