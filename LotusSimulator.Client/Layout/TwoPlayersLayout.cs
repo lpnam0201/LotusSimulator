@@ -11,8 +11,12 @@ namespace LotusSimulator.Client.Layout
 {
     public class TwoPlayersLayout
     {
-        private const int PlayerAreaWidth = 800;
+        private const int PlayerAreaWidth = 900;
         private const int PlayerAreaHeight = 450;
+
+        private const int SeparatorHeight = 40;
+
+        private const int BottomPlayerDistFromTop = PlayerAreaHeight + SeparatorHeight;
 
         public TwoPlayersLayout()
         {
@@ -21,6 +25,7 @@ namespace LotusSimulator.Client.Layout
         public void Draw(GameTime gameTime)
         {
             DrawTopPlayerArea(gameTime);
+            DrawBottomPlayerArea(gameTime);
 
             DrawSeparator(gameTime);
         }
@@ -44,6 +49,20 @@ namespace LotusSimulator.Client.Layout
             topPlayer.Draw(gameTime);
         }
 
+        private void DrawBottomPlayerArea(GameTime gameTime)
+        {
+            var displayWidth = HostedService.GraphicsDevice.Adapter.CurrentDisplayMode.Width;
+
+            var topPlayer = new BottomPlayerArea();
+            topPlayer.X = displayWidth / 2 - PlayerAreaWidth / 2;
+            topPlayer.Y = BottomPlayerDistFromTop;
+
+            topPlayer.Width = PlayerAreaWidth;
+            topPlayer.Height = PlayerAreaHeight;
+
+            topPlayer.Draw(gameTime);
+        }
+
         private void DrawSeparator(GameTime gameTime)
         {
             var separator = new Separator();
@@ -52,7 +71,7 @@ namespace LotusSimulator.Client.Layout
 
             var displayWidth = HostedService.GraphicsDevice.Adapter.CurrentDisplayMode.Width;
             separator.Width = displayWidth;
-            separator.Height = 40;
+            separator.Height = SeparatorHeight;
 
             separator.Draw(gameTime);
         }

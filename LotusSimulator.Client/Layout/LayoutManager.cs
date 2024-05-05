@@ -22,8 +22,8 @@ namespace LotusSimulator.Client.Layout
 
         public void Draw(GameTime gameTime)
         {
-            _fourPlayersLayout.Draw(gameTime);
-            //_twoPlayersLayout.Draw(gameTime);
+            //_fourPlayersLayout.Draw(gameTime);
+            _twoPlayersLayout.Draw(gameTime);
         }
 
         public void Update(GameTime gameTime)
