@@ -14,6 +14,7 @@ namespace LotusSimulator.Core.CardLogic
 {
     public class CardCharacteristic
     {
+        public string OracleId { get; set; }
         public string Name { get; set; }
         public ManaCostCollection ManaCost { get; set; } = new ManaCostCollection();
         public IList<ObjectColor> Colors { get; set; } = new List<ObjectColor>();
@@ -27,7 +28,15 @@ namespace LotusSimulator.Core.CardLogic
 
         public void CopyStatsToCard(Card card)
         {
-
+            card.OracleId = OracleId;
+            card.Name = Name;
+            card.ManaCost = ManaCost;
+            card.Colors = Colors;
+            card.Types = Types;
+            card.SuperTypes = SuperTypes;
+            card.SubTypes = SubTypes;
+            card.Power = Toughness;
+            card.LoyaltyCounters = StartingLoyaltyCounters;
         }
     }
 }

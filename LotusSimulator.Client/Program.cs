@@ -1,25 +1,18 @@
-﻿using LotusSimulator.Client.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+﻿using LotusSimulator.Client.Services;
 using System;
+using System.Threading.Tasks;
 
 namespace LotusSimulator.Client
 {
     public static class Program
     {
         [STAThread]
-        private static void Main(string[] args)
+        private static async Task Main(string[] args)
         {
             new LotusSimulatorGame().Run();
+            GlobalInstances.ReceiveGameStateService = new GameStateService();
+            await GlobalInstances.ReceiveGameStateService.RunAsync();
         }
-
-        //public static IHostBuilder CreateHostBuilder(string[] args) =>
-        //    Host.CreateDefaultBuilder(args)
-        //    .ConfigureServices((hostContext, services) =>
-        //    {
-        //        services.AddHostedService<HostedService>();
-        //        services.AddGameConfiguration();
-        //    });
     }
 }
 

@@ -2,6 +2,6 @@
 {
     public class Command
     {
-        public IList<LotusSimulator.Entities.Card.Card> Commanders { get; set; }
+        public IList<Card.Card> Commanders { get; set; }
     }
 }

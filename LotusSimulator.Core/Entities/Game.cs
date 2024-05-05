@@ -14,5 +14,7 @@ namespace LotusSimulator.Entities
         public IList<Player> Players { get; set; }
 
         public Queue<Event> EventQueue { get; set; }
+
+        public Player PlayerGoFirst { get; set; }
     }
 }

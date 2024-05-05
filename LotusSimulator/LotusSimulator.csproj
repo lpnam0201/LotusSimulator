@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\LotusSimulator.Contract\LotusSimulator.Contract.csproj" />
     <ProjectReference Include="..\LotusSimulator.Core\LotusSimulator.Core.csproj" />
   </ItemGroup>
 

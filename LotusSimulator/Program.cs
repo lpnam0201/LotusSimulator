@@ -1,4 +1,5 @@
 using LotusSimulator;
+using LotusSimulator.Managers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,8 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<GameContainer>();
-builder.Services.AddTransient<GameInstance>();
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -26,12 +26,13 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHub<GameHub>("/gameHub");
 
 app.Run();
 
 var gameContainer = app.Services.GetService<GameContainer>();
-var gameInstance = app.Services.GetService<GameInstance>();
-gameInstance.Initialize();
-gameContainer.GameInstances.Add(gameInstance);
+var gameManager = app.Services.GetService<GameManager>();
+
+gameContainer.GameManagers.Add(gameManager);
 
 

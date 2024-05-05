@@ -3,6 +3,7 @@
     public enum ObjectSubType
     {
         Angel,
-        Dinosaur
+        Dinosaur,
+        Elf
     }
 }

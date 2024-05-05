@@ -1,15 +1,8 @@
-﻿using LotusSimulator.Client.DependencyInjection;
-using LotusSimulator.Client.Global;
+﻿using LotusSimulator.Client.Global;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Myra;
 using Myra.Graphics2D.UI;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LotusSimulator.Client.Card
 {
@@ -17,8 +10,6 @@ namespace LotusSimulator.Client.Card
     {
         public const int CardWidth = 50;
         public const int CardHeight = 70;
-
-        //private Texture2D _forest = HostedService.ContentManager.Load<Texture2D>("forest");
 
         public bool IsTapped { get; set; }
 

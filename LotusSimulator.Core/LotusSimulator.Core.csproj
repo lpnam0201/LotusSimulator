@@ -7,7 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="MessageOut\" />
+    <Folder Include="MessageIn\" />
+    <Folder Include="Constants\" />
     <Folder Include="Utils\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Core" Version="1.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LotusSimulator.Contract\LotusSimulator.Contract.csproj" />
   </ItemGroup>
 
 </Project>

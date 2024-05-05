@@ -1,11 +1,54 @@
-﻿using LotusSimulator.Core.Entities.Players;
+﻿using LotusSimulator.Core.Entities.Card;
+using LotusSimulator.Core.Entities.Players;
 using LotusSimulator.Core.Entities.Spell;
 using LotusSimulator.Core.Entities.Turn;
+using LotusSimulator.Core.Services;
+using LotusSimulator.Entities;
+using Microsoft.AspNetCore.SignalR;
 
 namespace LotusSimulator.Managers
 {
     public class GameManager
     {
+        private IHubContext<GameHub> _hubContext;
+        private RandomService _randomService;
+        private Game _game;
+
+        public GameManager(IHubContext<GameHub> hubContext, RandomService randomService, Game game)
+        {
+            _hubContext = hubContext;
+            _randomService = randomService;
+            _game = game;
+        }
+
+        private void InitializeDeck()
+        {
+            foreach (var player in _game.Players)
+            {
+
+            }
+        }
+
+        public void Begin()
+        {
+            DecidePlayerGoFirst();
+
+        }
+
+        private void DecidePlayerGoFirst()
+        {
+            var playerCount = _game.Players.Count;
+            var goFirstIndex = _randomService.RandomInt(playerCount);
+
+            _game.PlayerGoFirst = _game.Players[goFirstIndex];
+        }
+
+        private void DrawFirstHand()
+        {
+
+        }
+
+
         public bool AttemptCastSpell(string mode)
         {
             return true;
@@ -36,7 +79,22 @@ namespace LotusSimulator.Managers
 
         public void PlayLand(Core.Entities.Card.Card card)
         {
+            
+        }
 
+        private Permanent CardToPermanent()
+        {
+            return null;
+        }
+
+        private bool CanPlayLand(Player player)
+        {
+            if (player.LandPlayed >= player.LandPlaysPerTurn)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         public Turn CreateTurn(Player forPlayer)

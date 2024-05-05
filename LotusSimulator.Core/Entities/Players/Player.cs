@@ -12,5 +12,8 @@ namespace LotusSimulator.Core.Entities.Players
         public Exile Exile { get; set; }
         public Library Library { get; set; }
         public Command Command { get; set; }
+
+        public int LandPlayed { get; set; }
+        public int LandPlaysPerTurn { get; set; }
     }
 }

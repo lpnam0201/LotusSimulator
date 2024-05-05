@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Content;
+﻿using LotusSimulator.Client.Services;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Myra.Graphics2D.UI;
 using System;
@@ -15,5 +16,7 @@ namespace LotusSimulator.Client
         public static Desktop Desktop { get; set; }
         public static GraphicsDevice GraphicsDevice { get; set; }
         public static ContentManager ContentManager { get; set; }
+        public static LookupCardImageService LookupCardImageService { get; set; } = new LookupCardImageService();
+        public static GameStateService ReceiveGameStateService { get; set; }
     }
 }

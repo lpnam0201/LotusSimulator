@@ -1,12 +1,5 @@
-﻿using LotusSimulator.Client.DependencyInjection;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
 using Myra.Graphics2D.UI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LotusSimulator.Client.Layout
 {

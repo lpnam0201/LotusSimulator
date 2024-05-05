@@ -24,6 +24,7 @@ namespace LotusSimulator.Cards.C
         {
             _characteristic = new CardCharacteristic()
             {
+                OracleId = "08c7db90-c0cf-4482-b7ee-bb033e5996d2",
                 Colors = new List<ObjectColor>
                 {
                     ObjectColor.Green

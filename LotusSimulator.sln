@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LotusSimulator.Core", "Lotu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LotusSimulator.Cards", "Cards\LotusSimulator.Cards.csproj", "{2895864D-1E54-4BA6-8839-A606E24A64DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LotusSimulator.Client", "LotusSimulator.Client\LotusSimulator.Client.csproj", "{F7310E29-3F72-4580-9094-EE08E200A59E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LotusSimulator.Client", "LotusSimulator.Client\LotusSimulator.Client.csproj", "{F7310E29-3F72-4580-9094-EE08E200A59E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LotusSimulator.Contract", "LotusSimulator.Contract\LotusSimulator.Contract.csproj", "{942341B4-3783-434B-987B-B9D6EA842A26}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{F7310E29-3F72-4580-9094-EE08E200A59E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7310E29-3F72-4580-9094-EE08E200A59E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7310E29-3F72-4580-9094-EE08E200A59E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{942341B4-3783-434B-987B-B9D6EA842A26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{942341B4-3783-434B-987B-B9D6EA842A26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{942341B4-3783-434B-987B-B9D6EA842A26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{942341B4-3783-434B-987B-B9D6EA842A26}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

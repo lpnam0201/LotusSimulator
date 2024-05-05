@@ -2,6 +2,6 @@
 {
     public class Stack
     {
-        public IList<Spell> Spells { get; set; }
+        public IList<Spell.Spell> Spells { get; set; }
     }
 }
