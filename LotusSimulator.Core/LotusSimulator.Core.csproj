@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="MessageOut\" />
     <Folder Include="MessageIn\" />
     <Folder Include="Constants\" />
     <Folder Include="Utils\" />

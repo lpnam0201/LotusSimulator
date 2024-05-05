@@ -4,6 +4,7 @@ namespace LotusSimulator.Core.Entities.Players
 {
     public class Player
     {
+        public string ConnectionId { get; set; }
         public MtgNumber LifeTotal { get; set; }
 
         public Battlefield Battlefield { get; set; }

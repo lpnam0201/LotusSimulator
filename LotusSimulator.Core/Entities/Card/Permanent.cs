@@ -15,6 +15,8 @@ namespace LotusSimulator.Core.Entities.Card
 
         public bool IsToken { get; set; }
 
+        public bool IsTapped { get; set; }
+
         public Player Owner { get; set; }
 
         public Guid GameId { get; set; }

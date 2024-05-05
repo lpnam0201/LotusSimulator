@@ -11,6 +11,7 @@ namespace LotusSimulator.Core.Entities.Card
         public MtgNumber Toughness { get; set; }
         public IList<Counter> LoyaltyCounters { get; set; }
         public IList<Counter> Counters { get; set; }
+        public bool IsRevealed { get; set; }
 
         public CardLogic.CardLogic CardLogic { get; set; }
 

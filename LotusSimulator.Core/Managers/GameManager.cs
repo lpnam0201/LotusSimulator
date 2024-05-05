@@ -1,38 +1,70 @@
-﻿using LotusSimulator.Core.Entities.Card;
+﻿using LotusSimulator.Cards.F;
+using LotusSimulator.Cards.L;
+using LotusSimulator.Contract.MessageOut;
+using LotusSimulator.Core.Entities.Card;
 using LotusSimulator.Core.Entities.Players;
 using LotusSimulator.Core.Entities.Spell;
 using LotusSimulator.Core.Entities.Turn;
+using LotusSimulator.Core.Entities.Zones;
+using LotusSimulator.Core.MessageOut;
 using LotusSimulator.Core.Services;
 using LotusSimulator.Entities;
-using Microsoft.AspNetCore.SignalR;
 
 namespace LotusSimulator.Managers
 {
     public class GameManager
     {
-        private IHubContext<GameHub> _hubContext;
+        private GameStateService _gameStateService;
         private RandomService _randomService;
         private Game _game;
+        private readonly GameStateMapper _gameStateMapper;
 
-        public GameManager(IHubContext<GameHub> hubContext, RandomService randomService, Game game)
+        public GameManager(GameStateService gameStateService, RandomService randomService, Game game, GameStateMapper gameStateMapper)
         {
-            _hubContext = hubContext;
+            _gameStateService = gameStateService;
             _randomService = randomService;
             _game = game;
+            _gameStateMapper = gameStateMapper;
         }
 
-        private void InitializeDeck()
+
+
+        private void InitializeLibrary()
         {
             foreach (var player in _game.Players)
             {
+                for (int i = 0; i <= 30; i++)
+                {
+                    var forest = new Card();
+                    forest.CardLogic = new Forest();
+                    forest.CardLogic.CopyStatsToCard(forest);
 
+                    player.Library.Cards.Add(forest);
+
+                    var elf = new Card();
+                    elf.CardLogic = new LlanowarElves();
+                    elf.CardLogic.CopyStatsToCard(forest);
+
+                    player.Library.Cards.Add(elf);
+                }
+
+                ShuffleLibrary(player.Library);
             }
+        }
+
+        private void ShuffleLibrary(Library library)
+        {
+            var count = library.Cards.Count;
+            library.Cards = library.Cards.OrderBy(x => _randomService.RandomInt(count)).ToList();
         }
 
         public void Begin()
         {
+            InitializeLibrary();
+
             DecidePlayerGoFirst();
 
+            DrawFirstHand();
         }
 
         private void DecidePlayerGoFirst()
@@ -45,7 +77,28 @@ namespace LotusSimulator.Managers
 
         private void DrawFirstHand()
         {
+            foreach (var player in _game.Players)
+            {
+                for (var i = 0; i < 7; i++)
+                {
+                    Draw(player);
+                }
+            }
 
+            var gameStateCollection = _gameStateMapper.BuildGameStateCollection(_game);
+            _gameStateService.SendGameStates(gameStateCollection).GetAwaiter().GetResult();
+        }
+
+        private void Draw(Player player)
+        {
+            var library = player.Library;
+
+            var cardsDrawn = library.Cards.Take(1).ToList();
+            foreach (var card in cardsDrawn)
+            {
+                player.Hand.Cards.Add(card);
+            }
+            library.Cards = library.Cards.Skip(1).ToList();
         }
 
 
