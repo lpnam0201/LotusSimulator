@@ -12,11 +12,11 @@ namespace LotusSimulator.Client.Layout
 {
     public class TopPlayerArea
     {
-        private const int HandWidth = 600;
+        private const int HandWidth = 700;
         private const int HandHeight = 70;
 
         private const int DeckDistFromLeft = 40;
-        private const int DeckDistFromTop = 100;
+        private const int DeckDistFromTop = 120;
 
         private const int DeckGraveyardGap = 10;
 
@@ -28,19 +28,19 @@ namespace LotusSimulator.Client.Layout
         private const int ExileDistFromLeft = 40;
         private const int ExileDistFromTop = GraveyardDistFromTop + 70 + GraveyardExileGap;
 
-        private const int LandZoneWidth = 600;
+        private const int LandZoneWidth = 700;
         private const int LandZoneHeight = 70;
-        private const int LandZoneDistFromTop = 100;
+        private const int LandZoneDistFromTop = 120;
 
         private const int LandArtifactEnchantmentGap = 10;
 
-        private const int ArtifactEnchantmentZoneWidth = 600;
+        private const int ArtifactEnchantmentZoneWidth = 700;
         private const int ArtifactEnchantmentZoneHeight = 70;
         private const int ArtifactEnchantmentZoneDistFromTop = LandZoneDistFromTop + LandZoneHeight + LandArtifactEnchantmentGap;
 
         private const int ArtifactEnchantmentCreatureGap = 10;
 
-        private const int CreatureZoneWidth = 450;
+        private const int CreatureZoneWidth = HandWidth * 5 / 7;
         private const int CreatureZoneHeight = 70;
         private const int FirstCreatureZoneDistFromTop = ArtifactEnchantmentZoneDistFromTop + ArtifactEnchantmentZoneHeight + ArtifactEnchantmentCreatureGap;
 
@@ -49,9 +49,7 @@ namespace LotusSimulator.Client.Layout
 
         private const int ArtifactEnchantmentPlaneswalkerBattleGap = 10;
 
-        private const int CreaturePlaneswalkerBattleHorizontalGap = 20;
-
-        private const int PlaneswalkerAndBattleZoneWidth = 200;
+        private const int PlaneswalkerAndBattleZoneWidth = HandWidth * 2 / 7;
         private const int PlaneswalkerAndBattleZoneHeight = 70;
         private const int FirstPlaneswalkerAndBattleZoneDistFromTop = ArtifactEnchantmentZoneDistFromTop + ArtifactEnchantmentZoneHeight + ArtifactEnchantmentPlaneswalkerBattleGap;
 
@@ -63,7 +61,7 @@ namespace LotusSimulator.Client.Layout
         public int Width { get; set; }
         public int Height { get; set; }
 
-        public TopPlayerHand TopPlayerHand { get; set; } = new TopPlayerHand();
+        public Hand.Hand TopPlayerHand { get; set; } = new Hand.Hand();
 
         public void Draw(GameTime gameTime)
         {
@@ -87,9 +85,9 @@ namespace LotusSimulator.Client.Layout
 
         private void DrawHand(GameTime gameTime)
         {
-            var topPlayerHand = new TopPlayerHand();
+            var topPlayerHand = new Hand.Hand();
             topPlayerHand.X = X + (Width - HandWidth) / 2;
-            topPlayerHand.Y = -30;
+            topPlayerHand.Y = 0;
             topPlayerHand.Width = HandWidth;
             topPlayerHand.Height = HandHeight;
 
@@ -142,7 +140,7 @@ namespace LotusSimulator.Client.Layout
         {
             var planeswalkerAndBattleZone = new PlaneswalkerAndBattleZone();
             // Use PlayerHandWidth for Left-Align creature zones
-            planeswalkerAndBattleZone.X = X + (Width - HandWidth) / 2 + CreatureZoneWidth + CreaturePlaneswalkerBattleHorizontalGap;
+            planeswalkerAndBattleZone.X = X + (Width - HandWidth) / 2 + CreatureZoneWidth;
             planeswalkerAndBattleZone.Y = y;
             planeswalkerAndBattleZone.Width = PlaneswalkerAndBattleZoneWidth;
             planeswalkerAndBattleZone.Height = PlaneswalkerAndBattleZoneHeight;

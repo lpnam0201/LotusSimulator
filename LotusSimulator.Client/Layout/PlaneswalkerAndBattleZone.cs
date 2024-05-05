@@ -32,7 +32,7 @@ namespace LotusSimulator.Client.Layout
         public void Draw(GameTime gameTime)
         {
             var greenBar = new Texture2D(HostedService.GraphicsDevice, 1, 1);
-            greenBar.SetData(new[] { Color.Orange });
+            greenBar.SetData(new[] { Color.Cyan });
             HostedService.SpriteBatch.Draw(greenBar, new Rectangle(X, Y, Width, Height), Color.White);
 
             var numberOfGaps = NumberOfPermanentZones - 1;

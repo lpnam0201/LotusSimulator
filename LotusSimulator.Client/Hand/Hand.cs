@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LotusSimulator.Client.Hand
 {
-    public class TopPlayerHand
+    public class Hand
     {
         private const int DistanceBetweenCards = 10;
 
@@ -20,7 +20,7 @@ namespace LotusSimulator.Client.Hand
 
         public IList<Card.Card> Cards { get; set; } = new List<Card.Card>();
 
-        public TopPlayerHand()
+        public Hand()
         {
             Cards = new List<Card.Card>();
             for (int i = 0; i < 7; i++)
