@@ -30,9 +30,4 @@ app.MapHub<GameHub>("/gameHub");
 
 app.Run();
 
-var gameContainer = app.Services.GetService<GameContainer>();
-var gameManager = app.Services.GetService<GameManager>();
-
-gameContainer.GameManagers.Add(gameManager);
-
 

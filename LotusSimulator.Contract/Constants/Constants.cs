@@ -9,5 +9,6 @@ namespace LotusSimulator.Contract.Constants
     public static class Constants
     {
         public const string ReceiveGameStateMethod = "ReceiveGameState";
+        public const string PlayerJoinGameMethod = "PlayerJoinGame";
     }
 }

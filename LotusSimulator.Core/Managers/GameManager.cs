@@ -27,7 +27,12 @@ namespace LotusSimulator.Managers
             _gameStateMapper = gameStateMapper;
         }
 
-
+        public void AddPlayerToGame(string connectionId)
+        {
+            var player = new Player();
+            _game.PlayerIds.Add(connectionId, player);
+            _game.Players.Add(player);
+        }
 
         private void InitializeLibrary()
         {

@@ -11,21 +11,20 @@ namespace LotusSimulator.Client.Services
         private HubConnection _hubConnection;
         private bool _isInitialized = false;
 
-        public async Task RunAsync()
+        public async Task ConnectToGameAsync()
         {
-            if (_isInitialized)
+            if (_hubConnection == null || _hubConnection.State != HubConnectionState.Disconnected)
             {
-                return;
+                string url = "http://localhost:80/gameHub";
+                _hubConnection = new HubConnectionBuilder()
+                    .WithUrl(url)
+                    .WithAutomaticReconnect()
+                    .Build();
+                _hubConnection.On<GameStateDto>(Constants.ReceiveGameStateMethod, ReceiveGameStateHandler);
+                await _hubConnection.StartAsync();   
             }
 
-            string url = "http://localhost:8080";
-            _hubConnection = new HubConnectionBuilder()
-                .WithUrl(url)
-                .WithAutomaticReconnect()
-                .Build();
-            _hubConnection.On<GameStateDto>(Constants.ReceiveGameStateMethod, ReceiveGameStateHandler);
-
-            await _hubConnection.StartAsync();
+            await _hubConnection.InvokeAsync(Constants.PlayerJoinGameMethod);
         }
 
         private void ReceiveGameStateHandler(GameStateDto gameState)

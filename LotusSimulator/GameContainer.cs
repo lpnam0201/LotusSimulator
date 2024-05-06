@@ -2,8 +2,8 @@
 
 namespace LotusSimulator
 {
-    public class GameContainer
-    {
-        public IList<GameManager> GameManagers { get; set; } = new List<GameManager>();
-    }
+    //public class GameContainer
+    //{
+    //    public IList<GameManager> GameManagers { get; set; } = new List<GameManager>();
+    //}
 }

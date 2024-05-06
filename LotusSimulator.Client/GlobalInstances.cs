@@ -17,6 +17,6 @@ namespace LotusSimulator.Client
         public static GraphicsDevice GraphicsDevice { get; set; }
         public static ContentManager ContentManager { get; set; }
         public static LookupCardImageService LookupCardImageService { get; set; } = new LookupCardImageService();
-        public static GameStateService ReceiveGameStateService { get; set; }
+        public static GameStateService GameStateService { get; set; }
     }
 }

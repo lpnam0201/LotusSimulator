@@ -1,4 +1,7 @@
-﻿using LotusSimulator.Managers;
+﻿using LotusSimulator.Core.MessageOut;
+using LotusSimulator.Core.Services;
+using LotusSimulator.Entities;
+using LotusSimulator.Managers;
 
 namespace LotusSimulator.DependencyInjection
 {
@@ -8,6 +11,10 @@ namespace LotusSimulator.DependencyInjection
         {
             serviceCollection.AddSingleton<GameContainer>();
             serviceCollection.AddTransient<GameManager>();
+            serviceCollection.AddTransient<GameStateService>();
+            serviceCollection.AddTransient<RandomService>();
+            serviceCollection.AddTransient<Game>();
+            serviceCollection.AddTransient<GameStateMapper>();
 
             return serviceCollection;
         }

@@ -22,12 +22,12 @@ namespace LotusSimulator.Core.Services
         {
             if (GameManagers.Count == 0)
             {
-                var gameManager = (GameManager)_serviceProvider.GetService(typeof(GameManager));
-                GameManagers.Add(gameManager);
+                var newGameManager = (GameManager)_serviceProvider.GetService(typeof(GameManager));
+                GameManagers.Add(newGameManager);
             }
 
             var gameManager = GameManagers.First();
-            gameManager.
+            gameManager.AddPlayerToGame(connectionId);
         }
     }
 }

@@ -9,9 +9,8 @@ namespace LotusSimulator.Client
         [STAThread]
         private static async Task Main(string[] args)
         {
+            GlobalInstances.GameStateService = new GameStateService();
             new LotusSimulatorGame().Run();
-            GlobalInstances.ReceiveGameStateService = new GameStateService();
-            await GlobalInstances.ReceiveGameStateService.RunAsync();
         }
     }
 }
