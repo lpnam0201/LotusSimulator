@@ -21,10 +21,18 @@ namespace LotusSimulator.Client.Services
                     .WithAutomaticReconnect()
                     .Build();
                 _hubConnection.On<GameStateDto>(Constants.ReceiveGameStateMethod, ReceiveGameStateHandler);
+                _hubConnection.On<InputRequestDto, InputResponseDto>("WaitForResponse", WaitForResponse);
                 await _hubConnection.StartAsync();   
             }
 
             await _hubConnection.InvokeAsync(Constants.PlayerJoinGameMethod, new PlayerJoinGameDto());
+        }
+
+        private InputResponseDto WaitForResponse(InputRequestDto req)
+        {
+            var inputRes = new InputResponseDto();
+            inputRes.Data = "2";
+            return inputRes;
         }
 
         private void ReceiveGameStateHandler(GameStateDto gameState)

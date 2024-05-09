@@ -1,4 +1,5 @@
 ﻿using LotusSimulator.Contract.MessageIn;
+using LotusSimulator.Contract.MessageOut;
 using LotusSimulator.Core.Services;
 using Microsoft.AspNetCore.SignalR;
 
@@ -17,11 +18,10 @@ namespace LotusSimulator
         {
             var connectionId = Context.ConnectionId;
             _gameContainer.AssignPlayerToGame(connectionId);
-        }
 
-        public async Task AwaitClient()
-        {
-            
+            var inputRequest = new InputRequestDto();
+            inputRequest.Data = "1";
+            var res = await Clients.Client(connectionId).InvokeAsync<InputResponseDto>("WaitForResponse", inputRequest, CancellationToken.None);
         }
     }
 }
