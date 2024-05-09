@@ -1,7 +1,4 @@
-﻿using LotusSimulator.Contract.Constants;
-using LotusSimulator.Contract.MessageIn;
-using LotusSimulator.Contract.MessageOut;
-using LotusSimulator.Core;
+﻿using LotusSimulator.Contract.MessageIn;
 using LotusSimulator.Core.Services;
 using Microsoft.AspNetCore.SignalR;
 
@@ -22,9 +19,9 @@ namespace LotusSimulator
             _gameContainer.AssignPlayerToGame(connectionId);
         }
 
-        public async Task a()
+        public async Task AwaitClient()
         {
-
+            
         }
     }
 }

@@ -15,7 +15,7 @@ namespace LotusSimulator.Client.Services
         {
             if (_hubConnection == null || _hubConnection.State != HubConnectionState.Disconnected)
             {
-                string url = "http://localhost:80/gameHub";
+                string url = "https://localhost:7087/gameHub";
                 _hubConnection = new HubConnectionBuilder()
                     .WithUrl(url)
                     .WithAutomaticReconnect()
@@ -24,7 +24,7 @@ namespace LotusSimulator.Client.Services
                 await _hubConnection.StartAsync();   
             }
 
-            await _hubConnection.InvokeAsync(Constants.PlayerJoinGameMethod);
+            await _hubConnection.InvokeAsync(Constants.PlayerJoinGameMethod, new PlayerJoinGameDto());
         }
 
         private void ReceiveGameStateHandler(GameStateDto gameState)

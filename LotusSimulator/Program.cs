@@ -1,4 +1,5 @@
 using LotusSimulator;
+using LotusSimulator.DependencyInjection;
 using LotusSimulator.Managers;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,8 +10,12 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddGameServices();
 
-builder.Services.AddSignalR();
+builder.Services.AddSignalR(o =>
+{
+    o.EnableDetailedErrors = true;
+});
 
 var app = builder.Build();
 
