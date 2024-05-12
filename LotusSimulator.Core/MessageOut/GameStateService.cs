@@ -1,4 +1,5 @@
 ﻿using LotusSimulator.Contract.Constants;
+using LotusSimulator.Contract.MessageIn;
 using LotusSimulator.Contract.MessageOut;
 using LotusSimulator.Entities;
 using Microsoft.AspNetCore.SignalR;
@@ -29,5 +30,12 @@ namespace LotusSimulator.Core.MessageOut
                 await _hubContext.Clients.User(userId).SendAsync(Constants.ReceiveGameStateMethod, gameState);
             }
         }
+
+        public async Task SendGamePreparationResultAsync(GamePreparationResultDto gamePreparationResult)
+        {
+            await _hubContext.Clients.All.SendAsync(Constants.GamePreparationUpdatedMethod, gamePreparationResult);
+        }
+
+
     }
 }

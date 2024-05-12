@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LotusSimulator.Contract.MessageIn
+namespace LotusSimulator.Contract.MessageOut
 {
-    public class PlayerJoinGameDto
+    public class GameStateChangeDto
     {
+        
     }
 }

@@ -1,4 +1,5 @@
-﻿using LotusSimulator.Contract.MessageIn;
+﻿using LotusSimulator.Contract.Constants;
+using LotusSimulator.Contract.MessageIn;
 using LotusSimulator.Contract.MessageOut;
 using LotusSimulator.Core.Services;
 using Microsoft.AspNetCore.SignalR;
@@ -14,14 +15,25 @@ namespace LotusSimulator
             _gameContainer = gameContainer;
         }
 
-        public async Task PlayerJoinGame(PlayerJoinGameDto playerJoinGame)
+        public async Task<PlayerJoinGameResultDto> PlayerJoinGame(PlayerJoinGameRequestDto playerJoinGameRequest)
         {
             var connectionId = Context.ConnectionId;
-            _gameContainer.AssignPlayerToGame(connectionId);
+            var slot = _gameContainer.AssignPlayerToGame(connectionId);
 
-            var inputRequest = new InputRequestDto();
-            inputRequest.Data = "1";
-            var res = await Clients.Client(connectionId).InvokeAsync<InputResponseDto>("WaitForResponse", inputRequest, CancellationToken.None);
+            var gamePreparationResult = new GamePreparationResultDto();
+            gamePreparationResult.PlayerStatus = new GamePreparationPlayerStatusDto();
+            gamePreparationResult.PlayerStatus.Nickname = playerJoinGameRequest.Nickname;
+            gamePreparationResult.PlayerStatus.Status = GamePreparationPlayerStatus.Joined;
+            gamePreparationResult.PlayerStatus.Slot = slot;
+
+            await Clients.All.SendAsync(Constants.GamePreparationUpdatedMethod, gamePreparationResult);
+
+            var result = new PlayerJoinGameResultDto()
+            {
+                AccessToken = "abc-token",
+                Slot = slot
+            };
+            return result;
         }
     }
 }

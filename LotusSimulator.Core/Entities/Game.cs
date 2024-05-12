@@ -5,6 +5,12 @@ namespace LotusSimulator.Entities
 {
     public class Game
     {
+        public IDictionary<int, Player> PlayerSlots { get; set; } = new Dictionary<int, Player>
+        {
+            {0, null},
+            {1, null}
+        };
+
         public IDictionary<string, Player> PlayerIds { get; set; } = new Dictionary<string, Player>();
 
         public Core.Entities.Turn.Turn CurrentTurn { get; set; }

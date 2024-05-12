@@ -1,4 +1,5 @@
 ﻿using LotusSimulator.Client.Global;
+using LotusSimulator.Client.GUIComponents.Screens;
 using LotusSimulator.Client.Layout;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -14,6 +15,7 @@ namespace LotusSimulator.Client
 
         private Desktop Desktop;
         private LayoutManager _layoutManager = new LayoutManager();
+        //private ScreenManager _screenManager = new ScreenManager();
         private GraphicsDeviceManager _graphicsDeviceManager;
         private SpriteBatch _spriteBatch;
 
@@ -48,6 +50,9 @@ namespace LotusSimulator.Client
             GlobalInstances.SpriteBatch = _spriteBatch;
 
             GlobalInstances.GraphicsDevice = GraphicsDevice;
+            var screenManager = new ScreenManager();
+            screenManager.SetScreenKind(ScreenKind.Start);
+            GlobalInstances.ScreenManager = screenManager;
         }
 
         protected override void LoadContent()
@@ -66,7 +71,8 @@ namespace LotusSimulator.Client
                 Exit();
 
             // TODO: Add your update logic here
-            _layoutManager.Update(gameTime);
+            //_layoutManager.Update(gameTime);
+            GlobalInstances.ScreenManager.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -76,7 +82,8 @@ namespace LotusSimulator.Client
             GraphicsDevice.Clear(Color.LightGray);
 
             GlobalInstances.SpriteBatch.Begin();
-            _layoutManager.Draw(gameTime);
+            GlobalInstances.ScreenManager.Draw(gameTime);
+            //_layoutManager.Draw(gameTime);
             GlobalInstances.SpriteBatch.End();
 
             // Must be after SpriteBatch End, otherwise UI dialogs will show beneath game elements

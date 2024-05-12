@@ -19,25 +19,25 @@ namespace LotusSimulator.Client.Layout
         {
             _twoPlayersLayout.Draw(gameTime);
 
-            if (!isDone)
-            {
-                isDone = true;
-                var panel = new Panel();
-                panel.Top = 0;
-                panel.Left = 0;
+            //if (!isDone)
+            //{
+            //    isDone = true;
+            //    var panel = new Panel();
+            //    panel.Top = 0;
+            //    panel.Left = 0;
 
-                var button = new Button();
-                button.Width = 100;
-                button.Height = 30;
-                button.Click += Button_Click;
+            //    var button = new Button();
+            //    button.Width = 100;
+            //    button.Height = 30;
+            //    button.Click += Button_Click;
 
-                var label = new Label();
-                label.Text = "ABC";
-                button.Content = label;
+            //    var label = new Label();
+            //    label.Text = "ABC";
+            //    button.Content = label;
 
-                panel.Widgets.Add(button);
-                GlobalInstances.Desktop.Root = panel;
-            }
+            //    panel.Widgets.Add(button);
+            //    GlobalInstances.Desktop.Root = panel;
+            //}
         }
 
         private bool isDone;

@@ -18,7 +18,7 @@ namespace LotusSimulator.Core.Services
             _serviceProvider = serviceProvider;
         }
 
-        public void AssignPlayerToGame(string connectionId)
+        public int AssignPlayerToGame(string connectionId)
         {
             if (GameManagers.Count == 0)
             {
@@ -27,7 +27,9 @@ namespace LotusSimulator.Core.Services
             }
 
             var gameManager = GameManagers.First();
-            gameManager.AddPlayerToGame(connectionId);
+            var slot = gameManager.AddPlayerToGame(connectionId);
+
+            return slot;
         }
     }
 }

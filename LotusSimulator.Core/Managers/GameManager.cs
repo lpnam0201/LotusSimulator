@@ -27,11 +27,28 @@ namespace LotusSimulator.Managers
             _gameStateMapper = gameStateMapper;
         }
 
-        public void AddPlayerToGame(string connectionId)
+        public int AddPlayerToGame(string connectionId)
         {
             var player = new Player();
             _game.PlayerIds.Add(connectionId, player);
             _game.Players.Add(player);
+
+            return AssignPlayerToGameSlot(player);
+        }
+
+        private int AssignPlayerToGameSlot(Player player)
+        {
+            KeyValuePair<int, Player>? firstEmptySlot = _game.PlayerSlots.Any(x => x.Value == null)
+                ? _game.PlayerSlots.First(x => x.Value == null)
+                : null;
+            if (firstEmptySlot != null)
+            {
+                var slot = firstEmptySlot.Value.Key;
+                _game.PlayerSlots[slot] = player;
+                return slot;
+            }
+
+            throw new NotImplementedException();
         }
 
         private void InitializeLibrary()

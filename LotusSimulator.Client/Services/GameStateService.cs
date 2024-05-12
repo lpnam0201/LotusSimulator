@@ -1,7 +1,9 @@
-﻿using LotusSimulator.Contract.Constants;
+﻿using LotusSimulator.Client.Authorization;
+using LotusSimulator.Contract.Constants;
 using LotusSimulator.Contract.MessageIn;
 using LotusSimulator.Contract.MessageOut;
 using Microsoft.AspNetCore.SignalR.Client;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace LotusSimulator.Client.Services
@@ -11,7 +13,7 @@ namespace LotusSimulator.Client.Services
         private HubConnection _hubConnection;
         private bool _isInitialized = false;
 
-        public async Task ConnectToGameAsync()
+        private async Task EnsureServerConnectedAsync()
         {
             if (_hubConnection == null || _hubConnection.State != HubConnectionState.Disconnected)
             {
@@ -21,11 +23,54 @@ namespace LotusSimulator.Client.Services
                     .WithAutomaticReconnect()
                     .Build();
                 _hubConnection.On<GameStateDto>(Constants.ReceiveGameStateMethod, ReceiveGameStateHandler);
-                _hubConnection.On<InputRequestDto, InputResponseDto>("WaitForResponse", WaitForResponse);
-                await _hubConnection.StartAsync();   
+                _hubConnection.On<GamePreparationResultDto>(Constants.GamePreparationUpdatedMethod, GamePreparationUpdatedHandler);
+                //_hubConnection.On<InputRequestDto, InputResponseDto>("WaitForResponse", WaitForResponse);
+                await _hubConnection.StartAsync();
             }
+        }
 
-            await _hubConnection.InvokeAsync(Constants.PlayerJoinGameMethod, new PlayerJoinGameDto());
+        public async Task ConnectToGameAsync()
+        {
+            await EnsureServerConnectedAsync();
+
+            var player = new Player();
+            player.Status = PlayerStatus.Connecting;
+            GlobalInstances.GamePreparationState.Player = player;
+
+            var playerJoinGameResult = await _hubConnection.InvokeAsync<PlayerJoinGameResultDto>(
+                Constants.PlayerJoinGameMethod, new PlayerJoinGameRequestDto());
+
+            player.AccessToken = playerJoinGameResult.AccessToken;
+            player.ConnectionId = _hubConnection.ConnectionId;
+            player.Slot = playerJoinGameResult.Slot;
+            player.Status = PlayerStatus.Connected;
+        }
+
+        public void GamePreparationUpdatedHandler(GamePreparationResultDto gamePreparationResult)
+        {
+            switch (gamePreparationResult.PlayerStatus.Status)
+            {
+                case GamePreparationPlayerStatus.Joined:
+                    AddPlayerToGamePreparationState(gamePreparationResult);
+                    break;
+                case GamePreparationPlayerStatus.Left:
+                    var leftOpponent = GlobalInstances.GamePreparationState.Opponents.First(x => x.Slot == gamePreparationResult.PlayerStatus.Slot);
+                    GlobalInstances.GamePreparationState.Opponents.Remove(leftOpponent);
+                    break;
+                case GamePreparationPlayerStatus.LockedIn:
+                    break;
+            }
+        }
+
+        private void AddPlayerToGamePreparationState(GamePreparationResultDto gamePreparationResult)
+        {
+            if (GlobalInstances.GamePreparationState.Player.Slot != gamePreparationResult.PlayerStatus.Slot)
+            {
+                var joinedOpponent = new Opponent();
+                joinedOpponent.Nickname = gamePreparationResult.PlayerStatus.Nickname;
+                joinedOpponent.Slot = gamePreparationResult.PlayerStatus.Slot;
+                GlobalInstances.GamePreparationState.Opponents.Add(joinedOpponent);
+            }
         }
 
         private InputResponseDto WaitForResponse(InputRequestDto req)
@@ -39,6 +84,8 @@ namespace LotusSimulator.Client.Services
         {
 
         }
+
+
 
         public void SendPlayerInputAsync(PlayerInputDto playerInput)
         {
