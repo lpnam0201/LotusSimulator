@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LotusSimulator.Client.Authorization
 {
-    public class Player
+    public class PlayerIdentity
     {
         public string AccessToken { get; set; }
         public string ConnectionId { get; set; }

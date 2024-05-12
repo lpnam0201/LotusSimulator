@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LotusSimulator.Client.Layout
 {
-    public class Exile
+    public class Exile : IPlayerIdentity
     {
         public IList<Card.Card> Cards = new List<Card.Card>();
 
@@ -15,6 +15,7 @@ namespace LotusSimulator.Client.Layout
         public int Y { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
+        public int Slot { get; set; }
 
         public Exile()
         {
@@ -40,7 +41,17 @@ namespace LotusSimulator.Client.Layout
 
         public void Update(GameTime gameTime)
         {
+            Cards.Clear();
 
+            var libraryDto = GlobalInstances.GameState.GetExile(Slot);
+            foreach (var cardDto in libraryDto.Cards)
+            {
+                var card = new Card.Card();
+                card.Id = cardDto.Id;
+                card.OracleId = cardDto.OracleId;
+                card.IsRevealed = cardDto.IsRevealed;
+                Cards.Add(card);
+            }
         }
     }
 }

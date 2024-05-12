@@ -1,10 +1,11 @@
-﻿using Microsoft.Xna.Framework;
+﻿using LotusSimulator.Client.Layout;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
 namespace LotusSimulator.Client.Hand
 {
-    public class Hand
+    public class Hand : IPlayerIdentity
     {
         private const int DistanceBetweenCards = 10;
 
@@ -12,17 +13,9 @@ namespace LotusSimulator.Client.Hand
         public int Y { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
+        public int Slot { get; set; }
 
         public IList<Card.Card> Cards { get; set; } = new List<Card.Card>();
-
-        public Hand()
-        {
-            Cards = new List<Card.Card>();
-            for (int i = 0; i < 7; i++)
-            {
-                Cards.Add(new Card.Card());
-            }
-        }
 
         public void Draw(GameTime gameTime)
         {
@@ -48,9 +41,16 @@ namespace LotusSimulator.Client.Hand
 
         public void Update(GameTime gameTime)
         {
-            foreach (var card in Cards)
+            Cards.Clear();
+
+            var libraryDto = GlobalInstances.GameState.GetHand(Slot);
+            foreach (var cardDto in libraryDto.Cards)
             {
-                card.Update(gameTime);
+                var card = new Card.Card();
+                card.Id = cardDto.Id;
+                card.OracleId = cardDto.OracleId;
+                card.IsRevealed = cardDto.IsRevealed;
+                Cards.Add(card);
             }
         }
     }

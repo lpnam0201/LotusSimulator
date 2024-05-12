@@ -8,7 +8,9 @@ namespace LotusSimulator.Client.Authorization
 {
     public class GamePreparationState
     {
-        public IList<Opponent> Opponents { get; set; } = new List<Opponent>();
-        public Player Player { get; set; }
+        public IList<OpponentIdentity> Opponents { get; set; } = new List<OpponentIdentity>();
+        public PlayerIdentity Player { get; set; }
+        public string GameId { get; set; }
+        public object GlobalInstances { get; internal set; }
     }
 }

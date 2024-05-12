@@ -1,4 +1,5 @@
-﻿using LotusSimulator.Managers;
+﻿using LotusSimulator.Core.Entities;
+using LotusSimulator.Managers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace LotusSimulator.Core.Services
             _serviceProvider = serviceProvider;
         }
 
-        public int AssignPlayerToGame(string connectionId)
+        public AssignPlayerToGameResult AssignPlayerToGame(string connectionId)
         {
             if (GameManagers.Count == 0)
             {
@@ -28,8 +29,13 @@ namespace LotusSimulator.Core.Services
 
             var gameManager = GameManagers.First();
             var slot = gameManager.AddPlayerToGame(connectionId);
+            var gameId = gameManager.GetGameId();
 
-            return slot;
+            return new AssignPlayerToGameResult
+            {
+                Slot = slot,
+                GameId = gameId
+            };
         }
     }
 }

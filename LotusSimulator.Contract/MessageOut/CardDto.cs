@@ -10,5 +10,6 @@ namespace LotusSimulator.Contract.MessageOut
     {
         public string OracleId { get; set; }
         public bool IsRevealed { get; set; }
+        public string Id { get; set; }
     }
 }

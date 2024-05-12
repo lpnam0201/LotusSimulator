@@ -1,63 +1,65 @@
 ﻿using LotusSimulator.Client.Global;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Myra.Graphics2D.UI;
 using System;
 
 namespace LotusSimulator.Client.Card
 {
-    public class Card
+    public class Card : ICardIdentity
     {
         public const int CardWidth = 50;
         public const int CardHeight = 70;
 
-        public bool IsTapped { get; set; }
+        public bool IsRevealed { get; set; }
 
         public int X { get; set; }
         public int Y { get; set; }
         public int Width { get; set; } = CardWidth;
         public int Height { get; set; } = CardHeight;
-
-        private float rotation = 0;
+        public string Id { get; set; }
+        public string OracleId { get; set; }
 
         public void Update(GameTime gameTime)
         {
-            var mouseState = Mouse.GetState();
-            if (mouseState.RightButton == ButtonState.Pressed
-                && IsInHitBox(mouseState))
-            {
-                if (GlobalInstances.Desktop.ContextMenu == null
-                    && GlobalInstances.Desktop.TouchPosition != null)
-                {
-                    var container = new VerticalStackPanel
-                    {
-                        Spacing = 4
-                    };
 
-                    var menuItem1 = new MenuItem();
-                    menuItem1.Text = "Start New Game";
-                    menuItem1.Selected += (s, a) =>
-                    {
-                        Console.WriteLine("CLICKED");
-                    };
+            //var mouseState = Mouse.GetState();
+            //if (mouseState.RightButton == ButtonState.Pressed
+            //    && IsInHitBox(mouseState))
+            //{
+            //    if (GlobalInstances.Desktop.ContextMenu == null
+            //        && GlobalInstances.Desktop.TouchPosition != null)
+            //    {
+            //        var container = new VerticalStackPanel
+            //        {
+            //            Spacing = 4
+            //        };
 
-                    var menuItem2 = new MenuItem();
-                    menuItem2.Text = "Options";
+            //        var menuItem1 = new MenuItem();
+            //        menuItem1.Text = "Start New Game";
+            //        menuItem1.Selected += (s, a) =>
+            //        {
+            //            Console.WriteLine("CLICKED");
+            //        };
 
-                    var menuItem3 = new MenuItem();
-                    menuItem3.Text = "Quit";
+            //        var menuItem2 = new MenuItem();
+            //        menuItem2.Text = "Options";
 
-                    var verticalMenu = new VerticalMenu();
+            //        var menuItem3 = new MenuItem();
+            //        menuItem3.Text = "Quit";
 
-                    verticalMenu.Items.Add(menuItem1);
-                    verticalMenu.Items.Add(menuItem2);
-                    verticalMenu.Items.Add(menuItem3);
+            //        var verticalMenu = new VerticalMenu();
 
-                    container.Widgets.Add(verticalMenu);
+            //        verticalMenu.Items.Add(menuItem1);
+            //        verticalMenu.Items.Add(menuItem2);
+            //        verticalMenu.Items.Add(menuItem3);
 
-                    GlobalInstances.Desktop.ShowContextMenu(container, GlobalInstances.Desktop.TouchPosition.Value);
-                }
-            };
+            //        container.Widgets.Add(verticalMenu);
+
+            //        GlobalInstances.Desktop.ShowContextMenu(container, GlobalInstances.Desktop.TouchPosition.Value);
+            //    }
+            //};
         }
 
         private bool IsInHitBox(MouseState mouseState)
@@ -71,11 +73,18 @@ namespace LotusSimulator.Client.Card
             return false;
         }
 
-
-
         public void Draw(GameTime gameTime)
         {
-            GlobalInstances.SpriteBatch.Draw(ContentTextures.MTGBack, new Rectangle(X, Y, Width, Height), Color.White);
+            Texture2D texture;
+            if (OracleId == null)
+            {
+                texture = ContentTextures.MTGBack;
+            }
+            else
+            {
+                texture = GlobalInstances.LookupCardImageService.LookupCardImage(OracleId);
+            }
+            GlobalInstances.SpriteBatch.Draw(texture, new Rectangle(X, Y, Width, Height), Color.White);
         }
     }
 }

@@ -10,5 +10,6 @@ namespace LotusSimulator.Contract.MessageIn
     {
         public string AccessToken { get; set; }
         public int Slot { get; set; }
+        public string GameId { get; set; }
     }
 }

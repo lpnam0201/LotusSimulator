@@ -30,10 +30,16 @@ namespace LotusSimulator.Managers
         public int AddPlayerToGame(string connectionId)
         {
             var player = new Player();
+            player.ConnectionId = connectionId;
             _game.PlayerIds.Add(connectionId, player);
             _game.Players.Add(player);
 
             return AssignPlayerToGameSlot(player);
+        }
+
+        public string GetGameId()
+        {
+            return _game.Id;
         }
 
         private int AssignPlayerToGameSlot(Player player)
@@ -59,12 +65,14 @@ namespace LotusSimulator.Managers
                 {
                     var forest = new Card();
                     forest.CardLogic = new Forest();
+                    forest.Owner = player;
                     forest.CardLogic.CopyStatsToCard(forest);
 
                     player.Library.Cards.Add(forest);
 
                     var elf = new Card();
                     elf.CardLogic = new LlanowarElves();
+                    elf.Owner = player;
                     elf.CardLogic.CopyStatsToCard(forest);
 
                     player.Library.Cards.Add(elf);
@@ -80,13 +88,16 @@ namespace LotusSimulator.Managers
             library.Cards = library.Cards.OrderBy(x => _randomService.RandomInt(count)).ToList();
         }
 
-        public void Begin()
+        public async Task StartGameAsync()
         {
             InitializeLibrary();
 
             DecidePlayerGoFirst();
 
             DrawFirstHand();
+
+            var gameStateCollection = _gameStateMapper.BuildGameStateCollection(_game);
+            await _gameStateService.SendGameStarted(gameStateCollection);
         }
 
         private void DecidePlayerGoFirst()
@@ -106,9 +117,6 @@ namespace LotusSimulator.Managers
                     Draw(player);
                 }
             }
-
-            var gameStateCollection = _gameStateMapper.BuildGameStateCollection(_game);
-            _gameStateService.SendGameStates(gameStateCollection).GetAwaiter().GetResult();
         }
 
         private void Draw(Player player)

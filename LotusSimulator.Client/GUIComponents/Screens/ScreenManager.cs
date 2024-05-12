@@ -23,6 +23,9 @@ namespace LotusSimulator.Client.GUIComponents.Screens
                 case ScreenKind.GamePreparation:
                     _currentScreen = new GamePreparationScreen();
                     return;
+                case ScreenKind.MainGame:
+                    _currentScreen = new MainGameScreen();
+                    return;
                 case ScreenKind.GameLobby:
                     return;
                 case ScreenKind.None:

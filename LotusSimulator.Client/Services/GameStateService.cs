@@ -1,4 +1,5 @@
 ﻿using LotusSimulator.Client.Authorization;
+using LotusSimulator.Client.GUIComponents.Screens;
 using LotusSimulator.Contract.Constants;
 using LotusSimulator.Contract.MessageIn;
 using LotusSimulator.Contract.MessageOut;
@@ -24,6 +25,7 @@ namespace LotusSimulator.Client.Services
                     .Build();
                 _hubConnection.On<GameStateDto>(Constants.ReceiveGameStateMethod, ReceiveGameStateHandler);
                 _hubConnection.On<GamePreparationResultDto>(Constants.GamePreparationUpdatedMethod, GamePreparationUpdatedHandler);
+                _hubConnection.On<GameStateDto>(Constants.GameStartedMethod, GameStartedHandler);
                 //_hubConnection.On<InputRequestDto, InputResponseDto>("WaitForResponse", WaitForResponse);
                 await _hubConnection.StartAsync();
             }
@@ -33,7 +35,7 @@ namespace LotusSimulator.Client.Services
         {
             await EnsureServerConnectedAsync();
 
-            var player = new Player();
+            var player = new PlayerIdentity();
             player.Status = PlayerStatus.Connecting;
             GlobalInstances.GamePreparationState.Player = player;
 
@@ -44,9 +46,10 @@ namespace LotusSimulator.Client.Services
             player.ConnectionId = _hubConnection.ConnectionId;
             player.Slot = playerJoinGameResult.Slot;
             player.Status = PlayerStatus.Connected;
+            GlobalInstances.GamePreparationState.GameId = playerJoinGameResult.GameId;
         }
 
-        public void GamePreparationUpdatedHandler(GamePreparationResultDto gamePreparationResult)
+        private void GamePreparationUpdatedHandler(GamePreparationResultDto gamePreparationResult)
         {
             switch (gamePreparationResult.PlayerStatus.Status)
             {
@@ -66,7 +69,7 @@ namespace LotusSimulator.Client.Services
         {
             if (GlobalInstances.GamePreparationState.Player.Slot != gamePreparationResult.PlayerStatus.Slot)
             {
-                var joinedOpponent = new Opponent();
+                var joinedOpponent = new OpponentIdentity();
                 joinedOpponent.Nickname = gamePreparationResult.PlayerStatus.Nickname;
                 joinedOpponent.Slot = gamePreparationResult.PlayerStatus.Slot;
                 GlobalInstances.GamePreparationState.Opponents.Add(joinedOpponent);
@@ -82,10 +85,19 @@ namespace LotusSimulator.Client.Services
 
         private void ReceiveGameStateHandler(GameStateDto gameState)
         {
-
+            GlobalInstances.GameState = gameState;
         }
 
+        public async Task StartGameAsync(StartGameRequestDto startGameRequest)
+        {
+            await _hubConnection.InvokeAsync(Constants.StartGameMethod, startGameRequest);
+        }
 
+        private void GameStartedHandler(GameStateDto gameState)
+        {
+            GlobalInstances.GameState = gameState;
+            GlobalInstances.ScreenManager.SetScreenKind(ScreenKind.MainGame);
+        }
 
         public void SendPlayerInputAsync(PlayerInputDto playerInput)
         {

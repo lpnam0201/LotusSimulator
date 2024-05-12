@@ -2,7 +2,7 @@
 
 namespace LotusSimulator.Client.Layout
 {
-    public class FourPlayersLayout
+    public class FourPlayersLayout : Layout
     {
         private const int PlayerAreaWidth = 900;
         private const int PlayerAreaHeight = 450;
@@ -25,7 +25,7 @@ namespace LotusSimulator.Client.Layout
         {
         }
 
-        public void Draw(GameTime gameTime)
+        public override void Draw(GameTime gameTime)
         {
             DrawTopPlayerArea(gameTime, FirstTopPlayerDistFromLeft);
             DrawTopPlayerArea(gameTime, SecondTopPlayerDistFromLeft);
@@ -35,7 +35,7 @@ namespace LotusSimulator.Client.Layout
             DrawSeparator(gameTime);
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
 
         }

@@ -13,7 +13,6 @@ namespace LotusSimulator.Core.MessageOut
 {
     public class GameStateService
     {
-
         private IHubContext<GameHub> _hubContext;
 
         public GameStateService(IHubContext<GameHub> hubContext)
@@ -23,13 +22,33 @@ namespace LotusSimulator.Core.MessageOut
 
         public async Task SendGameStates(GameStateCollectionDto gameStateCollection)
         {
+            var sendToClientTasks = new List<Task>();
             foreach (var kvp in gameStateCollection.GameStates)
             {
-                var userId = kvp.Key;
+                var connectionId = kvp.Key;
                 var gameState = kvp.Value;
-                await _hubContext.Clients.User(userId).SendAsync(Constants.ReceiveGameStateMethod, gameState);
+                var task = _hubContext.Clients.Client(connectionId).SendAsync(Constants.ReceiveGameStateMethod, gameState);
+                sendToClientTasks.Add(task);
             }
+
+            await Task.WhenAll(sendToClientTasks);
         }
+
+        public async Task SendGameStarted(GameStateCollectionDto gameStateCollection)
+        {
+            var sendToClientTasks = new List<Task>();
+            foreach (var kvp in gameStateCollection.GameStates)
+            {
+                var connectionId = kvp.Key;
+                var gameState = kvp.Value;
+                var task = _hubContext.Clients.Client(connectionId).SendAsync(Constants.GameStartedMethod, gameState);
+                sendToClientTasks.Add(task);
+            }
+
+            await Task.WhenAll(sendToClientTasks);
+        }
+
+
 
         public async Task SendGamePreparationResultAsync(GamePreparationResultDto gamePreparationResult)
         {

@@ -12,5 +12,10 @@ namespace LotusSimulator.Core.Services
         {
             return Random.Shared.Next(maxValue);
         }
+
+        public string RandomCardGuid()
+        {
+            return Guid.NewGuid().ToString();
+        }
     }
 }

@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LotusSimulator.Client.Authorization
+namespace LotusSimulator.Core.Entities
 {
-    public class Opponent
+    public class AssignPlayerToGameResult
     {
+        public string GameId { get; set; }
         public int Slot { get; set; }
-        public string Nickname { get; set; }
     }
 }

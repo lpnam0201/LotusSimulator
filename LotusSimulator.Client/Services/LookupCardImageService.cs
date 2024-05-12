@@ -11,7 +11,7 @@ namespace LotusSimulator.Client.Services
     {
         public Texture2D LookupCardImage(string oracleId)
         {
-            return GlobalInstances.ContentManager.Load<Texture2D>(oracleId);
+            return GlobalInstances.ContentManager.Load<Texture2D>($@"Cards\{oracleId}");
         }
     }
 }

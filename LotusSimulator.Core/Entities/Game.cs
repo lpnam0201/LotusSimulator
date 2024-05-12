@@ -25,6 +25,8 @@ namespace LotusSimulator.Entities
 
         public Player PlayerGoFirst { get; set; }
 
+        public string Id { get; set; } = Guid.NewGuid().ToString();
+
         // chat
     }
 }

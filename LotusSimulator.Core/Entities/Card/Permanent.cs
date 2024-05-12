@@ -8,8 +8,8 @@ namespace LotusSimulator.Core.Entities.Card
     {
         public MtgNumber Power { get; set; }
         public MtgNumber Toughness { get; set; }
-        public IList<Counter> LoyaltyCounters { get; set; }
-        public IList<Counter> Counters { get; set; }
+        public IList<Counter> LoyaltyCounters { get; set; } = new List<Counter>();
+        public IList<Counter> Counters { get; set; } = new List<Counter>();
 
         public Card Card { get; set; }
 
@@ -18,7 +18,5 @@ namespace LotusSimulator.Core.Entities.Card
         public bool IsTapped { get; set; }
 
         public Player Owner { get; set; }
-
-        public Guid GameId { get; set; }
     }
 }

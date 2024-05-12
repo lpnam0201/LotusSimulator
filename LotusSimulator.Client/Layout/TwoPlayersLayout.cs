@@ -2,7 +2,7 @@
 
 namespace LotusSimulator.Client.Layout
 {
-    public class TwoPlayersLayout
+    public class TwoPlayersLayout : Layout
     {
         private const int PlayerAreaWidth = 900;
         private const int PlayerAreaHeight = 450;
@@ -20,7 +20,7 @@ namespace LotusSimulator.Client.Layout
             _bottomPlayerArea = new BottomPlayerArea();
         }
 
-        public void Draw(GameTime gameTime)
+        public override void Draw(GameTime gameTime)
         {
             DrawTopPlayerArea(gameTime);
             DrawBottomPlayerArea(gameTime);
@@ -28,7 +28,7 @@ namespace LotusSimulator.Client.Layout
             DrawSeparator(gameTime);
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             _topPlayerArea.Update(gameTime);
             _bottomPlayerArea.Update(gameTime);
@@ -38,6 +38,7 @@ namespace LotusSimulator.Client.Layout
         {
             var displayWidth = GlobalInstances.GraphicsDevice.Adapter.CurrentDisplayMode.Width;
 
+            _topPlayerArea.Slot = 0;
             _topPlayerArea.X = displayWidth / 2 - PlayerAreaWidth / 2;
             _topPlayerArea.Y = 0;
 
@@ -51,6 +52,7 @@ namespace LotusSimulator.Client.Layout
         {
             var displayWidth = GlobalInstances.GraphicsDevice.Adapter.CurrentDisplayMode.Width;
 
+            _bottomPlayerArea.Slot = 1;
             _bottomPlayerArea.X = displayWidth / 2 - PlayerAreaWidth / 2;
             _bottomPlayerArea.Y = BottomPlayerDistFromTop;
 

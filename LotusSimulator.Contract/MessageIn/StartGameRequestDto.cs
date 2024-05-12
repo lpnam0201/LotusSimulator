@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LotusSimulator.Client.BattlefieldLayout
+namespace LotusSimulator.Contract.MessageIn
 {
-    public class Battlefield
+    public class StartGameRequestDto
     {
+        public string GameId { get; set; }
     }
 }

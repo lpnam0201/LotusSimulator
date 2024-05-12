@@ -1,6 +1,6 @@
 ﻿namespace LotusSimulator.Client.Layout
 {
-    public class LifeOrb
+    public class LifeOrb : IPlayerIdentity
     {
         //private Texture2D _lifeOrb = HostedService.ContentManager.Load<Texture2D>("life_total");
         //private SpriteFont _lifeFont = HostedService.ContentManager.Load<SpriteFont>("LifeTotal");
@@ -9,6 +9,7 @@
         public int Y { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
+        public int Slot { get; set; }
 
         public void Draw()
         {

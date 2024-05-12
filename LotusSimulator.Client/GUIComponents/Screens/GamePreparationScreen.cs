@@ -1,4 +1,5 @@
 ﻿using LotusSimulator.Client.Authorization;
+using LotusSimulator.Contract.MessageIn;
 using Microsoft.Xna.Framework;
 using Myra.Graphics2D.UI;
 using System;
@@ -14,6 +15,8 @@ namespace LotusSimulator.Client.GUIComponents.Screens
         private bool _isDrawn;
         private Label _labelP1 = new Label();
         private Label _labelP2 = new Label();
+        private Label _labelStartGame = new Label();
+        private Button _buttonStartGame = new Button();
 
         public override void Draw(GameTime gameTime)
         {
@@ -24,6 +27,7 @@ namespace LotusSimulator.Client.GUIComponents.Screens
                 var grid = new Grid();
                 grid.Left = 0;
                 grid.Top = 0;
+                grid.RowsProportions.Add(new Proportion());
                 grid.RowsProportions.Add(new Proportion());
                 grid.RowsProportions.Add(new Proportion());
 
@@ -37,11 +41,27 @@ namespace LotusSimulator.Client.GUIComponents.Screens
                 _labelP2.Height = 50;
                 Grid.SetRow(_labelP2, 1);
 
+                _labelStartGame = new Label();
+                _labelStartGame.Text = "Start game";
+                _buttonStartGame.Width = 100;
+                _buttonStartGame.Height = 50;
+                _buttonStartGame.Content = _labelStartGame;
+                _buttonStartGame.Click += ButtonStartGame_Click;
+                Grid.SetRow(_buttonStartGame, 2);
+
                 grid.Widgets.Add(_labelP1);
                 grid.Widgets.Add(_labelP2);
+                grid.Widgets.Add(_buttonStartGame);
 
                 GlobalInstances.Desktop.Root = grid;
             }
+        }
+
+        private void ButtonStartGame_Click(object sender, EventArgs e)
+        {
+            var startGameRequest = new StartGameRequestDto();
+            startGameRequest.GameId = GlobalInstances.GamePreparationState.GameId;
+            GlobalInstances.GameStateService.StartGameAsync(startGameRequest).GetAwaiter().GetResult();
         }
 
         public override void Update(GameTime gameTime)

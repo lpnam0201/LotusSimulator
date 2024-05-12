@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LotusSimulator.Client.Layout
 {
-    public class Graveyard
+    public class Graveyard : IPlayerIdentity
     {
         public IList<Card.Card> Cards = new List<Card.Card>();
 
@@ -15,15 +15,7 @@ namespace LotusSimulator.Client.Layout
         public int Y { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
-
-        public Graveyard()
-        {
-            Cards = new List<Card.Card>();
-            for (int i = 0; i < 6; i++)
-            {
-                Cards.Add(new Card.Card());
-            }
-        }
+        public int Slot { get; set; }
 
         public void Draw(GameTime gameTime)
         {
@@ -40,7 +32,17 @@ namespace LotusSimulator.Client.Layout
 
         public void Update(GameTime gameTime)
         {
+            Cards.Clear();
 
+            var libraryDto = GlobalInstances.GameState.GetGraveyard(Slot);
+            foreach (var cardDto in libraryDto.Cards)
+            {
+                var card = new Card.Card();
+                card.Id = cardDto.Id;
+                card.OracleId = cardDto.OracleId;
+                card.IsRevealed = cardDto.IsRevealed;
+                Cards.Add(card);
+            }
         }
     }
 }

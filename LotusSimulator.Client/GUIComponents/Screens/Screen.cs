@@ -9,6 +9,8 @@ namespace LotusSimulator.Client.GUIComponents.Screens
 {
     public abstract class Screen
     {
+        protected bool IsRequestingServer;
+
         public virtual void Draw(GameTime gameTime)
         {
 

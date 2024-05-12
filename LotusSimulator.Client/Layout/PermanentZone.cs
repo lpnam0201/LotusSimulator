@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace LotusSimulator.Client.Layout
 {
-    public class PermanentZone
+    public class PermanentZone : IPlayerIdentity
     {
         public const int PermanentWidth = 70;
         public const int PermanentHeight = 70;
@@ -12,6 +12,7 @@ namespace LotusSimulator.Client.Layout
         public int Y { get; set; }
         public int Width { get; set; } = 70;
         public int Height { get; set; } = 70;
+        public int Slot { get; set; }
 
         public void Draw(GameTime gameTime)
         {

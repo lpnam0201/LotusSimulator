@@ -8,6 +8,6 @@ namespace LotusSimulator.Contract.MessageOut
 {
     public class ExileDto
     {
-        public IList<CardDto> Cards { get; set; } = new List<CardDto>();
+        public IList<CardDto> Cards { get; set; }
     }
 }

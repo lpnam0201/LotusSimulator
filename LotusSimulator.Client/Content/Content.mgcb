@@ -25,6 +25,18 @@
 /processorParam:TextureFormat=Color
 /build:Cards/08c7db90-c0cf-4482-b7ee-bb033e5996d2.jpg
 
+#begin Cards/68954295-54e3-4303-a6bc-fc4547a4e3a3.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Cards/68954295-54e3-4303-a6bc-fc4547a4e3a3.jpg
+
 #begin Cards/b34bb2dc-c1af-4d77-b0b3-a0fb342a5fc6.jpg
 /importer:TextureImporter
 /processor:TextureProcessor

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace LotusSimulator.Client.Layout
 {
-    public class ArtifactEnchantmentZone
+    public class ArtifactEnchantmentZone : IPlayerIdentity
     {
         private const int NavigationArrowWidth = 20;
         private const int NumberOfPermanentZones = 7;
@@ -15,6 +15,7 @@ namespace LotusSimulator.Client.Layout
         public int Y { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
+        public int Slot { get; set; }
 
         public ArtifactEnchantmentZone()
         {

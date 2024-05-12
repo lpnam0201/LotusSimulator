@@ -7,6 +7,7 @@ namespace LotusSimulator.Core.Entities.GameObjects
 {
     public class GameObject
     {
+        public string Id { get; set; }
         public string OracleId { get; set; }
         public string Name { get; set; }
         public ManaCostCollection ManaCost { get; set; }

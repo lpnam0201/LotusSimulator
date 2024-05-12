@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LotusSimulator.Contract.MessageOut
+namespace LotusSimulator.Client.Layout
 {
-    public class LibraryDto
+    public interface IPlayerIdentity
     {
-        public IList<CardDto> Cards { get; set; }
+        int Slot { get; set; }
     }
 }

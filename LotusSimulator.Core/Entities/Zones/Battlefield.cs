@@ -4,6 +4,6 @@ namespace LotusSimulator.Core.Entities.Zones
 {
     public class Battlefield
     {
-        public IList<Permanent> Permanents { get; set; }
+        public IList<Permanent> Permanents { get; set; } = new List<Permanent>();
     }
 }

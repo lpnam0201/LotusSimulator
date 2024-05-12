@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace LotusSimulator.Client.Layout
 {
-    public class TopPlayerArea
+    public class TopPlayerArea : IPlayerIdentity
     {
         private const int HandWidth = 700;
         private const int HandHeight = 70;
@@ -53,6 +53,7 @@ namespace LotusSimulator.Client.Layout
         public int Y { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
+        public int Slot { get; set; }
 
         public Hand.Hand TopPlayerHand { get; set; } = new Hand.Hand();
 
@@ -79,6 +80,8 @@ namespace LotusSimulator.Client.Layout
         private void DrawHand(GameTime gameTime)
         {
             var topPlayerHand = new Hand.Hand();
+
+            topPlayerHand.Slot = Slot;
             topPlayerHand.X = X + (Width - HandWidth) / 2;
             topPlayerHand.Y = 0;
             topPlayerHand.Width = HandWidth;
@@ -90,6 +93,7 @@ namespace LotusSimulator.Client.Layout
         private void DrawDeck(GameTime gameTime)
         {
             var deck = new Deck.Deck();
+            deck.Slot = Slot;
             deck.X = X + DeckDistFromLeft;
             deck.Y = Y + DeckDistFromTop;
             deck.Draw(gameTime);
@@ -98,6 +102,7 @@ namespace LotusSimulator.Client.Layout
         private void DrawLandZone(GameTime gameTime)
         {
             var landZone = new LandZone();
+            landZone.Slot = Slot;
             landZone.X = X + (Width - LandZoneWidth) / 2;
             landZone.Y = Y + LandZoneDistFromTop;
             landZone.Width = LandZoneWidth;
@@ -109,6 +114,7 @@ namespace LotusSimulator.Client.Layout
         private void DrawArtifactEnchantmentZone(GameTime gameTime)
         {
             var artifactEnchantmentZone = new ArtifactEnchantmentZone();
+            artifactEnchantmentZone.Slot = Slot;
             artifactEnchantmentZone.X = X + (Width - ArtifactEnchantmentZoneWidth) / 2;
             artifactEnchantmentZone.Y = Y + ArtifactEnchantmentZoneDistFromTop;
             artifactEnchantmentZone.Width = ArtifactEnchantmentZoneWidth;
@@ -120,6 +126,7 @@ namespace LotusSimulator.Client.Layout
         private void DrawCreatureZone(GameTime gameTime, int y)
         {
             var creatureZone = new CreatureZone();
+            creatureZone.Slot = Slot;
             // Use PlayerHandWidth for Left-Align creature zones
             creatureZone.X = X + (Width - HandWidth) / 2;
             creatureZone.Y = y;
@@ -132,6 +139,7 @@ namespace LotusSimulator.Client.Layout
         private void DrawPlaneswalkerAndBattleZone(GameTime gameTime, int y)
         {
             var planeswalkerAndBattleZone = new PlaneswalkerAndBattleZone();
+            planeswalkerAndBattleZone.Slot = Slot;
             // Use PlayerHandWidth for Left-Align creature zones
             planeswalkerAndBattleZone.X = X + (Width - HandWidth) / 2 + CreatureZoneWidth;
             planeswalkerAndBattleZone.Y = y;
@@ -144,6 +152,7 @@ namespace LotusSimulator.Client.Layout
         private void DrawGraveyard(GameTime gameTime)
         {
             var graveyard = new Graveyard();
+            graveyard.Slot = Slot;
             graveyard.X = X + GraveyardDistFromLeft;
             graveyard.Y = Y + GraveyardDistFromTop;
             graveyard.Draw(gameTime);
@@ -152,6 +161,7 @@ namespace LotusSimulator.Client.Layout
         private void DrawExile(GameTime gameTime)
         {
             var exile = new Exile();
+            exile.Slot = Slot;
             exile.X = X + ExileDistFromLeft;
             exile.Y = Y + ExileDistFromTop;
             exile.Draw(gameTime);

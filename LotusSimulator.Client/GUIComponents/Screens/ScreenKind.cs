@@ -11,6 +11,7 @@ namespace LotusSimulator.Client.GUIComponents.Screens
         None,
         Start,
         GamePreparation,
+        MainGame,
         GameLobby,
         DeckConstruction,
         Options
