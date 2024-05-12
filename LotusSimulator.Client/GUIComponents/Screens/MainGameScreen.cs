@@ -14,7 +14,6 @@ namespace LotusSimulator.Client.GUIComponents.Screens
 
         public override void Draw(GameTime gameTime)
         {
-            GlobalInstances.Desktop.Root = null;
             _layout?.Draw(gameTime);
         }
 

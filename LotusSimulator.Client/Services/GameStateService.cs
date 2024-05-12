@@ -26,6 +26,7 @@ namespace LotusSimulator.Client.Services
                 _hubConnection.On<GameStateDto>(Constants.ReceiveGameStateMethod, ReceiveGameStateHandler);
                 _hubConnection.On<GamePreparationResultDto>(Constants.GamePreparationUpdatedMethod, GamePreparationUpdatedHandler);
                 _hubConnection.On<GameStateDto>(Constants.GameStartedMethod, GameStartedHandler);
+                _hubConnection.On(Constants.MulliganOfferMethod, MulliganOfferedHandler);
                 //_hubConnection.On<InputRequestDto, InputResponseDto>("WaitForResponse", WaitForResponse);
                 await _hubConnection.StartAsync();
             }
@@ -76,11 +77,9 @@ namespace LotusSimulator.Client.Services
             }
         }
 
-        private InputResponseDto WaitForResponse(InputRequestDto req)
+        private async Task<MulliganOfferResultDto> MulliganOfferedHandler()
         {
-            var inputRes = new InputResponseDto();
-            inputRes.Data = "2";
-            return inputRes;
+            return await GlobalInstances.ModalService.OpenMulliganPopup();
         }
 
         private void ReceiveGameStateHandler(GameStateDto gameState)
@@ -90,7 +89,8 @@ namespace LotusSimulator.Client.Services
 
         public async Task StartGameAsync(StartGameRequestDto startGameRequest)
         {
-            await _hubConnection.InvokeAsync(Constants.StartGameMethod, startGameRequest);
+            // must use send
+            await _hubConnection.SendAsync(Constants.StartGameMethod, startGameRequest);
         }
 
         private void GameStartedHandler(GameStateDto gameState)

@@ -73,7 +73,7 @@ namespace LotusSimulator.Managers
                     var elf = new Card();
                     elf.CardLogic = new LlanowarElves();
                     elf.Owner = player;
-                    elf.CardLogic.CopyStatsToCard(forest);
+                    elf.CardLogic.CopyStatsToCard(elf);
 
                     player.Library.Cards.Add(elf);
                 }
@@ -98,7 +98,11 @@ namespace LotusSimulator.Managers
 
             var gameStateCollection = _gameStateMapper.BuildGameStateCollection(_game);
             await _gameStateService.SendGameStarted(gameStateCollection);
+
+            var mulliganResult = await _gameStateService.SendMulliganOffer(_game.PlayerIds.Select(x => x.Key).ToList());
         }
+
+        
 
         private void DecidePlayerGoFirst()
         {

@@ -48,6 +48,17 @@ namespace LotusSimulator.Core.MessageOut
             await Task.WhenAll(sendToClientTasks);
         }
 
+        public async Task<IList<(string, MulliganOfferResultDto)>> SendMulliganOffer(IList<string> connectionIds)
+        {
+            var invokeClientTasks = connectionIds.Select(async (connectionId) => {
+                var result = await _hubContext.Clients.Client(connectionId)
+                    .InvokeAsync<MulliganOfferResultDto>(Constants.MulliganOfferMethod, CancellationToken.None);
+                return (connectionId, result);
+            });
+
+            var mulliganResults = await Task.WhenAll(invokeClientTasks);
+            return mulliganResults.ToList();
+        }
 
 
         public async Task SendGamePreparationResultAsync(GamePreparationResultDto gamePreparationResult)

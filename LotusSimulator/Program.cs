@@ -12,6 +12,8 @@ builder.Services.AddGameServices();
 builder.Services.AddSignalR(o =>
 {
     o.EnableDetailedErrors = true;
+    o.KeepAliveInterval = new TimeSpan(0, 30, 0);
+    o.ClientTimeoutInterval = new TimeSpan(0, 5, 0);
 });
 
 var app = builder.Build();

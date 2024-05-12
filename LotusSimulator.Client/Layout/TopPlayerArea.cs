@@ -55,7 +55,14 @@ namespace LotusSimulator.Client.Layout
         public int Height { get; set; }
         public int Slot { get; set; }
 
-        public Hand.Hand TopPlayerHand { get; set; } = new Hand.Hand();
+        private Hand.Hand _hand { get; set; } = new Hand.Hand();
+        private Deck.Deck _deck { get; set; } = new Deck.Deck();
+        private Graveyard _graveyard { get; set; } = new Graveyard();
+        private Exile _exile { get; set; } = new Exile();
+        private LandZone _landZone { get; set; } = new LandZone();
+        private CreatureZone _creatureZone { get; set; } = new CreatureZone();
+        private ArtifactEnchantmentZone _artifactEnchantmentZone { get; set; } = new ArtifactEnchantmentZone();
+        private PlaneswalkerAndBattleZone _planeswalkerAndBattleZone { get; set; } = new PlaneswalkerAndBattleZone();
 
         public void Draw(GameTime gameTime)
         {
@@ -79,97 +86,95 @@ namespace LotusSimulator.Client.Layout
 
         private void DrawHand(GameTime gameTime)
         {
-            var topPlayerHand = new Hand.Hand();
+            _hand.Slot = Slot;
+            _hand.X = X + (Width - HandWidth) / 2;
+            _hand.Y = 0;
+            _hand.Width = HandWidth;
+            _hand.Height = HandHeight;
 
-            topPlayerHand.Slot = Slot;
-            topPlayerHand.X = X + (Width - HandWidth) / 2;
-            topPlayerHand.Y = 0;
-            topPlayerHand.Width = HandWidth;
-            topPlayerHand.Height = HandHeight;
-
-            topPlayerHand.Draw(gameTime);
+            _hand.Draw(gameTime);
         }
 
         private void DrawDeck(GameTime gameTime)
         {
-            var deck = new Deck.Deck();
-            deck.Slot = Slot;
-            deck.X = X + DeckDistFromLeft;
-            deck.Y = Y + DeckDistFromTop;
-            deck.Draw(gameTime);
+            _deck.Slot = Slot;
+            _deck.X = X + DeckDistFromLeft;
+            _deck.Y = Y + DeckDistFromTop;
+            _deck.Draw(gameTime);
         }
 
         private void DrawLandZone(GameTime gameTime)
         {
-            var landZone = new LandZone();
-            landZone.Slot = Slot;
-            landZone.X = X + (Width - LandZoneWidth) / 2;
-            landZone.Y = Y + LandZoneDistFromTop;
-            landZone.Width = LandZoneWidth;
-            landZone.Height = LandZoneHeight;
+            _landZone.Slot = Slot;
+            _landZone.X = X + (Width - LandZoneWidth) / 2;
+            _landZone.Y = Y + LandZoneDistFromTop;
+            _landZone.Width = LandZoneWidth;
+            _landZone.Height = LandZoneHeight;
             
-            landZone.Draw(gameTime);
+            _landZone.Draw(gameTime);
         }
 
         private void DrawArtifactEnchantmentZone(GameTime gameTime)
         {
-            var artifactEnchantmentZone = new ArtifactEnchantmentZone();
-            artifactEnchantmentZone.Slot = Slot;
-            artifactEnchantmentZone.X = X + (Width - ArtifactEnchantmentZoneWidth) / 2;
-            artifactEnchantmentZone.Y = Y + ArtifactEnchantmentZoneDistFromTop;
-            artifactEnchantmentZone.Width = ArtifactEnchantmentZoneWidth;
-            artifactEnchantmentZone.Height = ArtifactEnchantmentZoneHeight;
+            _artifactEnchantmentZone.Slot = Slot;
+            _artifactEnchantmentZone.X = X + (Width - ArtifactEnchantmentZoneWidth) / 2;
+            _artifactEnchantmentZone.Y = Y + ArtifactEnchantmentZoneDistFromTop;
+            _artifactEnchantmentZone.Width = ArtifactEnchantmentZoneWidth;
+            _artifactEnchantmentZone.Height = ArtifactEnchantmentZoneHeight;
 
-            artifactEnchantmentZone.Draw(gameTime);
+            _artifactEnchantmentZone.Draw(gameTime);
         }
 
         private void DrawCreatureZone(GameTime gameTime, int y)
         {
-            var creatureZone = new CreatureZone();
-            creatureZone.Slot = Slot;
+            _creatureZone.Slot = Slot;
             // Use PlayerHandWidth for Left-Align creature zones
-            creatureZone.X = X + (Width - HandWidth) / 2;
-            creatureZone.Y = y;
-            creatureZone.Width = CreatureZoneWidth;
-            creatureZone.Height = CreatureZoneHeight;
+            _creatureZone.X = X + (Width - HandWidth) / 2;
+            _creatureZone.Y = y;
+            _creatureZone.Width = CreatureZoneWidth;
+            _creatureZone.Height = CreatureZoneHeight;
 
-            creatureZone.Draw(gameTime);
+            _creatureZone.Draw(gameTime);
         }
 
         private void DrawPlaneswalkerAndBattleZone(GameTime gameTime, int y)
         {
-            var planeswalkerAndBattleZone = new PlaneswalkerAndBattleZone();
-            planeswalkerAndBattleZone.Slot = Slot;
+            _planeswalkerAndBattleZone.Slot = Slot;
             // Use PlayerHandWidth for Left-Align creature zones
-            planeswalkerAndBattleZone.X = X + (Width - HandWidth) / 2 + CreatureZoneWidth;
-            planeswalkerAndBattleZone.Y = y;
-            planeswalkerAndBattleZone.Width = PlaneswalkerAndBattleZoneWidth;
-            planeswalkerAndBattleZone.Height = PlaneswalkerAndBattleZoneHeight;
+            _planeswalkerAndBattleZone.X = X + (Width - HandWidth) / 2 + CreatureZoneWidth;
+            _planeswalkerAndBattleZone.Y = y;
+            _planeswalkerAndBattleZone.Width = PlaneswalkerAndBattleZoneWidth;
+            _planeswalkerAndBattleZone.Height = PlaneswalkerAndBattleZoneHeight;
 
-            planeswalkerAndBattleZone.Draw(gameTime);
+            _planeswalkerAndBattleZone.Draw(gameTime);
         }
 
         private void DrawGraveyard(GameTime gameTime)
         {
-            var graveyard = new Graveyard();
-            graveyard.Slot = Slot;
-            graveyard.X = X + GraveyardDistFromLeft;
-            graveyard.Y = Y + GraveyardDistFromTop;
-            graveyard.Draw(gameTime);
+            _graveyard.Slot = Slot;
+            _graveyard.X = X + GraveyardDistFromLeft;
+            _graveyard.Y = Y + GraveyardDistFromTop;
+            _graveyard.Draw(gameTime);
         }
 
         private void DrawExile(GameTime gameTime)
         {
-            var exile = new Exile();
-            exile.Slot = Slot;
-            exile.X = X + ExileDistFromLeft;
-            exile.Y = Y + ExileDistFromTop;
-            exile.Draw(gameTime);
+            _exile.Slot = Slot;
+            _exile.X = X + ExileDistFromLeft;
+            _exile.Y = Y + ExileDistFromTop;
+            _exile.Draw(gameTime);
         }
 
         public void Update(GameTime gameTime)
         {
-            TopPlayerHand?.Update(gameTime);
+            _hand.Update(gameTime);
+            _deck.Update(gameTime);
+            _graveyard.Update(gameTime);
+            _exile.Update(gameTime);
+            _landZone.Update(gameTime);
+            _creatureZone.Update(gameTime);
+            _artifactEnchantmentZone.Update(gameTime);
+            _planeswalkerAndBattleZone.Update(gameTime);
         }
     }
 }

@@ -14,7 +14,6 @@ namespace LotusSimulator.Client
         public Game Game => this;
 
         private Desktop Desktop;
-        private LayoutManager _layoutManager = new LayoutManager();
         //private ScreenManager _screenManager = new ScreenManager();
         private GraphicsDeviceManager _graphicsDeviceManager;
         private SpriteBatch _spriteBatch;
@@ -83,7 +82,6 @@ namespace LotusSimulator.Client
 
             GlobalInstances.SpriteBatch.Begin();
             GlobalInstances.ScreenManager.Draw(gameTime);
-            //_layoutManager.Draw(gameTime);
             GlobalInstances.SpriteBatch.End();
 
             // Must be after SpriteBatch End, otherwise UI dialogs will show beneath game elements

@@ -23,6 +23,7 @@ namespace LotusSimulator.Client
         public static GameStateService GameStateService { get; set; }
         public static ScreenManager ScreenManager { get; set; }
         public static GamePreparationState GamePreparationState { get; set; } = new GamePreparationState();
+        public static ModalService ModalService { get; set; } = new ModalService();
         public static GameStateDto GameState { get; set; }
         
     }
