@@ -1,5 +1,8 @@
 ﻿using LotusSimulator.Core.Entities.Event;
 using LotusSimulator.Core.Entities.Players;
+using LotusSimulator.Core.Entities.Turn;
+using LotusSimulator.Core.Hooks;
+using LotusSimulator.Core.ReplacementEffects;
 
 namespace LotusSimulator.Entities
 {
@@ -13,7 +16,15 @@ namespace LotusSimulator.Entities
 
         public IDictionary<string, Player> PlayerIds { get; set; } = new Dictionary<string, Player>();
 
+        public List<Core.Entities.Turn.Turn> PastTurns { get; set; } = new List<Turn>();
+
         public Core.Entities.Turn.Turn CurrentTurn { get; set; }
+
+        public List<Core.Entities.Turn.Turn> FutureTurns { get; set; } = new List<Turn>();
+
+        public HookCollection HookCollection { get; set; } = new HookCollection();
+
+        public ReplacementEffectCollection ReplacementEffectCollection { get; set; } = new ReplacementEffectCollection();
 
         public Player PriorityHolder { get; set; }
 

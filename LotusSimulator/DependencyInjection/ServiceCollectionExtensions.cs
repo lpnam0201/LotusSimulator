@@ -15,6 +15,8 @@ namespace LotusSimulator.DependencyInjection
             serviceCollection.AddTransient<RandomService>();
             serviceCollection.AddTransient<Game>();
             serviceCollection.AddTransient<GameStateMapper>();
+            serviceCollection.AddTransient<LibraryService>();
+            serviceCollection.AddTransient<MulliganService>();
 
             return serviceCollection;
         }

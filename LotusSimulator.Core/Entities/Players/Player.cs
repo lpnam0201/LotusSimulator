@@ -1,4 +1,5 @@
 ﻿using LotusSimulator.Core.Entities.Zones;
+using LotusSimulator.Entities;
 
 namespace LotusSimulator.Core.Entities.Players
 {
@@ -14,6 +15,7 @@ namespace LotusSimulator.Core.Entities.Players
         public Library Library { get; set; } = new Library();
         public Command Command { get; set; } = new Command();
 
+        public Game Game { get; set; }
         public int LandPlayed { get; set; }
         public int LandPlaysPerTurn { get; set; }
     }

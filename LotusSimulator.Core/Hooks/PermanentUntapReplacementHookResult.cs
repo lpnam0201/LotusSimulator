@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LotusSimulator.Core.Dispatcher
+namespace LotusSimulator.Core.Hooks
 {
-    public class GameDispatcher
+    internal class PermanentUntapReplacementHookResult
     {
-
+        public bool IsContinue
     }
 }
