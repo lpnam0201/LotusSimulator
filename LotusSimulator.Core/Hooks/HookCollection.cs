@@ -11,5 +11,6 @@ namespace LotusSimulator.Core.Hooks
     {
         public Game Game { get; set; }
         public List<IPermanentUntappedHook> PermanentUntapped { get; set; } = new List<IPermanentUntappedHook>();
+        public List<IPermanentTappedHook> PermanentTapped { get; set; } = new List<IPermanentTappedHook>();
     }
 }

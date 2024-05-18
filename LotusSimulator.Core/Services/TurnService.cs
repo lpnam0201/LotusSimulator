@@ -21,6 +21,7 @@ namespace LotusSimulator.Core.Services
         {
             foreach (var phase in turn.Phases)
             {
+                turn.CurrentPhase = phase;
                 var phaseRunner = _phaseRunnerFactory.CreatePhaseRunner(phase.GetType());
                 await phaseRunner.Run(phase);
             }

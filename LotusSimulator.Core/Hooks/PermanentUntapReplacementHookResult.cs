@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace LotusSimulator.Core.Hooks
 {
-    internal class PermanentUntapReplacementHookResult
+    public class PermanentUntapReplacementHookResult
     {
-        public bool IsContinue
+        public bool IsContinue { get; set; }
     }
 }

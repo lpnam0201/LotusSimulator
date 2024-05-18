@@ -20,13 +20,19 @@ namespace LotusSimulator.Managers
         private readonly GameStateMapper _gameStateMapper;
         private readonly MulliganService _mulliganService;
         private readonly LibraryService _libraryService;
+        private readonly TurnService _turnService;
+        private readonly PlayabilityService _playabilityService;
+        private readonly IServiceProvider _serviceProvider;
 
         public GameManager(GameStateService gameStateService,
             RandomService randomService,
             Game game,
             GameStateMapper gameStateMapper,
             MulliganService mulliganService,
-            LibraryService libraryService)
+            LibraryService libraryService,
+            TurnService turnService,
+            PlayabilityService playabilityService,
+            IServiceProvider serviceProvider)
         {
             _gameStateService = gameStateService;
             _randomService = randomService;
@@ -34,6 +40,9 @@ namespace LotusSimulator.Managers
             _gameStateMapper = gameStateMapper;
             _mulliganService = mulliganService;
             _libraryService = libraryService;
+            _turnService = turnService;
+            _playabilityService = playabilityService;
+            _serviceProvider = serviceProvider;
         }
 
         public int AddPlayerToGame(string connectionId)
@@ -74,16 +83,19 @@ namespace LotusSimulator.Managers
                 for (int i = 0; i <= 30; i++)
                 {
                     var forest = new Card();
-                    forest.CardLogic = new Forest();
+                    forest.CardLogic = (Forest)_serviceProvider.GetService(typeof(Forest));
                     forest.Owner = player;
+                    forest.Controller = player;
                     forest.CardLogic.CopyStatsToCard(forest);
 
                     player.Library.Cards.Add(forest);
 
                     var elf = new Card();
-                    elf.CardLogic = new LlanowarElves();
+                    elf.CardLogic = (LlanowarElves)_serviceProvider.GetService(typeof(LlanowarElves));
                     elf.Owner = player;
+                    forest.Controller = player;
                     elf.CardLogic.CopyStatsToCard(elf);
+                    
 
                     player.Library.Cards.Add(elf);
                 }
@@ -98,20 +110,20 @@ namespace LotusSimulator.Managers
 
             DecidePlayerGoFirst();
 
-            DrawFirstHand();
+            await _libraryService.DrawFirstHand(_game);
 
             var gameStateCollection = _gameStateMapper.BuildGameStateCollection(_game);
             await _gameStateService.SendGameStarted(gameStateCollection);
 
             // Implement mulligan
             //var mulliganResult = await _gameStateService.SendMulliganOffer(_game.PlayerIds.Select(x => x.Key).ToList());
-            var firstTurn = CreateFirstTurn();
-
+            await CreateFirstTurn();
+            await _turnService.RunTurn(_game.CurrentTurn);
         }
 
         private async Task CreateFirstTurn()
         {
-            var turn = CreateTurn(_game.PlayerGoFirst);
+            var turn = _turnService.CreateTurn(_game.PlayerGoFirst);
             _game.CurrentTurn = turn;
         }
         
@@ -122,29 +134,6 @@ namespace LotusSimulator.Managers
             var goFirstIndex = _randomService.RandomInt(playerCount);
 
             _game.PlayerGoFirst = _game.Players[goFirstIndex];
-        }
-
-        private void DrawFirstHand()
-        {
-            foreach (var player in _game.Players)
-            {
-                for (var i = 0; i < 7; i++)
-                {
-                    Draw(player);
-                }
-            }
-        }
-
-        private void Draw(Player player)
-        {
-            var library = player.Library;
-
-            var cardsDrawn = library.Cards.Take(1).ToList();
-            foreach (var card in cardsDrawn)
-            {
-                player.Hand.Cards.Add(card);
-            }
-            library.Cards = library.Cards.Skip(1).ToList();
         }
 
 

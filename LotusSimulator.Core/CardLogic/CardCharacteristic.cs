@@ -4,6 +4,7 @@ using LotusSimulator.Core.Entities.Card;
 using LotusSimulator.Core.Entities.Counters;
 using LotusSimulator.Core.Entities.GameObjects;
 using LotusSimulator.Core.Entities.Mana;
+using LotusSimulator.Core.Entities.Playability;
 using System;
 using System.Collections.Generic;
 using System.Linq;

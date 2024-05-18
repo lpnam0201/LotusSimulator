@@ -1,4 +1,5 @@
 ﻿using LotusSimulator.Contract.MessageOut;
+using LotusSimulator.Core.Entities.Playability;
 using LotusSimulator.Core.Entities.Players;
 using LotusSimulator.Core.Entities.Zones;
 using LotusSimulator.Entities;
@@ -40,6 +41,36 @@ namespace LotusSimulator.Core.Services
             }
 
             return gameStateCollection;
+        }
+
+        public PlayabilityCollectionDto BuildPlayabilityCollectionDto(Game game, string connectionId)
+        {
+            var player = game.Players.FirstOrDefault(x => x.ConnectionId == connectionId);
+            var playabilities = player.Hand.Cards.SelectMany(x => x.Playabilities, (card, playability) => (card.Id, playability))
+                .Concat(player.Library.Cards.SelectMany(x => x.Playabilities, (card, playability) => (card.Id, playability))
+                .Concat(player.Graveyard.Cards.SelectMany(x => x.Playabilities, (card, playability) => (card.Id, playability))
+                .Concat(player.Exile.Cards.SelectMany(x => x.Playabilities, (card, playability) => (card.Id, playability))
+                .Concat(player.Battlefield.Permanents.SelectMany(x => x.Playabilities, (permanent, playability) => (permanent.Id, playability))))));
+
+            return new PlayabilityCollectionDto()
+            {
+                ConnectionId = connectionId,
+                Playabilities = playabilities
+                    .Select(x => ToPlayabilityDto(x.Id, x.playability))
+                    .ToList(),
+                Slot = FỉndPlayerSlot(game, player)
+            };
+
+        }
+
+        private PlayabilityDto ToPlayabilityDto(string objectId, Playability playability)
+        {
+            return new PlayabilityDto()
+            {
+                ObjectId = objectId,
+                Text = playability.Text,
+                Type = playability.Type
+            };
         }
 
         private int FỉndPlayerSlot(Game game, Player player)

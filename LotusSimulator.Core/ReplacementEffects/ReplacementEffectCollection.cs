@@ -9,5 +9,6 @@ namespace LotusSimulator.Core.ReplacementEffects
     public class ReplacementEffectCollection
     {
         public List<IPermanentUntapReplacementEffect> PermanentUntapReplacementEffects { get; set; }
+        public List<IPermanentTapReplacementEffect> PermanentTapReplacementEffects { get; set; }
     }
 }

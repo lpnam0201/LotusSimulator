@@ -12,12 +12,25 @@ namespace LotusSimulator.Core.Entities.Card
         public IList<Counter> LoyaltyCounters { get; set; }
         public IList<Counter> Counters { get; set; }
         public bool IsRevealed { get; set; }
+        public List<Playability.Playability> Playabilities { get; set; } = new List<Playability.Playability>();
+        public List<Playability.Playability> GrantedPlayabilities { get; set; } = new List<Playability.Playability>();
 
         public CardLogic.CardLogic CardLogic { get; set; }
+
 
         public void Initialize()
         {
             CardLogic.CopyStatsToCard(this);
+        }
+
+        public bool IsLand()
+        {
+            return Types.Any(x => x == ObjectType.Land);
+        }
+
+        public bool IsInstant()
+        {
+            return Types.Any(x => x == ObjectType.Instant);
         }
     }
 }

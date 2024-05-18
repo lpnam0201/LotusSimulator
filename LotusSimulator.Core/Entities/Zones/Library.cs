@@ -6,5 +6,10 @@ namespace LotusSimulator.Core.Entities.Zones
     {
         public Player Player { get; set; }
         public List<Card.Card> Cards { get; set; } = new List<Card.Card>();
+
+        public bool HasCard(Card.Card card)
+        {
+            return Cards.Contains(card);
+        }
     }
 }

@@ -10,5 +10,13 @@ namespace LotusSimulator.Core.Entities.Turn
         public IList<Phase> Phases { get; set; } = new List<Phase>();
 
         public Game Game { get; set; }
+
+        public Phase CurrentPhase { get; set; }
+
+        public bool IsMainPhase()
+        {
+            return CurrentPhase is PreCombatMainPhase
+                || CurrentPhase is PostCombatMainPhase;
+        }
     }
 }

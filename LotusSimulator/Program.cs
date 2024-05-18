@@ -1,4 +1,5 @@
 using LotusSimulator;
+using LotusSimulator.Core.DependencyInjection;
 using LotusSimulator.DependencyInjection;
 using LotusSimulator.Managers;
 
@@ -8,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddGameServices();
+builder.Services.AddCardLogic();
 
 builder.Services.AddSignalR(o =>
 {

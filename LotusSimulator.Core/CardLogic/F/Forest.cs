@@ -1,7 +1,10 @@
 ﻿using LotusSimulator.Core.CardLogic;
+using LotusSimulator.Core.CardLogic.Common;
+using LotusSimulator.Core.Entities.Abilities;
 using LotusSimulator.Core.Entities.Card;
 using LotusSimulator.Core.Entities.GameObjects;
 using LotusSimulator.Core.Entities.Mana;
+using LotusSimulator.Core.Entities.Playability;
 using LotusSimulator.Managers;
 using System;
 using System.Collections.Generic;
@@ -14,9 +17,11 @@ namespace LotusSimulator.Cards.F
     public class Forest : CardLogic
     {
         private CardCharacteristic _characteristic;
+        private GreenManaAbility _greenManaAbility;
 
-        public Forest()
+        public Forest(GreenManaAbility greenManaAbility)
         {
+            _greenManaAbility = greenManaAbility;
             InitCharacteristic();
         }
 
@@ -33,6 +38,10 @@ namespace LotusSimulator.Cards.F
                 Types = new List<ObjectType>
                 {
                     ObjectType.Land
+                },
+                Abilities = new List<Ability>
+                {
+                    _greenManaAbility
                 }
             };
         }

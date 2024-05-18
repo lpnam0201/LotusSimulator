@@ -28,7 +28,7 @@ namespace LotusSimulator.Entities
 
         public Player PriorityHolder { get; set; }
 
-        public Core.Entities.Zones.Stack Stack { get; set; }
+        public Core.Entities.Zones.Stack Stack { get; set; } = new Core.Entities.Zones.Stack();
 
         public IList<Player> Players { get; set; } = new List<Player>();
 
@@ -38,6 +38,12 @@ namespace LotusSimulator.Entities
 
         public string Id { get; set; } = Guid.NewGuid().ToString();
 
+        public bool IsManaPaymentRequested(Player player)
+        {
+            return false;
+        }
+
         // chat
+
     }
 }

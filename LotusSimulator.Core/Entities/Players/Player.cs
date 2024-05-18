@@ -1,4 +1,5 @@
-﻿using LotusSimulator.Core.Entities.Zones;
+﻿using LotusSimulator.Core.Entities.Mana;
+using LotusSimulator.Core.Entities.Zones;
 using LotusSimulator.Entities;
 
 namespace LotusSimulator.Core.Entities.Players
@@ -15,8 +16,14 @@ namespace LotusSimulator.Core.Entities.Players
         public Library Library { get; set; } = new Library();
         public Command Command { get; set; } = new Command();
 
+        public ManaPool ManaPool { get; set; } = new ManaPool();
         public Game Game { get; set; }
         public int LandPlayed { get; set; }
         public int LandPlaysPerTurn { get; set; }
+
+        public bool HasPriority()
+        {
+            return Game.PriorityHolder == this;
+        }
     }
 }

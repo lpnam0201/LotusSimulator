@@ -66,6 +66,9 @@ namespace LotusSimulator.Core.MessageOut
             await _hubContext.Clients.All.SendAsync(Constants.GamePreparationUpdatedMethod, gamePreparationResult);
         }
 
-
+        public async Task SendPlayabilityUpdate(PlayabilityCollectionDto playabilityCollection)
+        {
+            await _hubContext.Clients.Client(playabilityCollection.ConnectionId).SendAsync(Constants.PlayabilityUpdateMethod, playabilityCollection);
+        }
     }
 }

@@ -10,7 +10,7 @@ namespace LotusSimulator.Core.Services
     public class PhaseRunnerFactory
     {
         private readonly IServiceProvider _serviceProvider;
-        private readonly IDictionary<Type, Type> _phaseTypeAndPhaseHandlerDictionary = new Dictionary<Type, Type>
+        private readonly IDictionary<Type, Type> _phaseTypeAndPhaseRunnerDictionary = new Dictionary<Type, Type>
         {
             {typeof(BeginningPhase), typeof(BeginningPhaseRunner) }
         };
@@ -22,9 +22,7 @@ namespace LotusSimulator.Core.Services
 
         public IPhaseRunner CreatePhaseRunner(Type phaseType)
         {
-            object phaseRunner = null;
-
-            var phaseRunnerType = _phaseTypeAndPhaseHandlerDictionary[phaseType];
+            var phaseRunnerType = _phaseTypeAndPhaseRunnerDictionary[phaseType];
             var phaseRunnerInstance = (IPhaseRunner)_serviceProvider.GetService(phaseRunnerType);
 
             return phaseRunnerInstance;

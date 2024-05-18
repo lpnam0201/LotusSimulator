@@ -27,6 +27,7 @@ namespace LotusSimulator.Client.Services
                 _hubConnection.On<GamePreparationResultDto>(Constants.GamePreparationUpdatedMethod, GamePreparationUpdatedHandler);
                 _hubConnection.On<GameStateDto>(Constants.GameStartedMethod, GameStartedHandler);
                 _hubConnection.On(Constants.MulliganOfferMethod, MulliganOfferedHandler);
+                _hubConnection.On<PlayabilityCollectionDto>(Constants.PlayabilityUpdateMethod, PlayabilityUpdateHandler);
                 //_hubConnection.On<InputRequestDto, InputResponseDto>("WaitForResponse", WaitForResponse);
                 await _hubConnection.StartAsync();
             }
@@ -80,6 +81,11 @@ namespace LotusSimulator.Client.Services
         private async Task<MulliganOfferResultDto> MulliganOfferedHandler()
         {
             return await GlobalInstances.ModalService.OpenMulliganPopup();
+        }
+
+        private async Task PlayabilityUpdateHandler(PlayabilityCollectionDto playabilityCollection)
+        {
+            GlobalInstances.PlayabilityUpdateService.Update(playabilityCollection);
         }
 
         private void ReceiveGameStateHandler(GameStateDto gameState)

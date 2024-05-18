@@ -15,7 +15,7 @@ namespace LotusSimulator.Core.Entities.GameObjects
         public IList<ObjectType> Types { get; set; }
         public IList<ObjectSuperType> SuperTypes { get; set; }
         public IList<ObjectSubType> SubTypes { get; set; }
-        public IList<Ability> Abilities { get; set; }
+        public IList<Ability> Abilities { get; set; } = new List<Ability>();
 
         public Player Owner { get; set; }
         public Player Controller { get; set; }

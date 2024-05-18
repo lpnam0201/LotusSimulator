@@ -9,9 +9,21 @@ namespace LotusSimulator.Core.Services
 {
     public class BeginningPhaseRunner : IPhaseRunner
     {
-        public Task Run(Phase phase)
+        private readonly StepRunnerFactory _stepRunnerFactory;
+
+        public BeginningPhaseRunner(StepRunnerFactory stepRunnerFactory)
         {
-            throw new NotImplementedException();
+            _stepRunnerFactory = stepRunnerFactory;
+        }
+
+        public async Task Run(Phase phase)
+        {
+            foreach (var step in phase.Steps)
+            {
+                phase.CurrentStep = step;
+                var stepRunner = _stepRunnerFactory.CreateStepRunner(step.GetType());
+                await stepRunner.Run(step);
+            }
         }
     }
 }

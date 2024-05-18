@@ -17,6 +17,19 @@ namespace LotusSimulator.DependencyInjection
             serviceCollection.AddTransient<GameStateMapper>();
             serviceCollection.AddTransient<LibraryService>();
             serviceCollection.AddTransient<MulliganService>();
+            serviceCollection.AddTransient<TurnService>();
+            serviceCollection.AddTransient<PhaseRunnerFactory>();
+            serviceCollection.AddTransient<StepRunnerFactory>();
+            serviceCollection.AddTransient<PlayabilityService>();
+            serviceCollection.AddTransient<PermanentService>();
+            serviceCollection.AddTransient<PriorityService>();
+            serviceCollection.AddTransient<ManaService>();
+            serviceCollection.AddTransient<BeginningPhaseRunner>();
+            serviceCollection.AddTransient<UntapStepRunner>();
+            serviceCollection.AddTransient<UpkeepStepRunner>();
+            serviceCollection.AddTransient<DrawStepRunner>();
+            serviceCollection.AddTransient<PreCombatMainPhaseRunner>();
+            
 
             return serviceCollection;
         }

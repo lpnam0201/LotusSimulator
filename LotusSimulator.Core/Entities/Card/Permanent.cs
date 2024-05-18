@@ -10,6 +10,8 @@ namespace LotusSimulator.Core.Entities.Card
         public MtgNumber Toughness { get; set; }
         public IList<Counter> LoyaltyCounters { get; set; } = new List<Counter>();
         public IList<Counter> Counters { get; set; } = new List<Counter>();
+        public List<Playability.Playability> Playabilities { get; set; } = new List<Playability.Playability>();
+        public List<Playability.Playability> GrantedPlayabilities { get; set; } = new List<Playability.Playability>();
 
         public Card Card { get; set; }
 
