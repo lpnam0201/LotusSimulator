@@ -33,21 +33,9 @@ namespace LotusSimulator.Client.Layout
 
         private const int ArtifactEnchantmentCreatureGap = 10;
 
-        private const int CreatureZoneWidth = HandWidth * 5 / 7;
-        private const int CreatureZoneHeight = 70;
-        private const int FirstCreatureZoneDistFromTop = ArtifactEnchantmentZoneDistFromTop + ArtifactEnchantmentZoneHeight + ArtifactEnchantmentCreatureGap;
-
-        private const int FirstSecondCreatureGap = 10;
-        private const int SecondCreatureZoneDistFromTop = FirstCreatureZoneDistFromTop + CreatureZoneHeight + FirstSecondCreatureGap;
-
-        private const int ArtifactEnchantmentPlaneswalkerBattleGap = 10;
-
-        private const int PlaneswalkerAndBattleZoneWidth = HandWidth * 2 / 7;
-        private const int PlaneswalkerAndBattleZoneHeight = 70;
-        private const int FirstPlaneswalkerAndBattleZoneDistFromTop = ArtifactEnchantmentZoneDistFromTop + ArtifactEnchantmentZoneHeight + ArtifactEnchantmentPlaneswalkerBattleGap;
-
-        private const int FirstSecondPlaneswalkerBattleGap = 10;
-        private const int SecondPlaneswalkerAndBattleZoneDistFromTop = FirstPlaneswalkerAndBattleZoneDistFromTop + PlaneswalkerAndBattleZoneHeight + FirstSecondPlaneswalkerBattleGap;
+        private const int CreaturePlaneswalkerBattleZoneWidth = HandWidth;
+        private const int CreaturePlaneswalkerBattleZoneHeight = 70 * 2 + 10;
+        private const int CreaturePlaneswalkerBattleZoneDistFromTop = ArtifactEnchantmentZoneDistFromTop + ArtifactEnchantmentZoneHeight + ArtifactEnchantmentCreatureGap;
 
         private const int PriorityDistFromTop = 40;
 
@@ -62,7 +50,7 @@ namespace LotusSimulator.Client.Layout
         private GraveyardZone _graveyard { get; set; } = new GraveyardZone();
         private ExileZone _exile { get; set; } = new ExileZone();
         private LandZone _landZone { get; set; } = new LandZone();
-        private CreaturePlaneswalkerBattleZone _creatureZone { get; set; } = new CreaturePlaneswalkerBattleZone();
+        private CreaturePlaneswalkerBattleZone _creaturePlaneswalkerBattleZone { get; set; } = new CreaturePlaneswalkerBattleZone();
         private ArtifactEnchantmentZone _artifactEnchantmentZone { get; set; } = new ArtifactEnchantmentZone();
         private PlaneswalkerAndBattleZone _planeswalkerAndBattleZone { get; set; } = new PlaneswalkerAndBattleZone();
         private LifeBar _lifeBar { get; set; } = new LifeBar();
@@ -80,18 +68,13 @@ namespace LotusSimulator.Client.Layout
             DrawExile(gameTime);
             DrawLandZone(gameTime);
             DrawArtifactEnchantmentZone(gameTime);
-            DrawCreatureZone(gameTime, FirstCreatureZoneDistFromTop);
-            DrawCreatureZone(gameTime, SecondCreatureZoneDistFromTop);
-
-            DrawPlaneswalkerAndBattleZone(gameTime, FirstPlaneswalkerAndBattleZoneDistFromTop);
-            DrawPlaneswalkerAndBattleZone(gameTime, SecondPlaneswalkerAndBattleZoneDistFromTop);
+            DrawCreaturePlaneswalkerBattleZone(gameTime, CreaturePlaneswalkerBattleZoneDistFromTop);
 
             DrawPriority(gameTime);
         }
 
         private void DrawHand(GameTime gameTime)
         {
-            _hand.ConnectionId = ConnectionId;
             _hand.X = X + (Width - HandWidth) / 2;
             _hand.Y = 0;
             _hand.Width = HandWidth;
@@ -102,7 +85,6 @@ namespace LotusSimulator.Client.Layout
 
         private void DrawDeck(GameTime gameTime)
         {
-            _deck.ConnectionId = ConnectionId;
             _deck.X = X + DeckDistFromLeft;
             _deck.Y = Y + DeckDistFromTop;
             _deck.Draw(gameTime);
@@ -110,7 +92,6 @@ namespace LotusSimulator.Client.Layout
 
         private void DrawLandZone(GameTime gameTime)
         {
-            _landZone.ConnectionId = ConnectionId;
             _landZone.X = X + (Width - LandZoneWidth) / 2;
             _landZone.Y = Y + LandZoneDistFromTop;
             _landZone.Width = LandZoneWidth;
@@ -121,7 +102,6 @@ namespace LotusSimulator.Client.Layout
 
         private void DrawArtifactEnchantmentZone(GameTime gameTime)
         {
-            _artifactEnchantmentZone.ConnectionId = ConnectionId;
             _artifactEnchantmentZone.X = X + (Width - ArtifactEnchantmentZoneWidth) / 2;
             _artifactEnchantmentZone.Y = Y + ArtifactEnchantmentZoneDistFromTop;
             _artifactEnchantmentZone.Width = ArtifactEnchantmentZoneWidth;
@@ -130,33 +110,18 @@ namespace LotusSimulator.Client.Layout
             _artifactEnchantmentZone.Draw(gameTime);
         }
 
-        private void DrawCreatureZone(GameTime gameTime, int y)
+        private void DrawCreaturePlaneswalkerBattleZone(GameTime gameTime, int y)
         {
-            _creatureZone.ConnectionId = ConnectionId;
-            // Use PlayerHandWidth for Left-Align creature zones
-            _creatureZone.X = X + (Width - HandWidth) / 2;
-            _creatureZone.Y = y;
-            _creatureZone.Width = CreatureZoneWidth;
-            _creatureZone.Height = CreatureZoneHeight;
+            _creaturePlaneswalkerBattleZone.X = X + (Width - HandWidth) / 2;
+            _creaturePlaneswalkerBattleZone.Y = y;
+            _creaturePlaneswalkerBattleZone.Width = CreaturePlaneswalkerBattleZoneWidth;
+            _creaturePlaneswalkerBattleZone.Height = CreaturePlaneswalkerBattleZoneHeight;
 
-            _creatureZone.Draw(gameTime);
-        }
-
-        private void DrawPlaneswalkerAndBattleZone(GameTime gameTime, int y)
-        {
-            _planeswalkerAndBattleZone.ConnectionId = ConnectionId;
-            // Use PlayerHandWidth for Left-Align creature zones
-            _planeswalkerAndBattleZone.X = X + (Width - HandWidth) / 2 + CreatureZoneWidth;
-            _planeswalkerAndBattleZone.Y = y;
-            _planeswalkerAndBattleZone.Width = PlaneswalkerAndBattleZoneWidth;
-            _planeswalkerAndBattleZone.Height = PlaneswalkerAndBattleZoneHeight;
-
-            _planeswalkerAndBattleZone.Draw(gameTime);
+            _creaturePlaneswalkerBattleZone.Draw(gameTime);
         }
 
         private void DrawGraveyard(GameTime gameTime)
         {
-            _graveyard.ConnectionId = ConnectionId;
             _graveyard.X = X + GraveyardDistFromLeft;
             _graveyard.Y = Y + GraveyardDistFromTop;
             _graveyard.Draw(gameTime);
@@ -164,7 +129,6 @@ namespace LotusSimulator.Client.Layout
 
         private void DrawExile(GameTime gameTime)
         {
-            _exile.ConnectionId = ConnectionId;
             _exile.X = X + ExileDistFromLeft;
             _exile.Y = Y + ExileDistFromTop;
             _exile.Draw(gameTime);
@@ -172,7 +136,6 @@ namespace LotusSimulator.Client.Layout
 
         private void DrawPriority(GameTime gameTime)
         {
-            _priority.ConnectionId = ConnectionId;
             _priority.X = 0;
             _priority.Y = Y + PriorityDistFromTop;
             _priority.Draw(gameTime);
@@ -195,8 +158,8 @@ namespace LotusSimulator.Client.Layout
             _landZone.ConnectionId = ConnectionId;
             _landZone.Update(gameTime);
 
-            _creatureZone.ConnectionId = ConnectionId;
-            _creatureZone.Update(gameTime);
+            _creaturePlaneswalkerBattleZone.ConnectionId = ConnectionId;
+            _creaturePlaneswalkerBattleZone.Update(gameTime);
 
             _artifactEnchantmentZone.ConnectionId = ConnectionId;
             _artifactEnchantmentZone.Update(gameTime);

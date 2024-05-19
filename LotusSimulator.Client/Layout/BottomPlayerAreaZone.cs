@@ -79,7 +79,6 @@ namespace LotusSimulator.Client.Layout
 
         private void DrawHand(GameTime gameTime)
         {
-            _hand.ConnectionId = ConnectionId;
             _hand.X = X + (Width - HandWidth) / 2;
             _hand.Y = HandDistFromTop;
             _hand.Width = HandWidth;
@@ -90,7 +89,6 @@ namespace LotusSimulator.Client.Layout
 
         private void DrawDeck(GameTime gameTime)
         {
-            _deck.ConnectionId = ConnectionId;
             _deck.X = X + DeckDistFromLeft;
             _deck.Y = Y + DeckDistFromTop;
             _deck.Draw(gameTime);
@@ -98,7 +96,6 @@ namespace LotusSimulator.Client.Layout
 
         private void DrawLandZone(GameTime gameTime)
         {
-            _landZone.ConnectionId = ConnectionId;
             _landZone.X = X + (Width - LandZoneWidth) / 2;
             _landZone.Y = Y + LandZoneDistFromTop;
             _landZone.Width = LandZoneWidth;
@@ -109,7 +106,6 @@ namespace LotusSimulator.Client.Layout
 
         private void DrawArtifactEnchantmentZone(GameTime gameTime)
         {
-            _artifactEnchantmentZone.ConnectionId = ConnectionId;
             _artifactEnchantmentZone.X = X + (Width - ArtifactEnchantmentZoneWidth) / 2;
             _artifactEnchantmentZone.Y = Y + ArtifactEnchantmentZoneDistFromTop;
             _artifactEnchantmentZone.Width = ArtifactEnchantmentZoneWidth;
@@ -120,8 +116,6 @@ namespace LotusSimulator.Client.Layout
 
         private void DrawCreaturePlaneswalkerBattleZone(GameTime gameTime)
         {
-            _creaturePlaneswalkerBattleZone.ConnectionId = ConnectionId;
-            // Use PlayerHandWidth for Left-Align creature zones
             _creaturePlaneswalkerBattleZone.X = X + (Width - CreaturePlanewalkerBattleZoneWidth) / 2;
             _creaturePlaneswalkerBattleZone.Y = Y + CreaturePlaneswalkerBattleZoneDistFromTop;
             _creaturePlaneswalkerBattleZone.Width = CreaturePlanewalkerBattleZoneWidth;
@@ -130,21 +124,8 @@ namespace LotusSimulator.Client.Layout
             _creaturePlaneswalkerBattleZone.Draw(gameTime);
         }
 
-        //private void DrawPlaneswalkerAndBattleZone(GameTime gameTime, int y, int permanentBeginIndex)
-        //{
-        //    _planeswalkerAndBattleZone.ConnectionId = ConnectionId;
-        //    // Use PlayerHandWidth for Left-Align creature zones
-        //    _planeswalkerAndBattleZone.X = X + PlaneswalkerAndBattleZoneDistFromLeft;
-        //    _planeswalkerAndBattleZone.Y = Y + y;
-        //    _planeswalkerAndBattleZone.Width = PlaneswalkerAndBattleZoneWidth;
-        //    _planeswalkerAndBattleZone.Height = PlaneswalkerAndBattleZoneHeight;
-            
-        //    _planeswalkerAndBattleZone.Draw(gameTime);
-        //}
-
         private void DrawGraveyard(GameTime gameTime)
         {
-            _graveyard.ConnectionId = ConnectionId;
             _graveyard.X = X + GraveyardDistFromLeft;
             _graveyard.Y = Y + GraveyardDistFromTop;
             _graveyard.Draw(gameTime);
@@ -152,7 +133,6 @@ namespace LotusSimulator.Client.Layout
 
         private void DrawExile(GameTime gameTime)
         {
-            _exile.ConnectionId = ConnectionId;
             _exile.X = X + ExileDistFromLeft;
             _exile.Y = Y + ExileDistFromTop;
             _exile.Draw(gameTime);
