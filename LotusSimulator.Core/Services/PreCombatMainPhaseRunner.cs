@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LotusSimulator.Core.Services
 {
-    public class PreCombatMainPhaseRunner : IPhaseRunner
+    public class PreCombatMainPhaseRunner :  BasePhaseRunner, IPhaseRunner
     {
         private readonly PriorityService _priorityService;
 

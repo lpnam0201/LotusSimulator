@@ -12,15 +12,17 @@ namespace LotusSimulator.Core.Entities.Playability
 {
     public class Playability
     {
+        public string AssociatedObjectId { get; set; }
         public PlayabilityType Type { get; set; }
         public PlayabilityLocation Location { get; set; }
         public Player PlayableBy { get; set; }
         public string Text { get; set; }
 
-        public static Playability PlayAsLand(Player player)
+        public static Playability PlayAsLand(string associatedObjectId, Player player)
         {
             return new Playability()
             {
+                AssociatedObjectId = associatedObjectId,
                 Type = PlayabilityType.PlayAsLand,
                 Location = PlayabilityLocation.Hand,
                 PlayableBy = player,
@@ -28,10 +30,11 @@ namespace LotusSimulator.Core.Entities.Playability
             };
         }
 
-        public static Playability Cast(ManaCostCollection cost, Player player)
+        public static Playability Cast(string associatedObjectId, ManaCostCollection cost, Player player)
         {
             return new Playability()
             {
+                AssociatedObjectId = associatedObjectId,
                 Type = PlayabilityType.Cast,
                 Location = PlayabilityLocation.Hand,
                 PlayableBy = player,

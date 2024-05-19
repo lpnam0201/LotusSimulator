@@ -8,6 +8,7 @@ namespace LotusSimulator.Client.Layout
         public const int PermanentWidth = 70;
         public const int PermanentHeight = 70;
 
+
         public int X { get; set; }
         public int Y { get; set; }
         public int Width { get; set; } = 70;

@@ -1,12 +1,22 @@
-﻿namespace LotusSimulator.Core.Entities.Zones
+﻿using LotusSimulator.Core.Entities.Common;
+using LotusSimulator.Core.Entities.Stack;
+
+namespace LotusSimulator.Core.Entities.Zones
 {
     public class Stack
     {
-        public IList<Spell.Spell> Spells { get; set; } = new List<Spell.Spell>();
+        public IList<StackObject> StackObjects { get; set; } = new List<StackObject>();
 
         public bool IsEmpty()
         {
-            return Spells.Count == 0;
+            return StackObjects.Count == 0;
+        }
+
+        public StackObject Pop()
+        {
+            var topObject = StackObjects.LastOrDefault();
+            StackObjects.Remove(topObject);
+            return topObject;
         }
     }
 }

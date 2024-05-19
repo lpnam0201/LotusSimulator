@@ -70,5 +70,15 @@ namespace LotusSimulator.Core.MessageOut
         {
             await _hubContext.Clients.Client(playabilityCollection.ConnectionId).SendAsync(Constants.PlayabilityUpdateMethod, playabilityCollection);
         }
+
+        public async Task SendPriorityUpdate(PriorityUpdateDto priorityUpdate)
+        {
+            await _hubContext.Clients.All.SendAsync(Constants.PriorityUpdateMethod, priorityUpdate);
+        }
+
+        public async Task SendCardChangeZone(CardChangeZoneDto cardChangeZone)
+        {
+            await _hubContext.Clients.All.SendAsync(Constants.CardChangeZoneMethod, cardChangeZone);
+        }
     }
 }

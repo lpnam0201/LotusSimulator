@@ -28,6 +28,8 @@ namespace LotusSimulator.Client.Services
                 _hubConnection.On<GameStateDto>(Constants.GameStartedMethod, GameStartedHandler);
                 _hubConnection.On(Constants.MulliganOfferMethod, MulliganOfferedHandler);
                 _hubConnection.On<PlayabilityCollectionDto>(Constants.PlayabilityUpdateMethod, PlayabilityUpdateHandler);
+                _hubConnection.On<PriorityUpdateDto>(Constants.PriorityUpdateMethod, PriorityUpdateHandler);
+                _hubConnection.On<CardChangeZoneDto>(Constants.CardChangeZoneMethod, PriorityUpdateHandler);
                 //_hubConnection.On<InputRequestDto, InputResponseDto>("WaitForResponse", WaitForResponse);
                 await _hubConnection.StartAsync();
             }
@@ -88,9 +90,19 @@ namespace LotusSimulator.Client.Services
             GlobalInstances.PlayabilityUpdateService.Update(playabilityCollection);
         }
 
+        private async Task PriorityUpdateHandler(PriorityUpdateDto priorityUpdate)
+        {
+            GlobalInstances.GameState.PriorityHolder = priorityUpdate.PriorityHolderSlot;
+        }
+
         private void ReceiveGameStateHandler(GameStateDto gameState)
         {
             GlobalInstances.GameState = gameState;
+        }
+
+        private async Task CardChangeZoneHandler(CardChangeZoneDto cardChangeZone)
+        {
+            
         }
 
         public async Task StartGameAsync(StartGameRequestDto startGameRequest)
@@ -103,6 +115,11 @@ namespace LotusSimulator.Client.Services
         {
             GlobalInstances.GameState = gameState;
             GlobalInstances.ScreenManager.SetScreenKind(ScreenKind.MainGame);
+        }
+
+        public async void PassPriority(PassPriorityDto passPriority)
+        {
+            await _hubConnection.SendAsync(Constants.PassPriorityMethod, passPriority);
         }
 
         public void SendPlayerInputAsync(PlayerInputDto playerInput)

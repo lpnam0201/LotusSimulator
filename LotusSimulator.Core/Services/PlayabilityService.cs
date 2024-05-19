@@ -79,14 +79,14 @@ namespace LotusSimulator.Core.Services
                     && game.CurrentTurn.IsMainPhase()
                     && game.CurrentTurn.Player == player)
                 {
-                    card.Playabilities.AddIfNotSame(Playability.PlayAsLand(player));
+                    card.Playabilities.AddIfNotSame(Playability.PlayAsLand(card.Id, player));
                 }
             }
             else if (card.IsInstant())
             {
                 if (player.HasPriority())
                 {
-                    card.Playabilities.AddIfNotSame(Playability.Cast(card.ManaCost, player));
+                    card.Playabilities.AddIfNotSame(Playability.Cast(card.Id, card.ManaCost, player));
                 }
             }
             else
@@ -96,7 +96,7 @@ namespace LotusSimulator.Core.Services
                     && game.CurrentTurn.IsMainPhase()
                     && game.CurrentTurn.Player == player)
                 {
-                    card.Playabilities.AddIfNotSame(Playability.Cast(card.ManaCost, player));
+                    card.Playabilities.AddIfNotSame(Playability.Cast(card.Id, card.ManaCost, player));
                 }
             }
         }

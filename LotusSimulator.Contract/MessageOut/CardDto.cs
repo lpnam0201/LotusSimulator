@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace LotusSimulator.Contract.MessageOut
 {
-    public class CardDto
+    public class CardDto : GameObjectDto
     {
-        public string OracleId { get; set; }
-        public bool IsRevealed { get; set; }
-        public string Id { get; set; }
-        public List<PlayabilityDto> Playabilities { get; set; } = new List<PlayabilityDto>();
+        
     }
 }

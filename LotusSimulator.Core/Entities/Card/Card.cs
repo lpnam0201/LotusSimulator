@@ -1,5 +1,6 @@
 ﻿using LotusSimulator.Core.Entities.Counters;
 using LotusSimulator.Core.Entities.GameObjects;
+using LotusSimulator.Core.Entities.Zones;
 
 namespace LotusSimulator.Core.Entities.Card
 {
@@ -16,7 +17,7 @@ namespace LotusSimulator.Core.Entities.Card
         public List<Playability.Playability> GrantedPlayabilities { get; set; } = new List<Playability.Playability>();
 
         public CardLogic.CardLogic CardLogic { get; set; }
-
+        public ICardZone CardZone { get; set; }
 
         public void Initialize()
         {

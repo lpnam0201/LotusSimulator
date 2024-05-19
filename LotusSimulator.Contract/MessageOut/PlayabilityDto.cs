@@ -11,6 +11,7 @@ namespace LotusSimulator.Contract.MessageOut
     {
         public string ObjectId { get; set; }
         public PlayabilityType Type { get; set; }
+        public string PlayableByPlayerId { get; set; }
         public string Text { get; set; }
         
     }

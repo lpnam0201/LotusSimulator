@@ -23,6 +23,8 @@ namespace LotusSimulator.Managers
         private readonly TurnService _turnService;
         private readonly PlayabilityService _playabilityService;
         private readonly IServiceProvider _serviceProvider;
+        private readonly PriorityService _priorityService;
+        private readonly StackService _stackService;
 
         public GameManager(GameStateService gameStateService,
             RandomService randomService,
@@ -32,7 +34,9 @@ namespace LotusSimulator.Managers
             LibraryService libraryService,
             TurnService turnService,
             PlayabilityService playabilityService,
-            IServiceProvider serviceProvider)
+            IServiceProvider serviceProvider,
+            PriorityService priorityService,
+            StackService stackService)
         {
             _gameStateService = gameStateService;
             _randomService = randomService;
@@ -43,6 +47,8 @@ namespace LotusSimulator.Managers
             _turnService = turnService;
             _playabilityService = playabilityService;
             _serviceProvider = serviceProvider;
+            _priorityService = priorityService;
+            _stackService = stackService;
         }
 
         public int AddPlayerToGame(string connectionId)
@@ -118,7 +124,7 @@ namespace LotusSimulator.Managers
             // Implement mulligan
             //var mulliganResult = await _gameStateService.SendMulliganOffer(_game.PlayerIds.Select(x => x.Key).ToList());
             await CreateFirstTurn();
-            await _turnService.RunTurn(_game.CurrentTurn);
+            await _turnService.AdvanceGameTurn(_game);
         }
 
         private async Task CreateFirstTurn()
@@ -165,26 +171,24 @@ namespace LotusSimulator.Managers
             return spell;
         }
 
-        public void PlayLand(Core.Entities.Card.Card card)
+        public async Task PassPriority(string connectionId)
         {
-            
-        }
+            // todo: validate player that passes priority
+            var player = _game.GetPlayerByConnectionId(connectionId);
 
-        private Permanent CardToPermanent()
-        {
-            return null;
-        }
+            await _priorityService.PassPriority(_game);
 
-        private bool CanPlayLand(Player player)
-        {
-            if (player.LandPlayed >= player.LandPlaysPerTurn)
+            if (_priorityService.IsAllPlayerPassedInSuccession(_game))
             {
-                return false;
+                if (!_game.Stack.IsEmpty())
+                {
+                    await _stackService.ResolveTop(_game);
+                }
+                else
+                {
+                    await _turnService.AdvanceGameTurn(_game);
+                }
             }
-
-            return true;
         }
-
-        
     }
 }

@@ -1,4 +1,5 @@
-﻿using LotusSimulator.Core.Entities.Event;
+﻿using LotusSimulator.Core.Entities.Card;
+using LotusSimulator.Core.Entities.Event;
 using LotusSimulator.Core.Entities.Players;
 using LotusSimulator.Core.Entities.Turn;
 using LotusSimulator.Core.Hooks;
@@ -28,6 +29,8 @@ namespace LotusSimulator.Entities
 
         public Player PriorityHolder { get; set; }
 
+        public int PassedPrioritiesWithNoAction { get; set; }
+
         public Core.Entities.Zones.Stack Stack { get; set; } = new Core.Entities.Zones.Stack();
 
         public IList<Player> Players { get; set; } = new List<Player>();
@@ -44,6 +47,26 @@ namespace LotusSimulator.Entities
         }
 
         // chat
+        public Player GetPlayerByConnectionId(string connectionId)
+        {
+            return Players.FirstOrDefault(x => x.ConnectionId == connectionId);
+        }
 
+        public Card FindCard(string id)
+        {
+            var cards = Players.SelectMany(x => x.Library.Cards)
+                .Concat(Players.SelectMany(x => x.Graveyard.Cards))
+                .Concat(Players.SelectMany(x => x.Hand.Cards))
+                .Concat(Players.SelectMany(x => x.Exile.Cards));
+
+            return cards.FirstOrDefault(x => x.Id == id);
+        }
+
+        public Permanent FindPermanent(string id)
+        {
+            var permanents = Players.SelectMany(x => x.Battlefield.Permanents);
+
+            return permanents.FirstOrDefault(x => x.Id == id);
+        }
     }
 }

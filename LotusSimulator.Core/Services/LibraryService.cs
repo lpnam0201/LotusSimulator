@@ -42,9 +42,9 @@ namespace LotusSimulator.Core.Services
             var cardsDrawn = library.Cards.Take(1).ToList();
             foreach (var card in cardsDrawn)
             {
-                player.Hand.Cards.Add(card);
+                player.Hand.Add(card);
+                library.Remove(card);
             }
-            library.Cards = library.Cards.Skip(1).ToList();
         }
     }
 }

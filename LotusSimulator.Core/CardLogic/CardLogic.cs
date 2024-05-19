@@ -12,15 +12,5 @@ namespace LotusSimulator.Core.CardLogic
         {
 
         }
-
-        public virtual void Cast(Entities.Card.Card card)
-        {
-
-        }
-
-        public virtual void Resolve()
-        {
-
-        }
     }
 }

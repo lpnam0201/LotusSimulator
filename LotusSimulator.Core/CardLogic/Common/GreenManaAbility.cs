@@ -1,4 +1,5 @@
 ﻿using LotusSimulator.Core.Entities.Abilities;
+using LotusSimulator.Core.Entities.Common;
 using LotusSimulator.Core.Entities.Mana;
 using LotusSimulator.Core.Services;
 using System;
@@ -23,10 +24,10 @@ namespace LotusSimulator.Core.CardLogic.Common
             _manaService = manaService;
         }
 
-        public override async Task Run(AbilityExecutionContext abilityExecutionContext)
+        public override async Task Resolve(StackObjectResolvingContext stackObjectResolvingContext)
         {
-            var permanent = abilityExecutionContext.Permanent;
-            var player = abilityExecutionContext.Player;
+            var permanent = stackObjectResolvingContext.Permanent;
+            var player = stackObjectResolvingContext.Player;
 
             await _permanentService.Tap(
                 new List<Entities.Card.Permanent>

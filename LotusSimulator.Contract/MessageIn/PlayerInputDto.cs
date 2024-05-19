@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LotusSimulator.Contract.MessageOut;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace LotusSimulator.Contract.MessageIn
 {
     public class PlayerInputDto
     {
-        public string Type { get; set; }
+        public PlayabilityDto Playability { get; set; }
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LotusSimulator.Core.Services
 {
-    public class BeginningPhaseRunner : IPhaseRunner
+    public class BeginningPhaseRunner : BasePhaseRunner, IPhaseRunner
     {
         private readonly StepRunnerFactory _stepRunnerFactory;
 
@@ -18,12 +18,9 @@ namespace LotusSimulator.Core.Services
 
         public async Task Run(Phase phase)
         {
-            foreach (var step in phase.Steps)
-            {
-                phase.CurrentStep = step;
-                var stepRunner = _stepRunnerFactory.CreateStepRunner(step.GetType());
-                await stepRunner.Run(step);
-            }
+            phase.CurrentStep = GetNextStep(phase);
+            var stepRunner = _stepRunnerFactory.CreateStepRunner(phase.CurrentStep.GetType());
+            await stepRunner.Run(phase.CurrentStep);
         }
     }
 }

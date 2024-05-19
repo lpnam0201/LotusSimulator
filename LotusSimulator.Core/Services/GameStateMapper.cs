@@ -46,28 +46,29 @@ namespace LotusSimulator.Core.Services
         public PlayabilityCollectionDto BuildPlayabilityCollectionDto(Game game, string connectionId)
         {
             var player = game.Players.FirstOrDefault(x => x.ConnectionId == connectionId);
-            var playabilities = player.Hand.Cards.SelectMany(x => x.Playabilities, (card, playability) => (card.Id, playability))
-                .Concat(player.Library.Cards.SelectMany(x => x.Playabilities, (card, playability) => (card.Id, playability))
-                .Concat(player.Graveyard.Cards.SelectMany(x => x.Playabilities, (card, playability) => (card.Id, playability))
-                .Concat(player.Exile.Cards.SelectMany(x => x.Playabilities, (card, playability) => (card.Id, playability))
-                .Concat(player.Battlefield.Permanents.SelectMany(x => x.Playabilities, (permanent, playability) => (permanent.Id, playability))))));
+            var playabilities = player.Hand.Cards.SelectMany(x => x.Playabilities)
+                .Concat(player.Library.Cards.SelectMany(x => x.Playabilities)
+                .Concat(player.Graveyard.Cards.SelectMany(x => x.Playabilities)
+                .Concat(player.Exile.Cards.SelectMany(x => x.Playabilities)
+                .Concat(player.Battlefield.Permanents.SelectMany(x => x.Playabilities)))));
 
             return new PlayabilityCollectionDto()
             {
                 ConnectionId = connectionId,
                 Playabilities = playabilities
-                    .Select(x => ToPlayabilityDto(x.Id, x.playability))
+                    .Select(x => ToPlayabilityDto(x))
                     .ToList(),
                 Slot = FỉndPlayerSlot(game, player)
             };
 
         }
 
-        private PlayabilityDto ToPlayabilityDto(string objectId, Playability playability)
+        private PlayabilityDto ToPlayabilityDto(Playability playability)
         {
             return new PlayabilityDto()
             {
-                ObjectId = objectId,
+                ObjectId = playability.AssociatedObjectId,
+                PlayableByPlayerId = playability.PlayableBy.ConnectionId,
                 Text = playability.Text,
                 Type = playability.Type
             };

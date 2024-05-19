@@ -2,6 +2,7 @@
 {
     public class GameStateDto
     {
+        public int? PriorityHolder { get; set; } = null;
         public IList<PlayerDto> Players { get; set; }
 
         public LibraryDto GetLibrary(int slot)

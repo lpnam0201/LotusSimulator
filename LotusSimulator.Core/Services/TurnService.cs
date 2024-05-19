@@ -1,5 +1,6 @@
 ﻿using LotusSimulator.Core.Entities.Players;
 using LotusSimulator.Core.Entities.Turn;
+using LotusSimulator.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,20 +12,52 @@ namespace LotusSimulator.Core.Services
     public class TurnService
     {
         private readonly PhaseRunnerFactory _phaseRunnerFactory;
+        private readonly TurnOrderService _turnOrderService;
 
-        public TurnService(PhaseRunnerFactory phaseRunnerFactory)
+        public TurnService(PhaseRunnerFactory phaseRunnerFactory, TurnOrderService turnOrderService)
         {
             _phaseRunnerFactory = phaseRunnerFactory;
+            _turnOrderService = turnOrderService;
         }
 
-        public async Task RunTurn(Turn turn)
+        public async Task AdvanceGameTurn(Game game)
         {
-            foreach (var phase in turn.Phases)
+            var phase = await GetNextPhase(game.CurrentTurn);
+
+            if (phase == null)
             {
-                turn.CurrentPhase = phase;
-                var phaseRunner = _phaseRunnerFactory.CreatePhaseRunner(phase.GetType());
-                await phaseRunner.Run(phase);
+                game.CurrentTurn = await GetNextTurn(game);
+                game.CurrentTurn.CurrentPhase = await GetNextPhase(game.CurrentTurn);
             }
+
+            var phaseRunner = _phaseRunnerFactory.CreatePhaseRunner(phase.GetType());
+            await phaseRunner.Run(phase);
+        }
+
+        private async Task<Turn> GetNextTurn(Game game)
+        {
+            var nextTurn = game.FutureTurns.FirstOrDefault();
+            game.FutureTurns.Remove(nextTurn);
+
+            if (nextTurn == null)
+            {
+                var nextPlayerForTurn = _turnOrderService.GetNextPlayerForTurn(game);
+                nextTurn = CreateTurn(nextPlayerForTurn);
+            }
+
+            return nextTurn;
+        }
+
+        private async Task<Phase> GetNextPhase(Turn turn)
+        {
+            var currentPhaseIdx = turn.Phases.IndexOf(turn.CurrentPhase);
+            if (currentPhaseIdx == turn.Phases.Count)
+            {
+                return null;
+            }
+
+            var nextPhaseIdx = currentPhaseIdx + 1;
+            return turn.Phases[nextPhaseIdx];
         }
 
         public Turn CreateTurn(Player forPlayer)

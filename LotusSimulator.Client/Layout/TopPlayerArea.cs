@@ -49,6 +49,8 @@ namespace LotusSimulator.Client.Layout
         private const int FirstSecondPlaneswalkerBattleGap = 10;
         private const int SecondPlaneswalkerAndBattleZoneDistFromTop = FirstPlaneswalkerAndBattleZoneDistFromTop + PlaneswalkerAndBattleZoneHeight + FirstSecondPlaneswalkerBattleGap;
 
+        private const int PriorityDistFromTop = 40;
+
         public int X { get; set; }
         public int Y { get; set; }
         public int Width { get; set; }
@@ -63,6 +65,8 @@ namespace LotusSimulator.Client.Layout
         private CreatureZone _creatureZone { get; set; } = new CreatureZone();
         private ArtifactEnchantmentZone _artifactEnchantmentZone { get; set; } = new ArtifactEnchantmentZone();
         private PlaneswalkerAndBattleZone _planeswalkerAndBattleZone { get; set; } = new PlaneswalkerAndBattleZone();
+        private LifeBar _lifeBar { get; set; } = new LifeBar();
+        private Priority _priority { get; set; } = new Priority();
 
         public void Draw(GameTime gameTime)
         {
@@ -76,12 +80,13 @@ namespace LotusSimulator.Client.Layout
             DrawExile(gameTime);
             DrawLandZone(gameTime);
             DrawArtifactEnchantmentZone(gameTime);
-
             DrawCreatureZone(gameTime, FirstCreatureZoneDistFromTop);
             DrawCreatureZone(gameTime, SecondCreatureZoneDistFromTop);
 
             DrawPlaneswalkerAndBattleZone(gameTime, FirstPlaneswalkerAndBattleZoneDistFromTop);
             DrawPlaneswalkerAndBattleZone(gameTime, SecondPlaneswalkerAndBattleZoneDistFromTop);
+
+            DrawPriority(gameTime);
         }
 
         private void DrawHand(GameTime gameTime)
@@ -165,6 +170,14 @@ namespace LotusSimulator.Client.Layout
             _exile.Draw(gameTime);
         }
 
+        private void DrawPriority(GameTime gameTime)
+        {
+            _priority.Slot = Slot;
+            _priority.X = 0;
+            _priority.Y = Y + PriorityDistFromTop;
+            _priority.Draw(gameTime);
+        }
+
         public void Update(GameTime gameTime)
         {
             _hand.Update(gameTime);
@@ -175,6 +188,7 @@ namespace LotusSimulator.Client.Layout
             _creatureZone.Update(gameTime);
             _artifactEnchantmentZone.Update(gameTime);
             _planeswalkerAndBattleZone.Update(gameTime);
+            _priority.Update(gameTime);
         }
     }
 }

@@ -20,5 +20,7 @@ namespace LotusSimulator.Client.GUIComponents.Screens
         {
 
         }
+
+        public abstract void Dispose();
     }
 }

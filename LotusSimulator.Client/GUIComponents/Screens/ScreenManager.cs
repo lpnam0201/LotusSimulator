@@ -14,6 +14,8 @@ namespace LotusSimulator.Client.GUIComponents.Screens
 
         public void SetScreenKind(ScreenKind screenKind)
         {
+            DisposeOldScreen(screenKind);
+
             _screenKind = screenKind;
             switch (screenKind)
             {
@@ -30,6 +32,14 @@ namespace LotusSimulator.Client.GUIComponents.Screens
                     return;
                 case ScreenKind.None:
                     return;
+            }
+        }
+
+        private void DisposeOldScreen(ScreenKind newScreenKind)
+        {
+            if (newScreenKind != _screenKind)
+            {
+                _currentScreen?.Dispose();
             }
         }
 

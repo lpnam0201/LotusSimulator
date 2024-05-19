@@ -17,6 +17,7 @@ namespace LotusSimulator.Client.GUIComponents.Screens
         private Label _labelP2 = new Label();
         private Label _labelStartGame = new Label();
         private Button _buttonStartGame = new Button();
+        private Grid _grid = new Grid();
 
         public override void Draw(GameTime gameTime)
         {
@@ -24,12 +25,12 @@ namespace LotusSimulator.Client.GUIComponents.Screens
             {
                 _isDrawn = true;
 
-                var grid = new Grid();
-                grid.Left = 0;
-                grid.Top = 0;
-                grid.RowsProportions.Add(new Proportion());
-                grid.RowsProportions.Add(new Proportion());
-                grid.RowsProportions.Add(new Proportion());
+                _grid = new Grid();
+                _grid.Left = 0;
+                _grid.Top = 0;
+                _grid.RowsProportions.Add(new Proportion());
+                _grid.RowsProportions.Add(new Proportion());
+                _grid.RowsProportions.Add(new Proportion());
 
                 _labelP1.Text = "P1";
                 _labelP1.Width = 100;
@@ -49,11 +50,11 @@ namespace LotusSimulator.Client.GUIComponents.Screens
                 _buttonStartGame.Click += ButtonStartGame_Click;
                 Grid.SetRow(_buttonStartGame, 2);
 
-                grid.Widgets.Add(_labelP1);
-                grid.Widgets.Add(_labelP2);
-                grid.Widgets.Add(_buttonStartGame);
+                _grid.Widgets.Add(_labelP1);
+                _grid.Widgets.Add(_labelP2);
+                _grid.Widgets.Add(_buttonStartGame);
 
-                GlobalInstances.Desktop.Root = grid;
+                GlobalInstances.Desktop.Root = _grid;
             }
         }
 
@@ -83,6 +84,15 @@ namespace LotusSimulator.Client.GUIComponents.Screens
             {
                 _labelP2.Text = $"Opponent {opponent.Nickname} slot: {opponent.Slot}";
             }
+        }
+
+        public override void Dispose()
+        {
+            _labelP1.RemoveFromDesktop();
+            _labelP2.RemoveFromDesktop();
+            _labelStartGame.RemoveFromDesktop();
+            _buttonStartGame.RemoveFromDesktop();
+            _grid.RemoveFromDesktop();
         }
     }
 }

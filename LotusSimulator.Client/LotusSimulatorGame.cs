@@ -62,6 +62,8 @@ namespace LotusSimulator.Client
 
             // TODO: use this.Content to load your game content here
             ContentTextures.MTGBack = GlobalInstances.ContentManager.Load<Texture2D>("mtg_card_back");
+            ContentTextures.Priority = GlobalInstances.ContentManager.Load<Texture2D>("priority");
+            ContentTextures.LifeBar = GlobalInstances.ContentManager.Load<Texture2D>("life_bar");
         }
 
         protected override void Update(GameTime gameTime)

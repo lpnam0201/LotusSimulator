@@ -19,6 +19,25 @@ namespace LotusSimulator.Core.Entities.Card
 
         public bool IsTapped { get; set; }
 
-        public Player Owner { get; set; }
+        public static Permanent FromCard(Card card, Player controller)
+        {
+            var permanent = new Permanent
+            {
+                Id = Guid.NewGuid().ToString(),
+                OracleId = card.OracleId,
+                Name = card.Name,
+                ManaCost = card.ManaCost,
+                Colors = card.Colors,
+                Types = card.Types,
+                SubTypes = card.SubTypes,
+                SuperTypes = card.SuperTypes,
+                Abilities = card.Abilities,
+                Controller = controller,
+                Owner = card.Owner,
+                Card = card
+            };
+
+            return permanent;
+        }
     }
 }

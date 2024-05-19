@@ -49,14 +49,14 @@
 /processorParam:TextureFormat=Color
 /build:Cards/b34bb2dc-c1af-4d77-b0b3-a0fb342a5fc6.jpg
 
-#begin File.spritefont
+#begin Arial.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
-/build:File.spritefont;LifeTotal.spritefont
+/build:Arial.spritefont;Arial.spritefont
 
-#begin forest.jpg
+#begin life_bar.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -66,7 +66,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:forest.jpg
+/build:life_bar.PNG
 
 #begin life_total.png
 /importer:TextureImporter
@@ -91,4 +91,16 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:mtg_card_back.PNG
+
+#begin priority.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:priority.png
 

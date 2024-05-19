@@ -10,6 +10,7 @@ namespace LotusSimulator.Client.Global
     public static class ContentTextures
     {
         public static Texture2D MTGBack { get; set; }
-        public static Texture2D Forest { get; set; }
+        public static Texture2D Priority { get; set; }
+        public static Texture2D LifeBar { get; set; }
     }
 }

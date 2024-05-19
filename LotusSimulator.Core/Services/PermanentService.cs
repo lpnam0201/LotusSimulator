@@ -1,5 +1,6 @@
 ﻿using LotusSimulator.Core.Entities.Card;
 using LotusSimulator.Core.Entities.Turn;
+using LotusSimulator.Core.Entities.Zones;
 using LotusSimulator.Core.Hooks;
 using LotusSimulator.Entities;
 using System;
@@ -56,6 +57,15 @@ namespace LotusSimulator.Core.Services
                 }
 
                 await ProcessUntappedHooks(permanent);
+            }
+        }
+
+        public async Task EntersBattlefield(List<Permanent> permanents, Battlefield battlefield)
+        {
+            foreach (var permanent in permanents)
+            {
+                // add hooks
+                battlefield.Add(permanent);
             }
         }
 

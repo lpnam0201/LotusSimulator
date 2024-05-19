@@ -26,6 +26,8 @@ namespace LotusSimulator.Client
         public static ModalService ModalService { get; set; } = new ModalService();
         public static GameStateDto GameState { get; set; }
         public static PlayabilityUpdateService PlayabilityUpdateService { get; set; } = new PlayabilityUpdateService();
+        public static CardChangeZoneUpdateService CardChangeZoneUpdateService { get; set; } = new CardChangeZoneUpdateService();
+        public static BattlefieldArrangeService BattlefieldArrangeService { get; set; } = new BattlefieldArrangeService();
         
     }
 }

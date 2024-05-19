@@ -40,5 +40,10 @@ namespace LotusSimulator.Client.GUIComponents.Screens
 
             _layout?.Update(gameTime);
         }
+
+        public override void Dispose()
+        {
+            
+        }
     }
 }

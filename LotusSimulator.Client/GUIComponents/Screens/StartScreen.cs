@@ -55,5 +55,10 @@ namespace LotusSimulator.Client.GUIComponents.Screens
         {
 
         }
+
+        public override void Dispose()
+        {
+            
+        }
     }
 }
