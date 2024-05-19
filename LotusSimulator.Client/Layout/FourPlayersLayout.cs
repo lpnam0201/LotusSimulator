@@ -42,7 +42,7 @@ namespace LotusSimulator.Client.Layout
 
         private void DrawTopPlayerArea(GameTime gameTime, int x)
         {
-            var topPlayer = new TopPlayerArea();
+            var topPlayer = new TopPlayerAreaZone();
             topPlayer.X = x;
             topPlayer.Y = TopPlayerDistFromTop;
 
@@ -54,7 +54,7 @@ namespace LotusSimulator.Client.Layout
 
         private void DrawBottomPlayerArea(GameTime gameTime, int x, int y)
         {
-            var bottomPlayer = new BottomPlayerArea();
+            var bottomPlayer = new BottomPlayerAreaZone();
             bottomPlayer.X = x;
             bottomPlayer.Y = BottomPlayerDistFromTop;
 

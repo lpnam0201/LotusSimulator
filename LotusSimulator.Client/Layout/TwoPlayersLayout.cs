@@ -11,13 +11,13 @@ namespace LotusSimulator.Client.Layout
 
         private const int BottomPlayerDistFromTop = PlayerAreaHeight + SeparatorHeight;
 
-        private TopPlayerArea _topPlayerArea;
-        private BottomPlayerArea _bottomPlayerArea;
+        private TopPlayerAreaZone _topPlayerArea;
+        private BottomPlayerAreaZone _bottomPlayerArea;
 
         public TwoPlayersLayout()
         {
-            _topPlayerArea = new TopPlayerArea();
-            _bottomPlayerArea = new BottomPlayerArea();
+            _topPlayerArea = new TopPlayerAreaZone();
+            _bottomPlayerArea = new BottomPlayerAreaZone();
         }
 
         public override void Draw(GameTime gameTime)

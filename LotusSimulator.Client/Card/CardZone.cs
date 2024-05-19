@@ -7,7 +7,7 @@ using System;
 
 namespace LotusSimulator.Client.Card
 {
-    public class Card : ICardIdentity
+    public class CardZone : ICardIdentity
     {
         public const int CardWidth = 50;
         public const int CardHeight = 70;

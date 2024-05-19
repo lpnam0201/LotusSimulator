@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace LotusSimulator.Client.Hand
 {
-    public class Hand : IPlayerIdentity
+    public class HandZone : IPlayerIdentity
     {
         private const int DistanceBetweenCards = 10;
 
@@ -15,7 +15,7 @@ namespace LotusSimulator.Client.Hand
         public int Height { get; set; }
         public int Slot { get; set; }
 
-        public IList<Card.Card> Cards { get; set; } = new List<Card.Card>();
+        public IList<Card.CardZone> Cards { get; set; } = new List<Card.CardZone>();
 
         public void Draw(GameTime gameTime)
         {
@@ -26,14 +26,14 @@ namespace LotusSimulator.Client.Hand
 
             var numberOfCards = Cards.Count;
             var numberOfGaps = Cards.Count - 1;
-            var totalWidth = numberOfCards * Card.Card.CardWidth + numberOfGaps * DistanceBetweenCards;
+            var totalWidth = numberOfCards * Card.CardZone.CardWidth + numberOfGaps * DistanceBetweenCards;
 
             var firstCardX = X + (Width - totalWidth) / 2;
 
             for (var i = 0; i < Cards.Count; i++)
             {
                 var card = Cards[i];
-                card.X = firstCardX + i * Card.Card.CardWidth + i * DistanceBetweenCards;
+                card.X = firstCardX + i * Card.CardZone.CardWidth + i * DistanceBetweenCards;
                 card.Y = Y;
                 card.Draw(gameTime);
             }
@@ -46,7 +46,7 @@ namespace LotusSimulator.Client.Hand
             var libraryDto = GlobalInstances.GameState.GetHand(Slot);
             foreach (var cardDto in libraryDto.Cards)
             {
-                var card = new Card.Card();
+                var card = new Card.CardZone();
                 card.Id = cardDto.Id;
                 card.OracleId = cardDto.OracleId;
                 card.IsRevealed = cardDto.IsRevealed;

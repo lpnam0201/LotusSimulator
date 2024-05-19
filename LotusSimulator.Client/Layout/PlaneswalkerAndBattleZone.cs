@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace LotusSimulator.Client.Layout
 {
-    internal class PlaneswalkerAndBattleZone : IPlayerIdentity
+    public class PlaneswalkerAndBattleZone : IPlayerIdentity
     {
         private const int NavigationArrowWidth = 20;
         private const int NumberOfPermanentZones = 2;
