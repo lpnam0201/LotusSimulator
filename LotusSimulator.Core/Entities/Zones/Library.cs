@@ -1,4 +1,5 @@
-﻿using LotusSimulator.Core.Entities.Players;
+﻿using LotusSimulator.Contract.Constants;
+using LotusSimulator.Core.Entities.Players;
 
 namespace LotusSimulator.Core.Entities.Zones
 {
@@ -6,6 +7,7 @@ namespace LotusSimulator.Core.Entities.Zones
     {
         public Player Player { get; set; }
         public List<Card.Card> Cards { get; set; } = new List<Card.Card>();
+        public GameObjectZone Zone => GameObjectZone.Library;
 
         public void Add(Card.Card card)
         {

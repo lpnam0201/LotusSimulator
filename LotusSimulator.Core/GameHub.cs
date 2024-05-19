@@ -48,5 +48,11 @@ namespace LotusSimulator
             var gameManager = _gameContainer.GameManagers.First(x => x.GetGameId() == passPriority.GameId);
             await gameManager.PassPriority(Context.ConnectionId);
         }
+
+        public async Task PlayerInput(PlayerInputDto playerInput)
+        {
+            var gameManager = _gameContainer.GameManagers.First(x => x.GetGameId() == playerInput.GameId);
+            await gameManager.PlayerInput(playerInput);
+        }
     }
 }

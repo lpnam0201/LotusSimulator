@@ -21,5 +21,17 @@ namespace LotusSimulator.Client.Services
                 permanent?.Playabilities.AddIfNotExists(playability);
             }
         }
+
+        public GameObjectDto GetGameObject(string id)
+        {
+            var card = GlobalInstances.GameDisplayModel.GameState.GetCard(id);
+            if (card != null)
+            {
+                return card;
+            }
+
+            var permanent = GlobalInstances.GameDisplayModel.GameState.GetPermanent(id);
+            return permanent;
+        }
     }
 }

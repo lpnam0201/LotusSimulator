@@ -1,4 +1,6 @@
-﻿using LotusSimulator.Contract.MessageOut;
+﻿using LotusSimulator.Contract.Constants;
+using LotusSimulator.Contract.MessageOut;
+using LotusSimulator.Core.Entities.GameObjects;
 using LotusSimulator.Core.Entities.Playability;
 using LotusSimulator.Core.Entities.Players;
 using LotusSimulator.Core.Entities.Zones;
@@ -13,6 +15,39 @@ namespace LotusSimulator.Core.Services
 {
     public class GameStateMapper
     {
+        public CardChangeZoneDto BuildCardChangeZoneDto(
+            GameObject srcObject,
+            GameObjectZone srcZone,
+            string srcPlayerId,
+            GameObject destObject,
+            GameObjectZone destZone,
+            string destPlayerId)
+        {
+            return new CardChangeZoneDto
+            {
+                From = new CardLocationDto
+                {
+                    Object = new GameObjectChangeZoneDto
+                    {
+                        Id = srcObject.Id,
+                        OracleId = srcObject.OracleId
+                    },
+                    Zone = srcZone,
+                    PlayerId = srcPlayerId
+                },
+                To = new CardLocationDto
+                {
+                    Object = new GameObjectChangeZoneDto
+                    {
+                        Id = destObject.Id,
+                        OracleId = destObject.OracleId
+                    },
+                    Zone = destZone,
+                    PlayerId = destPlayerId
+                }
+            };
+        }
+
         public GameStateCollectionDto BuildGameStateCollection(Game game)
         {
             var gameStateCollection = new GameStateCollectionDto();

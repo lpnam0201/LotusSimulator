@@ -1,4 +1,5 @@
 ﻿using LotusSimulator.Client.Global;
+using LotusSimulator.Contract.MessageIn;
 using Microsoft.Xna.Framework;
 using Myra.Graphics2D;
 using Myra.Graphics2D.UI;
@@ -10,37 +11,27 @@ using System.Threading.Tasks;
 
 namespace LotusSimulator.Client.Layout
 {
-    public class Priority : IPlayerIdentity
+    public class Priority
     {
         public int X { get; set; }
         public int Y { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
-        public string ConnectionId { get; set; }
 
         private bool _isDraw;
-        private bool _shouldDraw;
         private Button _button = new Button();
 
         public void Draw(GameTime gameTime)
         {
-            if (!_shouldDraw)
-            {
-                if (_button.Desktop != null)
-                {
-                    _button.RemoveFromDesktop();
-                }
-                return;
-            }
-
-            if (!_isDraw && _shouldDraw)
+            if (!_isDraw)
             {
                 _isDraw = true;
-                
-                _button.Top = X;
-                _button.Left = Y;
+
+                _button.Left = X;
+                _button.Top = Y;
                 _button.Width = 100;
                 _button.Height = 30;
+                _button.Click += PassPriority_Click;
 
                 var label = new Label();
                 label.Text = "Pass priority";
@@ -49,15 +40,23 @@ namespace LotusSimulator.Client.Layout
             }
         }
 
+        private void PassPriority_Click(object sender, EventArgs e)
+        {
+            GlobalInstances.GameStateService.PassPriority(new PassPriorityDto
+            {
+                GameId = GlobalInstances.GamePreparationState.GameId
+            }).GetAwaiter().GetResult();
+        }
+
         public void Update(GameTime gameTime)
         {
-            if (GlobalInstances.GameDisplayModel.GameState.PriorityHolder == ConnectionId)
+            if (GlobalInstances.GameDisplayModel.GameState.PriorityHolder == GlobalInstances.GameDisplayModel.YourConnectionId)
             {
-                _shouldDraw = true;
+                _button.Visible = true;
             }
             else
             {
-                _shouldDraw = false;
+                _button.Visible = false;
             }
         }
     }

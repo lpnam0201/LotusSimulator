@@ -18,9 +18,18 @@ namespace LotusSimulator.Core.Services
 
         public async Task Run(Phase phase)
         {
-            phase.CurrentStep = GetNextStep(phase);
-            var stepRunner = _stepRunnerFactory.CreateStepRunner(phase.CurrentStep.GetType());
-            await stepRunner.Run(phase.CurrentStep);
+            do
+            {
+                phase.CurrentStep = GetNextStep(phase);
+
+                var stepRunner = _stepRunnerFactory.CreateStepRunner(phase.CurrentStep.GetType());
+                await stepRunner.Run(phase.CurrentStep);
+            } while (ShouldAutomaticallyAdvance(phase.CurrentStep));
+        }
+
+        private bool ShouldAutomaticallyAdvance(Step step)
+        {
+            return step is UntapStep;
         }
     }
 }

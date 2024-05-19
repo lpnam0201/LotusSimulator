@@ -9,6 +9,7 @@ namespace LotusSimulator.Contract.MessageIn
 {
     public class PlayerInputDto
     {
+        public string GameId { get; set; }
         public PlayabilityDto Playability { get; set; }
     }
 }

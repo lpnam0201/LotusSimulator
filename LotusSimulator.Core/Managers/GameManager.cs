@@ -1,5 +1,6 @@
 ﻿using LotusSimulator.Cards.F;
 using LotusSimulator.Cards.L;
+using LotusSimulator.Contract.MessageIn;
 using LotusSimulator.Contract.MessageOut;
 using LotusSimulator.Core.Entities.Card;
 using LotusSimulator.Core.Entities.Players;
@@ -26,6 +27,7 @@ namespace LotusSimulator.Managers
         private readonly PriorityService _priorityService;
         private readonly StackService _stackService;
         private readonly TurnOrderService _turnOrderService;
+        private readonly PlayerInputService _playerInputService;
 
         public GameManager(GameStateService gameStateService,
             RandomService randomService,
@@ -38,7 +40,8 @@ namespace LotusSimulator.Managers
             IServiceProvider serviceProvider,
             PriorityService priorityService,
             StackService stackService,
-            TurnOrderService turnOrderService)
+            TurnOrderService turnOrderService,
+            PlayerInputService playerInputService)
         {
             _gameStateService = gameStateService;
             _randomService = randomService;
@@ -52,6 +55,7 @@ namespace LotusSimulator.Managers
             _priorityService = priorityService;
             _stackService = stackService;
             _turnOrderService = turnOrderService;
+            _playerInputService = playerInputService;
         }
 
         public void AddPlayerToGame(string connectionId)
@@ -61,7 +65,6 @@ namespace LotusSimulator.Managers
             player.ConnectionId = connectionId;
             _game.PlayerIds.Add(connectionId, player);
             _game.Players.Add(player);
-
         }
 
         public string GetGameId()
@@ -95,6 +98,7 @@ namespace LotusSimulator.Managers
                     forest.CardLogic = (Forest)_serviceProvider.GetService(typeof(Forest));
                     forest.Owner = player;
                     forest.Controller = player;
+                    forest.Id = Guid.NewGuid().ToString();
                     forest.CardLogic.CopyStatsToCard(forest);
 
                     player.Library.Cards.Add(forest);
@@ -102,7 +106,8 @@ namespace LotusSimulator.Managers
                     var elf = new Card();
                     elf.CardLogic = (LlanowarElves)_serviceProvider.GetService(typeof(LlanowarElves));
                     elf.Owner = player;
-                    forest.Controller = player;
+                    elf.Controller = player;
+                    elf.Id = Guid.NewGuid().ToString();
                     elf.CardLogic.CopyStatsToCard(elf);
                     
 
@@ -180,10 +185,13 @@ namespace LotusSimulator.Managers
             // todo: validate player that passes priority
             var player = _game.GetPlayerByConnectionId(connectionId);
 
+            var priorityHolder = _game.PriorityHolder;
             await _priorityService.PassPriority(_game);
+
 
             if (_priorityService.IsAllPlayerPassedInSuccession(_game))
             {
+                _game.PassedPrioritiesWithNoAction = 0;
                 if (!_game.Stack.IsEmpty())
                 {
                     await _stackService.ResolveTop(_game);
@@ -193,6 +201,17 @@ namespace LotusSimulator.Managers
                     await _turnService.AdvanceGameTurn(_game);
                 }
             }
+            else
+            {
+                var nextPlayerForPriority = _turnOrderService.GetNextPlayerForPriority(_game, priorityHolder);
+
+                await _priorityService.GrantPriority(nextPlayerForPriority);
+            }
+        }
+
+        public async Task PlayerInput(PlayerInputDto playerInput)
+        {
+            await _playerInputService.Dispatch(playerInput, _game);
         }
     }
 }

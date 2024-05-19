@@ -54,7 +54,6 @@ namespace LotusSimulator.Client.Layout
         private ArtifactEnchantmentZone _artifactEnchantmentZone { get; set; } = new ArtifactEnchantmentZone();
         private PlaneswalkerAndBattleZone _planeswalkerAndBattleZone { get; set; } = new PlaneswalkerAndBattleZone();
         private LifeBar _lifeBar { get; set; } = new LifeBar();
-        private Priority _priority { get; set; } = new Priority();
 
         public void Draw(GameTime gameTime)
         {
@@ -69,8 +68,6 @@ namespace LotusSimulator.Client.Layout
             DrawLandZone(gameTime);
             DrawArtifactEnchantmentZone(gameTime);
             DrawCreaturePlaneswalkerBattleZone(gameTime, CreaturePlaneswalkerBattleZoneDistFromTop);
-
-            DrawPriority(gameTime);
         }
 
         private void DrawHand(GameTime gameTime)
@@ -134,13 +131,6 @@ namespace LotusSimulator.Client.Layout
             _exile.Draw(gameTime);
         }
 
-        private void DrawPriority(GameTime gameTime)
-        {
-            _priority.X = 0;
-            _priority.Y = Y + PriorityDistFromTop;
-            _priority.Draw(gameTime);
-        }
-
         public void Update(GameTime gameTime)
         {
             _hand.ConnectionId = ConnectionId;
@@ -166,9 +156,6 @@ namespace LotusSimulator.Client.Layout
 
             _planeswalkerAndBattleZone.ConnectionId = ConnectionId;
             _planeswalkerAndBattleZone.Update(gameTime);
-
-            _priority.ConnectionId = ConnectionId;
-            _priority.Update(gameTime);
         }
     }
 }

@@ -12,7 +12,6 @@ namespace LotusSimulator.Client.Services
     public class GameStateService
     {
         private HubConnection _hubConnection;
-        private bool _isInitialized = false;
 
         private async Task EnsureServerConnectedAsync()
         {
@@ -119,14 +118,14 @@ namespace LotusSimulator.Client.Services
             GlobalInstances.ScreenManager.SetScreenKind(ScreenKind.MainGame);
         }
 
-        public async void PassPriority(PassPriorityDto passPriority)
+        public async Task PassPriority(PassPriorityDto passPriority)
         {
             await _hubConnection.SendAsync(Constants.PassPriorityMethod, passPriority);
         }
 
-        public void SendPlayerInputAsync(PlayerInputDto playerInput)
+        public async Task SendPlayerInputAsync(PlayerInputDto playerInput)
         {
-            //_hubConnection.InvokeAsync()
+            await _hubConnection.SendAsync(Constants.PlayerInputMethod, playerInput);
         }
     }
 }

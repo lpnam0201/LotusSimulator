@@ -39,8 +39,6 @@ namespace LotusSimulator.Client.Layout
         private const int DeckDistFromLeft = 820;
         private const int DeckDistFromTop = GraveyardDistFromTop + 70 + DeckGraveyardGap;
 
-        private const int PriorityDistFromTop = 400;
-
         public int X { get; set; }
         public int Y { get; set; }
         public int Width { get; set; }
@@ -54,7 +52,6 @@ namespace LotusSimulator.Client.Layout
         private LandZone _landZone { get; set; } = new LandZone();
         private CreaturePlaneswalkerBattleZone _creaturePlaneswalkerBattleZone { get; set; } = new CreaturePlaneswalkerBattleZone();
         private ArtifactEnchantmentZone _artifactEnchantmentZone { get; set; } = new ArtifactEnchantmentZone();
-        //private PlaneswalkerAndBattleZone _planeswalkerAndBattleZone { get; set; } = new PlaneswalkerAndBattleZone();
         private Priority _priority { get; set; } = new Priority();
 
         public void Draw(GameTime gameTime)
@@ -69,9 +66,6 @@ namespace LotusSimulator.Client.Layout
             DrawExile(gameTime);
             DrawLandZone(gameTime);
             DrawArtifactEnchantmentZone(gameTime);
-
-            //DrawPlaneswalkerAndBattleZone(gameTime, FirstPlaneswalkerAndBattleZoneDistFromTop, 0);
-            //DrawPlaneswalkerAndBattleZone(gameTime, SecondPlaneswalkerAndBattleZoneDistFromTop, 2);
 
             DrawCreaturePlaneswalkerBattleZone(gameTime);
             DrawPriority(gameTime);
@@ -161,15 +155,13 @@ namespace LotusSimulator.Client.Layout
             _creaturePlaneswalkerBattleZone.ConnectionId = ConnectionId;
             _creaturePlaneswalkerBattleZone.Update(gameTime);
 
-            _priority.ConnectionId = ConnectionId;
             _priority.Update(gameTime);
         }
 
         private void DrawPriority(GameTime gameTime)
         {
-            _priority.ConnectionId = ConnectionId;
-            _priority.X = 0;
-            _priority.Y = Y + PriorityDistFromTop;
+            _priority.X = X + 500;
+            _priority.Y = Y + LandZoneDistFromTop + LandZoneHeight + 10;
             _priority.Draw(gameTime);
         }
 

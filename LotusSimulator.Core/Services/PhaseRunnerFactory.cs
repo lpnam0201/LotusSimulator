@@ -12,7 +12,8 @@ namespace LotusSimulator.Core.Services
         private readonly IServiceProvider _serviceProvider;
         private readonly IDictionary<Type, Type> _phaseTypeAndPhaseRunnerDictionary = new Dictionary<Type, Type>
         {
-            {typeof(BeginningPhase), typeof(BeginningPhaseRunner) }
+            {typeof(BeginningPhase), typeof(BeginningPhaseRunner) },
+            {typeof(PreCombatMainPhase), typeof(PreCombatMainPhaseRunner)},
         };
 
         public PhaseRunnerFactory(IServiceProvider serviceProvider)

@@ -12,6 +12,7 @@ namespace LotusSimulator.Contract.Constants
         Battlefield,
         Library,
         Graveyard,
-        Exile
+        Exile,
+        Command
     }
 }

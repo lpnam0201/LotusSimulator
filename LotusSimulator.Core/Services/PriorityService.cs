@@ -15,12 +15,14 @@ namespace LotusSimulator.Core.Services
         private readonly PlayabilityService _playabilityService;
         private readonly GameStateService _gameStateService;
         private readonly TurnOrderService _turnOrderService;
+        private readonly GameStateMapper _gameStateMapper;
 
-        public PriorityService(PlayabilityService playableActionService, GameStateService gameStateService, TurnOrderService turnOrderService)
+        public PriorityService(PlayabilityService playableActionService, GameStateService gameStateService, TurnOrderService turnOrderService, GameStateMapper gameStateMapper)
         {
             _playabilityService = playableActionService;
             _gameStateService = gameStateService;
             _turnOrderService = turnOrderService;
+            _gameStateMapper = gameStateMapper;
         }
 
         public async Task GrantPriority(Player player)
@@ -29,6 +31,9 @@ namespace LotusSimulator.Core.Services
             game.PriorityHolder = player;
 
             await _playabilityService.SetPlayabilityAllPlayers(game);
+            var playabilityCollection = _gameStateMapper.BuildPlayabilityCollectionDto(game, player.ConnectionId);
+            await _gameStateService.SendPlayabilityUpdate(playabilityCollection);
+
             var priorityConnectionId = game.Players.FirstOrDefault(x => x == game.PriorityHolder).ConnectionId;
             await _gameStateService.SendPriorityUpdate(new PriorityUpdateDto
             {
@@ -38,10 +43,8 @@ namespace LotusSimulator.Core.Services
 
         public async Task PassPriority(Game game)
         {
-            var nextPlayerForPriority = _turnOrderService.GetNextPlayerForPriority(game);
+            game.PriorityHolder = null;
             game.PassedPrioritiesWithNoAction += 1;
-
-            await GrantPriority(nextPlayerForPriority);
         }
 
         public bool IsAllPlayerPassedInSuccession(Game game)

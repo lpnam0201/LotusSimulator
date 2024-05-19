@@ -19,7 +19,7 @@ namespace LotusSimulator.Core.Entities.Players
         public ManaPool ManaPool { get; set; } = new ManaPool();
         public Game Game { get; set; }
         public int LandPlayed { get; set; }
-        public int LandPlaysPerTurn { get; set; }
+        public int LandPlaysPerTurn { get; set; } = 1;
 
         public bool HasPriority()
         {

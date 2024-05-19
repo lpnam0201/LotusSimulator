@@ -1,4 +1,5 @@
 ﻿using LotusSimulator.Client.Global;
+using LotusSimulator.Client.GUIComponents.ContextMenu;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -23,43 +24,21 @@ namespace LotusSimulator.Client.Card
 
         public void Update(GameTime gameTime)
         {
-
-            //var mouseState = Mouse.GetState();
-            //if (mouseState.RightButton == ButtonState.Pressed
-            //    && IsInHitBox(mouseState))
-            //{
-            //    if (GlobalInstances.Desktop.ContextMenu == null
-            //        && GlobalInstances.Desktop.TouchPosition != null)
-            //    {
-            //        var container = new VerticalStackPanel
-            //        {
-            //            Spacing = 4
-            //        };
-
-            //        var menuItem1 = new MenuItem();
-            //        menuItem1.Text = "Start New Game";
-            //        menuItem1.Selected += (s, a) =>
-            //        {
-            //            Console.WriteLine("CLICKED");
-            //        };
-
-            //        var menuItem2 = new MenuItem();
-            //        menuItem2.Text = "Options";
-
-            //        var menuItem3 = new MenuItem();
-            //        menuItem3.Text = "Quit";
-
-            //        var verticalMenu = new VerticalMenu();
-
-            //        verticalMenu.Items.Add(menuItem1);
-            //        verticalMenu.Items.Add(menuItem2);
-            //        verticalMenu.Items.Add(menuItem3);
-
-            //        container.Widgets.Add(verticalMenu);
-
-            //        GlobalInstances.Desktop.ShowContextMenu(container, GlobalInstances.Desktop.TouchPosition.Value);
-            //    }
-            //};
+            var mouseState = Mouse.GetState();
+            if (mouseState.RightButton == ButtonState.Pressed
+                && IsInHitBox(mouseState))
+            {
+                if (GlobalInstances.Desktop.ContextMenu == null
+                    && GlobalInstances.Desktop.TouchPosition != null)
+                {
+                    var gameObject = GlobalInstances.PlayabilityUpdateService.GetGameObject(Id);
+                    if (gameObject.Playabilities.Count > 0)
+                    {
+                        var contextMenu = new PlayabilityContextMenu(gameObject.Playabilities);
+                        contextMenu.Show();
+                    }
+                }
+            };
         }
 
         private bool IsInHitBox(MouseState mouseState)

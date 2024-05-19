@@ -30,11 +30,6 @@ namespace LotusSimulator.Core.Services
             await _libraryService.Draw(player);
 
             await _priorityService.GrantPriority(player);
-
-            var playabilityCollection = _gameStateMapper.BuildPlayabilityCollectionDto(game, player.ConnectionId);
-            await _gameStateService.SendPlayabilityUpdate(playabilityCollection);
-
-            //await _gameStateService.SendPriorityUpdate();
         }
     }
 }

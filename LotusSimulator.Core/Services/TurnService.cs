@@ -27,8 +27,10 @@ namespace LotusSimulator.Core.Services
             if (phase == null)
             {
                 game.CurrentTurn = await GetNextTurn(game);
-                game.CurrentTurn.CurrentPhase = await GetNextPhase(game.CurrentTurn);
+                phase = await GetNextPhase(game.CurrentTurn);
             }
+
+            game.CurrentTurn.CurrentPhase = phase;
 
             var phaseRunner = _phaseRunnerFactory.CreatePhaseRunner(phase.GetType());
             await phaseRunner.Run(phase);

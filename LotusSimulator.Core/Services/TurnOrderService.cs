@@ -11,9 +11,9 @@ namespace LotusSimulator.Core.Services
 {
     public class TurnOrderService
     {
-        public Player GetNextPlayerForPriority(Game game)
+        public Player GetNextPlayerForPriority(Game game, Player currentPriorityHolder)
         {
-            var currentPlayerIndex = game.TurnOrderIds.IndexOf(game.PriorityHolder.ConnectionId);
+            var currentPlayerIndex = game.TurnOrderIds.IndexOf(currentPriorityHolder.ConnectionId);
 
             var nextIndex = (currentPlayerIndex + 1) % game.TurnOrderIds.Count;
             var connectionId = game.TurnOrderIds[nextIndex];
