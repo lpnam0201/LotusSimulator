@@ -1,5 +1,6 @@
 ﻿using LotusSimulator.Client.Authorization;
 using LotusSimulator.Client.GUIComponents.Screens;
+using LotusSimulator.Client.Models;
 using LotusSimulator.Client.Services;
 using LotusSimulator.Contract.MessageOut;
 using Microsoft.Xna.Framework.Content;
@@ -24,7 +25,7 @@ namespace LotusSimulator.Client
         public static ScreenManager ScreenManager { get; set; }
         public static GamePreparationState GamePreparationState { get; set; } = new GamePreparationState();
         public static ModalService ModalService { get; set; } = new ModalService();
-        public static GameStateDto GameState { get; set; }
+        public static GameDisplayModel GameDisplayModel { get; set; } = new GameDisplayModel();
         public static PlayabilityUpdateService PlayabilityUpdateService { get; set; } = new PlayabilityUpdateService();
         public static CardChangeZoneUpdateService CardChangeZoneUpdateService { get; set; } = new CardChangeZoneUpdateService();
         public static BattlefieldArrangeService BattlefieldArrangeService { get; set; } = new BattlefieldArrangeService();

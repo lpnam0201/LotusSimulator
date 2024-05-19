@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using LotusSimulator.Client.Models;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
@@ -15,7 +16,12 @@ namespace LotusSimulator.Client.Layout
         {
             for (int i = 0; i < NumberOfPermanentZones; i++)
             {
-                Permanents.Add(new PermanentZone());
+                Permanents.Add(new PermanentZone()
+                {
+                    DisplayZone = DisplayZone.ArtifactEnchantment,
+                    ConnectionId = ConnectionId,
+                    Index = PermanentBeginIndex
+                });
             }
         }
 
@@ -23,7 +29,8 @@ namespace LotusSimulator.Client.Layout
         public int Y { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
-        public int Slot { get; set; }
+        public string ConnectionId { get; set; }
+        public int PermanentBeginIndex { get; set; }
 
         public void Draw(GameTime gameTime)
         {

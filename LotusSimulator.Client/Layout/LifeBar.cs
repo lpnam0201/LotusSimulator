@@ -9,7 +9,7 @@ namespace LotusSimulator.Client.Layout
         public int Y { get; set; }
         public int Width { get; set; } = 40;
         public int Height { get; set; } = 100;
-        public int Slot { get; set; }
+        public string ConnectionId { get; set; }
 
         public void Draw(GameTime gameTime)
         {

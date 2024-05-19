@@ -21,6 +21,7 @@ namespace LotusSimulator.Core.Services
                 var connectionId = kvp.Key;
                 var gameState = new GameStateDto();
                 gameState.Players = new List<PlayerDto>();
+                gameState.TurnOrderConnectionIds = game.TurnOrderIds;
 
                 foreach (var player in game.Players)
                 {
@@ -33,7 +34,7 @@ namespace LotusSimulator.Core.Services
                     {
                         playerDto = MapForPlayerStrangerView(player);
                     }
-                    playerDto.Slot = FỉndPlayerSlot(game, player);
+                    playerDto.Id = player.ConnectionId;
                     gameState.Players.Add(playerDto);
                 }
 
@@ -57,8 +58,7 @@ namespace LotusSimulator.Core.Services
                 ConnectionId = connectionId,
                 Playabilities = playabilities
                     .Select(x => ToPlayabilityDto(x))
-                    .ToList(),
-                Slot = FỉndPlayerSlot(game, player)
+                    .ToList()
             };
 
         }
@@ -72,12 +72,6 @@ namespace LotusSimulator.Core.Services
                 Text = playability.Text,
                 Type = playability.Type
             };
-        }
-
-        private int FỉndPlayerSlot(Game game, Player player)
-        {
-            var slot = game.PlayerSlots.First(x => x.Value.ConnectionId == player.ConnectionId).Key;
-            return slot;
         }
 
         private PlayerDto MapForPlayerOwnView(Player player)

@@ -13,7 +13,7 @@ namespace LotusSimulator.Client.Hand
         public int Y { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
-        public int Slot { get; set; }
+        public string ConnectionId { get; set; }
 
         public IList<Card.CardZone> Cards { get; set; } = new List<Card.CardZone>();
 
@@ -43,8 +43,8 @@ namespace LotusSimulator.Client.Hand
         {
             Cards.Clear();
 
-            var libraryDto = GlobalInstances.GameState.GetHand(Slot);
-            foreach (var cardDto in libraryDto.Cards)
+            var handDto = GlobalInstances.GameDisplayModel.GameState.GetHand(ConnectionId);
+            foreach (var cardDto in handDto.Cards)
             {
                 var card = new Card.CardZone();
                 card.Id = cardDto.Id;

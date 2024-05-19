@@ -25,6 +25,7 @@ namespace LotusSimulator.Managers
         private readonly IServiceProvider _serviceProvider;
         private readonly PriorityService _priorityService;
         private readonly StackService _stackService;
+        private readonly TurnOrderService _turnOrderService;
 
         public GameManager(GameStateService gameStateService,
             RandomService randomService,
@@ -36,7 +37,8 @@ namespace LotusSimulator.Managers
             PlayabilityService playabilityService,
             IServiceProvider serviceProvider,
             PriorityService priorityService,
-            StackService stackService)
+            StackService stackService,
+            TurnOrderService turnOrderService)
         {
             _gameStateService = gameStateService;
             _randomService = randomService;
@@ -49,9 +51,10 @@ namespace LotusSimulator.Managers
             _serviceProvider = serviceProvider;
             _priorityService = priorityService;
             _stackService = stackService;
+            _turnOrderService = turnOrderService;
         }
 
-        public int AddPlayerToGame(string connectionId)
+        public void AddPlayerToGame(string connectionId)
         {
             var player = new Player();
             player.Game = _game;
@@ -59,7 +62,6 @@ namespace LotusSimulator.Managers
             _game.PlayerIds.Add(connectionId, player);
             _game.Players.Add(player);
 
-            return AssignPlayerToGameSlot(player);
         }
 
         public string GetGameId()
@@ -67,20 +69,21 @@ namespace LotusSimulator.Managers
             return _game.Id;
         }
 
-        private int AssignPlayerToGameSlot(Player player)
-        {
-            KeyValuePair<int, Player>? firstEmptySlot = _game.PlayerSlots.Any(x => x.Value == null)
-                ? _game.PlayerSlots.First(x => x.Value == null)
-                : null;
-            if (firstEmptySlot != null)
-            {
-                var slot = firstEmptySlot.Value.Key;
-                _game.PlayerSlots[slot] = player;
-                return slot;
-            }
+        //private int AssignPlayerToGameSlot(Player player)
+        //{
 
-            throw new NotImplementedException();
-        }
+        //    KeyValuePair<int, Player>? firstEmptySlot = _game.PlayerSlots.Any(x => x.Value == null)
+        //        ? _game.PlayerSlots.First(x => x.Value == null)
+        //        : null;
+        //    if (firstEmptySlot != null)
+        //    {
+        //        var slot = firstEmptySlot.Value.Key;
+        //        _game.PlayerSlots[slot] = player;
+        //        return slot;
+        //    }
+
+        //    throw new NotImplementedException();
+        //}
 
         private void InitializeLibrary()
         {
@@ -140,6 +143,7 @@ namespace LotusSimulator.Managers
             var goFirstIndex = _randomService.RandomInt(playerCount);
 
             _game.PlayerGoFirst = _game.Players[goFirstIndex];
+            _turnOrderService.SetTurnOrder(_game, _game.PlayerGoFirst.ConnectionId);
         }
 
 

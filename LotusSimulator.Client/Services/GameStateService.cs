@@ -29,7 +29,7 @@ namespace LotusSimulator.Client.Services
                 _hubConnection.On(Constants.MulliganOfferMethod, MulliganOfferedHandler);
                 _hubConnection.On<PlayabilityCollectionDto>(Constants.PlayabilityUpdateMethod, PlayabilityUpdateHandler);
                 _hubConnection.On<PriorityUpdateDto>(Constants.PriorityUpdateMethod, PriorityUpdateHandler);
-                _hubConnection.On<CardChangeZoneDto>(Constants.CardChangeZoneMethod, PriorityUpdateHandler);
+                _hubConnection.On<CardChangeZoneDto>(Constants.CardChangeZoneMethod, CardChangeZoneHandler);
                 //_hubConnection.On<InputRequestDto, InputResponseDto>("WaitForResponse", WaitForResponse);
                 await _hubConnection.StartAsync();
             }
@@ -50,7 +50,9 @@ namespace LotusSimulator.Client.Services
             player.ConnectionId = _hubConnection.ConnectionId;
             player.Slot = playerJoinGameResult.Slot;
             player.Status = PlayerStatus.Connected;
+
             GlobalInstances.GamePreparationState.GameId = playerJoinGameResult.GameId;
+            GlobalInstances.GameDisplayModel.YourConnectionId = _hubConnection.ConnectionId;
         }
 
         private void GamePreparationUpdatedHandler(GamePreparationResultDto gamePreparationResult)
@@ -92,12 +94,12 @@ namespace LotusSimulator.Client.Services
 
         private async Task PriorityUpdateHandler(PriorityUpdateDto priorityUpdate)
         {
-            GlobalInstances.GameState.PriorityHolder = priorityUpdate.PriorityHolderSlot;
+            GlobalInstances.GameDisplayModel.GameState.PriorityHolder = priorityUpdate.PriorityHolderId;
         }
 
         private void ReceiveGameStateHandler(GameStateDto gameState)
         {
-            GlobalInstances.GameState = gameState;
+            GlobalInstances.GameDisplayModel.GameState = gameState;
         }
 
         private async Task CardChangeZoneHandler(CardChangeZoneDto cardChangeZone)
@@ -113,7 +115,7 @@ namespace LotusSimulator.Client.Services
 
         private void GameStartedHandler(GameStateDto gameState)
         {
-            GlobalInstances.GameState = gameState;
+            GlobalInstances.GameDisplayModel.GameState = gameState;
             GlobalInstances.ScreenManager.SetScreenKind(ScreenKind.MainGame);
         }
 

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System.Linq;
 
 namespace LotusSimulator.Client.Layout
 {
@@ -30,15 +31,18 @@ namespace LotusSimulator.Client.Layout
 
         public override void Update(GameTime gameTime)
         {
+            _topPlayerArea.ConnectionId = GlobalInstances.GameDisplayModel.GameState.Players
+                .FirstOrDefault(x => x.Id != GlobalInstances.GameDisplayModel.YourConnectionId)
+                .Id;
             _topPlayerArea.Update(gameTime);
+
+            _bottomPlayerArea.ConnectionId = GlobalInstances.GameDisplayModel.YourConnectionId;
             _bottomPlayerArea.Update(gameTime);
         }
 
         private void DrawTopPlayerArea(GameTime gameTime)
         {
             var displayWidth = GlobalInstances.GraphicsDevice.Adapter.CurrentDisplayMode.Width;
-
-            _topPlayerArea.Slot = 0;
             _topPlayerArea.X = displayWidth / 2 - PlayerAreaWidth / 2;
             _topPlayerArea.Y = 0;
 
@@ -52,7 +56,6 @@ namespace LotusSimulator.Client.Layout
         {
             var displayWidth = GlobalInstances.GraphicsDevice.Adapter.CurrentDisplayMode.Width;
 
-            _bottomPlayerArea.Slot = 1;
             _bottomPlayerArea.X = displayWidth / 2 - PlayerAreaWidth / 2;
             _bottomPlayerArea.Y = BottomPlayerDistFromTop;
 

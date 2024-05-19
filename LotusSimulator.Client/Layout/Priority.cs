@@ -10,13 +10,13 @@ using System.Threading.Tasks;
 
 namespace LotusSimulator.Client.Layout
 {
-    public class Priority
+    public class Priority : IPlayerIdentity
     {
         public int X { get; set; }
         public int Y { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
-        public int Slot { get; set; }
+        public string ConnectionId { get; set; }
 
         private bool _isDraw;
         private bool _shouldDraw;
@@ -51,7 +51,7 @@ namespace LotusSimulator.Client.Layout
 
         public void Update(GameTime gameTime)
         {
-            if (GlobalInstances.GameState.PriorityHolder == Slot)
+            if (GlobalInstances.GameDisplayModel.GameState.PriorityHolder == ConnectionId)
             {
                 _shouldDraw = true;
             }

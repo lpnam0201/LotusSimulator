@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using LotusSimulator.Client.Models;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace LotusSimulator.Client.Layout
@@ -13,13 +14,17 @@ namespace LotusSimulator.Client.Layout
         public int Y { get; set; }
         public int Width { get; set; } = 70;
         public int Height { get; set; } = 70;
-        public int Slot { get; set; }
+        public string ConnectionId { get; set; }
+        public DisplayZone DisplayZone { get; set; }
+        public int Page { get; set; }
+        public int Index { get; set; }
 
         public void Draw(GameTime gameTime)
         {
             var greenBar = new Texture2D(GlobalInstances.GraphicsDevice, 1, 1);
             greenBar.SetData(new[] { Color.Pink });
             GlobalInstances.SpriteBatch.Draw(greenBar, new Rectangle(X, Y, Width, Height), Color.White);
+
         }
 
         public void Update(GameTime gameTime)

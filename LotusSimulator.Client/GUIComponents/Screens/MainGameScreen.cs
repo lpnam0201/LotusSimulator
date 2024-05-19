@@ -19,7 +19,7 @@ namespace LotusSimulator.Client.GUIComponents.Screens
 
         private Layout.Layout BuildLayoutByPlayerCount()
         {
-            var playerCount = GlobalInstances.GameState.Players.Count;
+            var playerCount = GlobalInstances.GameDisplayModel.GameState.Players.Count;
             switch (playerCount)
             {
                 case 2:

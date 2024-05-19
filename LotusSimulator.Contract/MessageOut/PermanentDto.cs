@@ -8,6 +8,6 @@ namespace LotusSimulator.Contract.MessageOut
 {
     public class PermanentDto : GameObjectDto
     {
-        
+        public bool IsTapped { get; set; }
     }
 }

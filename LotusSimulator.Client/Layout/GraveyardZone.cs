@@ -15,7 +15,7 @@ namespace LotusSimulator.Client.Layout
         public int Y { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
-        public int Slot { get; set; }
+        public string ConnectionId { get; set; }
 
         public void Draw(GameTime gameTime)
         {
@@ -34,7 +34,7 @@ namespace LotusSimulator.Client.Layout
         {
             Cards.Clear();
 
-            var libraryDto = GlobalInstances.GameState.GetGraveyard(Slot);
+            var libraryDto = GlobalInstances.GameDisplayModel.GameState.GetGraveyard(ConnectionId);
             foreach (var cardDto in libraryDto.Cards)
             {
                 var card = new Card.CardZone();

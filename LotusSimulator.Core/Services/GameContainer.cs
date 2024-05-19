@@ -28,12 +28,11 @@ namespace LotusSimulator.Core.Services
             }
 
             var gameManager = GameManagers.First();
-            var slot = gameManager.AddPlayerToGame(connectionId);
             var gameId = gameManager.GetGameId();
+            gameManager.AddPlayerToGame(connectionId);
 
             return new AssignPlayerToGameResult
             {
-                Slot = slot,
                 GameId = gameId
             };
         }

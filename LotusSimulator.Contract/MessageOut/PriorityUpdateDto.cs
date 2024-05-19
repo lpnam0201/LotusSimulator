@@ -8,6 +8,6 @@ namespace LotusSimulator.Contract.MessageOut
 {
     public class PriorityUpdateDto
     {
-        public int? PriorityHolderSlot { get; set; }
+        public string PriorityHolderId { get; set; }
     }
 }

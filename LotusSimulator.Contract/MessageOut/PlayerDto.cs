@@ -9,7 +9,7 @@ namespace LotusSimulator.Contract.MessageOut
     public class PlayerDto
     {
         public int LifeTotal { get; set; }
-        public int Slot { get; set; }
+        public string Id { get; set; }
 
         public BattlefieldDto Battlefield { get; set; }
         public GraveyardDto Graveyard { get; set; }

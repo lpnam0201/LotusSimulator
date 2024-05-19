@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace LotusSimulator.Client.Models
 {
-    public class Page
+    public enum DisplayZone
     {
-        public int Index { get; set; }
-        //public List<>
+        Land,
+        CreaturePlaneswalkerBattle,
+        ArtifactEnchantment
     }
 }

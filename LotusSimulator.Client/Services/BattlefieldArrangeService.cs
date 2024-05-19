@@ -8,6 +8,6 @@ namespace LotusSimulator.Client.Services
 {
     public class BattlefieldArrangeService
     {
-        public 
+        
     }
 }

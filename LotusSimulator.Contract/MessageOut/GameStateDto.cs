@@ -2,32 +2,33 @@
 {
     public class GameStateDto
     {
-        public int? PriorityHolder { get; set; } = null;
+        public string PriorityHolder { get; set; }
         public IList<PlayerDto> Players { get; set; }
+        public IList<string> TurnOrderConnectionIds { get; set; }
 
-        public LibraryDto GetLibrary(int slot)
+        public LibraryDto GetLibrary(string id)
         {
-            return GetPlayer(slot).Library;
+            return GetPlayer(id).Library;
         }
 
-        public GraveyardDto GetGraveyard(int slot)
+        public GraveyardDto GetGraveyard(string id)
         {
-            return GetPlayer(slot).Graveyard;
+            return GetPlayer(id).Graveyard;
         }
 
-        public ExileDto GetExile(int slot)
+        public ExileDto GetExile(string id)
         {
-            return GetPlayer(slot).Exile;
+            return GetPlayer(id).Exile;
         }
 
-        public HandDto GetHand(int slot)
+        public HandDto GetHand(string id)
         {
-            return GetPlayer(slot).Hand;
+            return GetPlayer(id).Hand;
         }
 
-        public PlayerDto GetPlayer(int slot)
+        public PlayerDto GetPlayer(string id)
         {
-            return Players.First(x => x.Slot == slot);
+            return Players.First(x => x.Id == id);
         }
 
         public CardDto GetCard(string id)

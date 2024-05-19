@@ -8,6 +8,6 @@ namespace LotusSimulator.Client.Layout
 {
     public interface IPlayerIdentity
     {
-        int Slot { get; set; }
+        string ConnectionId { get; set; }
     }
 }

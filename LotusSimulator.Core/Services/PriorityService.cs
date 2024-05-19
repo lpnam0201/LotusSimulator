@@ -29,10 +29,10 @@ namespace LotusSimulator.Core.Services
             game.PriorityHolder = player;
 
             await _playabilityService.SetPlayabilityAllPlayers(game);
-            var prioritySlot = game.PlayerSlots.First(x => x.Value == game.PriorityHolder).Key;
+            var priorityConnectionId = game.Players.FirstOrDefault(x => x == game.PriorityHolder).ConnectionId;
             await _gameStateService.SendPriorityUpdate(new PriorityUpdateDto
-            { 
-                PriorityHolderSlot = prioritySlot
+            {
+                PriorityHolderId = priorityConnectionId
             });
         }
 

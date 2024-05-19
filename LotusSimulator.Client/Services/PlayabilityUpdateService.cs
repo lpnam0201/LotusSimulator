@@ -14,10 +14,10 @@ namespace LotusSimulator.Client.Services
         {
             foreach (var playability in playabilityCollection.Playabilities)
             {
-                var card = GlobalInstances.GameState.GetCard(playability.ObjectId);
+                var card = GlobalInstances.GameDisplayModel.GameState.GetCard(playability.ObjectId);
                 card?.Playabilities.AddIfNotExists(playability);
 
-                var permanent = GlobalInstances.GameState.GetPermanent(playability.ObjectId);
+                var permanent = GlobalInstances.GameDisplayModel.GameState.GetPermanent(playability.ObjectId);
                 permanent?.Playabilities.AddIfNotExists(playability);
             }
         }
