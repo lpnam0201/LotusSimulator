@@ -76,7 +76,7 @@ namespace LotusSimulator.Core.MessageOut
             await _hubContext.Clients.All.SendAsync(Constants.PriorityUpdateMethod, priorityUpdate);
         }
 
-        public async Task SendCardChangeZone(CardChangeZoneDto cardChangeZone)
+        public async Task SendCardChangeZone(GameChangeZoneCollectionDto cardChangeZone)
         {
             await _hubContext.Clients.All.SendAsync(Constants.CardChangeZoneMethod, cardChangeZone);
         }

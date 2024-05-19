@@ -1,13 +1,14 @@
 ﻿using LotusSimulator.Contract.Constants;
+using LotusSimulator.Contract.MessageOut;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LotusSimulator.Contract.MessageOut
+namespace LotusSimulator.Client.Models
 {
-    public class LibraryDto : BaseZoneDto
+    public class LibraryDisplayModel : BaseZoneDisplayModel
     {
         public override GameObjectZone Zone => GameObjectZone.Library;
     }

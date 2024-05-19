@@ -34,13 +34,13 @@ namespace LotusSimulator.Client.Layout
         {
             Cards.Clear();
 
-            var libraryDto = GlobalInstances.GameDisplayModel.GameState.GetGraveyard(ConnectionId);
-            foreach (var cardDto in libraryDto.Cards)
+            var graveyard = GlobalInstances.GameDisplayModel.GetGraveyard(ConnectionId);
+            foreach (var gameObject in graveyard.GameObjects)
             {
                 var card = new Card.CardZone();
-                card.Id = cardDto.Id;
-                card.OracleId = cardDto.OracleId;
-                card.IsRevealed = cardDto.IsRevealed;
+                card.Id = gameObject.Id;
+                card.OracleId = gameObject.OracleId;
+                card.IsRevealed = gameObject.IsRevealed;
                 Cards.Add(card);
             }
         }

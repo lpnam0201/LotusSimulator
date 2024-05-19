@@ -1,5 +1,6 @@
 ﻿using LotusSimulator.Contract.Constants;
 using LotusSimulator.Contract.MessageOut;
+using LotusSimulator.Core.Entities.Card;
 using LotusSimulator.Core.Entities.GameObjects;
 using LotusSimulator.Core.Entities.Playability;
 using LotusSimulator.Core.Entities.Players;
@@ -15,7 +16,7 @@ namespace LotusSimulator.Core.Services
 {
     public class GameStateMapper
     {
-        public CardChangeZoneDto BuildCardChangeZoneDto(
+        public GameChangeZoneCollectionDto BuildCardChangeZoneDto(
             GameObject srcObject,
             GameObjectZone srcZone,
             string srcPlayerId,
@@ -23,9 +24,9 @@ namespace LotusSimulator.Core.Services
             GameObjectZone destZone,
             string destPlayerId)
         {
-            return new CardChangeZoneDto
+            return new GameChangeZoneCollectionDto
             {
-                From = new CardLocationDto
+                From = new GameObjectLocationDto
                 {
                     Object = new GameObjectChangeZoneDto
                     {
@@ -35,7 +36,7 @@ namespace LotusSimulator.Core.Services
                     Zone = srcZone,
                     PlayerId = srcPlayerId
                 },
-                To = new CardLocationDto
+                To = new GameObjectLocationDto
                 {
                     Object = new GameObjectChangeZoneDto
                     {
@@ -126,12 +127,13 @@ namespace LotusSimulator.Core.Services
             var battlefieldDto = new BattlefieldDto();
             foreach (var permanent in battlefield.Permanents)
             {
-                var permanentDto = new PermanentDto();
-                permanentDto.IsTapped = permanent.IsTapped;
-                permanentDto.OracleId = permanent.OracleId;
-                permanent.Id = permanent.Id;
+                var gameObject = new GameObjectDto();
+                gameObject.IsTapped = permanent.IsTapped;
+                gameObject.OracleId = permanent.OracleId;
+                gameObject.Id = permanent.Id;
+                gameObject.Types = permanent.Types;
 
-                battlefieldDto.Permanents.Add(permanentDto);
+                battlefieldDto.GameObjects.Add(gameObject);
             }
             return battlefieldDto;
         }
@@ -139,15 +141,16 @@ namespace LotusSimulator.Core.Services
         private HandDto MapHandOwnView(Hand hand)
         {
             var handDto = new HandDto();
-            handDto.Cards = new List<CardDto>();
+            handDto.GameObjects = new List<GameObjectDto>();
             foreach (var card in hand.Cards)
             {
-                var cardDto = new CardDto();
-                cardDto.IsRevealed = card.IsRevealed;
-                cardDto.OracleId = card.OracleId;
-                cardDto.Id = card.Id;
+                var gameObjectDto = new CardDto();
+                gameObjectDto.IsRevealed = card.IsRevealed;
+                gameObjectDto.OracleId = card.OracleId;
+                gameObjectDto.Id = card.Id;
+                gameObjectDto.Types = card.Types;
 
-                handDto.Cards.Add(cardDto);
+                handDto.GameObjects.Add(gameObjectDto);
             }
             return handDto;
         }
@@ -155,15 +158,16 @@ namespace LotusSimulator.Core.Services
         private HandDto MapHandStrangerView(Hand hand)
         {
             var handDto = new HandDto();
-            handDto.Cards = new List<CardDto>();
+            handDto.GameObjects = new List<GameObjectDto>();
             foreach (var card in hand.Cards)
             {
-                var cardDto = new CardDto();
-                cardDto.IsRevealed = false;
-                cardDto.OracleId = card.OracleId;
-                cardDto.Id = card.Id;
+                var gameObjectDto = new CardDto();
+                gameObjectDto.IsRevealed = false;
+                gameObjectDto.OracleId = card.OracleId;
+                gameObjectDto.Id = card.Id;
+                gameObjectDto.Types = card.Types;
 
-                handDto.Cards.Add(cardDto);
+                handDto.GameObjects.Add(gameObjectDto);
             }
             return handDto;
         }
@@ -183,14 +187,15 @@ namespace LotusSimulator.Core.Services
         private LibraryDto MapLibrary(Library library)
         {
             var libraryDto = new LibraryDto();
-            libraryDto.Cards = new List<CardDto>();
+            libraryDto.GameObjects = new List<GameObjectDto>();
             foreach (var card in library.Cards)
             {
-                var cardDto = new CardDto();
-                cardDto.IsRevealed = false;
-                cardDto.Id = card.Id;
+                var gameObjectDto = new GameObjectDto();
+                gameObjectDto.IsRevealed = false;
+                gameObjectDto.Id = card.Id;
+                gameObjectDto.Types = card.Types;
 
-                libraryDto.Cards.Add(cardDto);
+                libraryDto.GameObjects.Add(gameObjectDto);
             }
 
             return libraryDto;
@@ -199,14 +204,15 @@ namespace LotusSimulator.Core.Services
         private ExileDto MapExile(Exile exile)
         {
             var exileDto = new ExileDto();
-            exileDto.Cards = new List<CardDto>();
+            exileDto.GameObjects = new List<GameObjectDto>();
             foreach (var card in exile.Cards)
             {
-                var cardDto = new CardDto();
-                cardDto.IsRevealed = false;
-                cardDto.Id = card.Id;
+                var gameObjectDto = new GameObjectDto();
+                gameObjectDto.IsRevealed = false;
+                gameObjectDto.Id = card.Id;
+                gameObjectDto.Types = card.Types;
 
-                exileDto.Cards.Add(cardDto);
+                exileDto.GameObjects.Add(gameObjectDto);
             }
 
             return exileDto;
@@ -215,14 +221,15 @@ namespace LotusSimulator.Core.Services
         private GraveyardDto MapGraveyard(Graveyard graveyard)
         {
             var graveyardDto = new GraveyardDto();
-            graveyardDto.Cards = new List<CardDto>();
+            graveyardDto.GameObjects = new List<GameObjectDto>();
             foreach (var card in graveyard.Cards)
             {
-                var cardDto = new CardDto();
-                cardDto.IsRevealed = false;
-                cardDto.Id = card.Id;
+                var gameObjectDto = new GameObjectDto();
+                gameObjectDto.IsRevealed = false;
+                gameObjectDto.Id = card.Id;
+                gameObjectDto.Types = card.Types;
 
-                graveyardDto.Cards.Add(cardDto);
+                graveyardDto.GameObjects.Add(gameObjectDto);
             }
 
             return graveyardDto;

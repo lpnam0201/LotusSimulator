@@ -1,4 +1,5 @@
-﻿using LotusSimulator.Core.Entities;
+﻿using LotusSimulator.Contract.Constants;
+using LotusSimulator.Core.Entities;
 using LotusSimulator.Core.Entities.Abilities;
 using LotusSimulator.Core.Entities.Card;
 using LotusSimulator.Core.Entities.Counters;

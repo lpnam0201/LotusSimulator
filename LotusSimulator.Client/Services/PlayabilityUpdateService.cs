@@ -1,4 +1,5 @@
-﻿using LotusSimulator.Contract.Helpers;
+﻿using LotusSimulator.Client.Models;
+using LotusSimulator.Contract.Helpers;
 using LotusSimulator.Contract.MessageOut;
 using System;
 using System.Collections.Generic;
@@ -14,24 +15,14 @@ namespace LotusSimulator.Client.Services
         {
             foreach (var playability in playabilityCollection.Playabilities)
             {
-                var card = GlobalInstances.GameDisplayModel.GameState.GetCard(playability.ObjectId);
-                card?.Playabilities.AddIfNotExists(playability);
-
-                var permanent = GlobalInstances.GameDisplayModel.GameState.GetPermanent(playability.ObjectId);
-                permanent?.Playabilities.AddIfNotExists(playability);
+                var gameObject = GetGameObject(playability.ObjectId);
+                gameObject?.Playabilities.AddIfNotExists(playability);
             }
         }
 
-        public GameObjectDto GetGameObject(string id)
+        public GameObjectDisplayModel GetGameObject(string id)
         {
-            var card = GlobalInstances.GameDisplayModel.GameState.GetCard(id);
-            if (card != null)
-            {
-                return card;
-            }
-
-            var permanent = GlobalInstances.GameDisplayModel.GameState.GetPermanent(id);
-            return permanent;
+            return GlobalInstances.GameDisplayModel.GetGameObject(id);
         }
     }
 }

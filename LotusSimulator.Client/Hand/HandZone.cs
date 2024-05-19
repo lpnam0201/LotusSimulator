@@ -43,14 +43,14 @@ namespace LotusSimulator.Client.Hand
         private void LoadCardFromGameState()
         {
             Cards.Clear();
-            var handDto = GlobalInstances.GameDisplayModel.GameState.GetHand(ConnectionId);
-            for (var i = 0; i < handDto.Cards.Count; i++)
+            var hand = GlobalInstances.GameDisplayModel.GetHand(ConnectionId);
+            for (var i = 0; i < hand.GameObjects.Count; i++)
             {
-                var cardDto = handDto.Cards[i];
+                var gameObject = hand.GameObjects[i];
                 var card = new Card.CardZone();
-                card.Id = cardDto.Id;
-                card.OracleId = cardDto.OracleId;
-                card.IsRevealed = cardDto.IsRevealed;
+                card.Id = gameObject.Id;
+                card.OracleId = gameObject.OracleId;
+                card.IsRevealed = gameObject.IsRevealed;
                 Cards.Add(card);
             }
         }

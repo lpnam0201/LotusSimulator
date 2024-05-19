@@ -1,4 +1,5 @@
-﻿using LotusSimulator.Contract.MessageOut;
+﻿using LotusSimulator.Contract.Constants;
+using LotusSimulator.Contract.MessageOut;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,13 @@ namespace LotusSimulator.Client.Models
 {
     public class GameObjectDisplayModel
     {
-        public GameObjectDto GameObject { get; set; }
+        public string OracleId { get; set; }
+        public bool IsRevealed { get; set; }
+        public string Id { get; set; }
+        public bool IsTapped { get; set; }
+        public List<ObjectType> Types { get; set; } = new List<ObjectType>();
+        public List<PlayabilityDto> Playabilities { get; set; } = new List<PlayabilityDto>();
+
         public int Index { get; set; }
-        public DisplayZone DisplayZone { get; set; }
     }
 }

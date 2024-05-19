@@ -50,7 +50,7 @@ namespace LotusSimulator.Client.Layout
 
         public void Update(GameTime gameTime)
         {
-            if (GlobalInstances.GameDisplayModel.GameState.PriorityHolder == GlobalInstances.GameDisplayModel.YourConnectionId)
+            if (GlobalInstances.GameDisplayModel.PriorityHolder == GlobalInstances.YourConnectionId)
             {
                 _button.Visible = true;
             }

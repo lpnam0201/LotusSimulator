@@ -2,6 +2,7 @@
 using LotusSimulator.Core.Entities.Abilities;
 using LotusSimulator.Core.Entities.Counters;
 using LotusSimulator.Core.Entities.Players;
+using LotusSimulator.Contract.Constants;
 
 namespace LotusSimulator.Core.Entities.GameObjects
 {

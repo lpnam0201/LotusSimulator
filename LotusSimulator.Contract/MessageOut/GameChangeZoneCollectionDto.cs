@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace LotusSimulator.Contract.MessageOut
 {
-    public class ExileDto : BaseZoneDto
+    public class GameChangeZoneCollectionDto
     {
-        public override GameObjectZone Zone => GameObjectZone.Exile;
+        public GameObjectLocationDto From { get; set; }
+        public GameObjectLocationDto To { get; set; }
     }
 }

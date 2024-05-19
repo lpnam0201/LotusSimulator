@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LotusSimulator.Contract.MessageOut
+namespace LotusSimulator.Client.Models
 {
-    public class ExileDto : BaseZoneDto
+    public class ExileDisplayModel : BaseZoneDisplayModel
     {
         public override GameObjectZone Zone => GameObjectZone.Exile;
     }

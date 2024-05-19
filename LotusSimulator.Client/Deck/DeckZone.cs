@@ -34,8 +34,8 @@ namespace LotusSimulator.Client.Deck
         {
             Cards.Clear();
 
-            var libraryDto = GlobalInstances.GameDisplayModel.GameState.GetLibrary(ConnectionId);
-            foreach (var cardDto in libraryDto.Cards)
+            var library = GlobalInstances.GameDisplayModel.GetLibrary(ConnectionId);
+            foreach (var cardDto in library.GameObjects)
             {
                 var card = new Card.CardZone();
                 card.Id = cardDto.Id;

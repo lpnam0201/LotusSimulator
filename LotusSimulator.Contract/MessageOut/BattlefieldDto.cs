@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LotusSimulator.Contract.Constants;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace LotusSimulator.Contract.MessageOut
 {
-    public class BattlefieldDto
+    public class BattlefieldDto : BaseZoneDto
     {
-        public IList<PermanentDto> Permanents { get; set; } = new List<PermanentDto>();
+        public override GameObjectZone Zone => GameObjectZone.Battlefield;
     }
 }

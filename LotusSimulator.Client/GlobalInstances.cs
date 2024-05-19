@@ -26,9 +26,11 @@ namespace LotusSimulator.Client
         public static GamePreparationState GamePreparationState { get; set; } = new GamePreparationState();
         public static ModalService ModalService { get; set; } = new ModalService();
         public static GameDisplayModel GameDisplayModel { get; set; } = new GameDisplayModel();
+        public static string YourConnectionId { get; set; }
         public static PlayabilityUpdateService PlayabilityUpdateService { get; set; } = new PlayabilityUpdateService();
-        public static CardChangeZoneUpdateService CardChangeZoneUpdateService { get; set; } = new CardChangeZoneUpdateService();
+        public static GameObjectUpdateService CardChangeZoneUpdateService { get; set; } = new GameObjectUpdateService();
         public static BattlefieldArrangeService BattlefieldArrangeService { get; set; } = new BattlefieldArrangeService();
+        public static DisplayModelMapper DisplayModelMapper { get; set; } = new DisplayModelMapper();
         
     }
 }

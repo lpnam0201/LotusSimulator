@@ -1,4 +1,5 @@
-﻿using LotusSimulator.Core.CardLogic;
+﻿using LotusSimulator.Contract.Constants;
+using LotusSimulator.Core.CardLogic;
 using LotusSimulator.Core.CardLogic.Common;
 using LotusSimulator.Core.Entities.Abilities;
 using LotusSimulator.Core.Entities.Card;

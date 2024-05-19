@@ -31,12 +31,12 @@ namespace LotusSimulator.Client.Layout
 
         public override void Update(GameTime gameTime)
         {
-            _topPlayerArea.ConnectionId = GlobalInstances.GameDisplayModel.GameState.Players
-                .FirstOrDefault(x => x.Id != GlobalInstances.GameDisplayModel.YourConnectionId)
+            _topPlayerArea.ConnectionId = GlobalInstances.GameDisplayModel.Players
+                .FirstOrDefault(x => x.Id != GlobalInstances.YourConnectionId)
                 .Id;
             _topPlayerArea.Update(gameTime);
 
-            _bottomPlayerArea.ConnectionId = GlobalInstances.GameDisplayModel.YourConnectionId;
+            _bottomPlayerArea.ConnectionId = GlobalInstances.YourConnectionId;
             _bottomPlayerArea.Update(gameTime);
         }
 

@@ -1,4 +1,4 @@
-﻿namespace LotusSimulator.Core.Entities.GameObjects
+﻿namespace LotusSimulator.Contract.Constants
 {
     public enum ObjectType
     {

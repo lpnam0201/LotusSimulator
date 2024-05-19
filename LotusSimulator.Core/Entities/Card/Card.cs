@@ -1,4 +1,5 @@
-﻿using LotusSimulator.Core.Entities.Counters;
+﻿using LotusSimulator.Contract.Constants;
+using LotusSimulator.Core.Entities.Counters;
 using LotusSimulator.Core.Entities.GameObjects;
 using LotusSimulator.Core.Entities.Zones;
 

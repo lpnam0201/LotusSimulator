@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace LotusSimulator.Contract.MessageOut
 {
-    public class CardLocationDto
+    public interface IZone
     {
-        public GameObjectChangeZoneDto Object { get; set; }
-        public GameObjectZone? Zone { get; set; }
-        public string PlayerId { get; set; }
+        GameObjectZone Zone { get; }
     }
 }
