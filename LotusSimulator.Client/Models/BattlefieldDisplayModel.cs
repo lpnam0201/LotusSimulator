@@ -16,6 +16,25 @@ namespace LotusSimulator.Client.Models
         public List<PageDisplayModel> CreaturePlaneswalkerBattle { get; set; } = new List<PageDisplayModel>();
         public List<PageDisplayModel> Lands { get; set; } = new List<PageDisplayModel>();
 
+        public GameObjectDisplayModel GetGameObject(DisplayZone displayZone, int page, int index)
+        {
+            List<PageDisplayModel> pages = null;
+            switch (displayZone)
+            {
+                case DisplayZone.ArtifactEnchantment:
+                    pages = ArtifactEnchantments;
+                    break;
+                case DisplayZone.CreaturePlaneswalkerBattle:
+                    pages = CreaturePlaneswalkerBattle;
+                    break;
+                case DisplayZone.Land:
+                    pages = Lands;
+                    break;
+            }
+
+            return pages.FirstOrDefault(x => x.Index == page)
+                ?.Models.FirstOrDefault(x => x.Index == index);
+        }
 
         public void AddToArtifactEnchantments(GameObjectDisplayModel gameObject)
         {
@@ -72,7 +91,12 @@ namespace LotusSimulator.Client.Models
                 AddToCreaturePlaneswalkerBattle(gameObjectDisplayModel);
             }
 
-            AddToArtifactEnchantments(gameObjectDisplayModel);
+            if (gameObjectDisplayModel.Types.Any(x =>
+                x == Contract.Constants.ObjectType.Artifact
+                || x == Contract.Constants.ObjectType.Enchantment))
+            {
+                AddToArtifactEnchantments(gameObjectDisplayModel);
+            }
         }
 
         public void Remove(string id)

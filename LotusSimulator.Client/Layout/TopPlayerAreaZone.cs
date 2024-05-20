@@ -52,7 +52,6 @@ namespace LotusSimulator.Client.Layout
         private LandZone _landZone { get; set; } = new LandZone();
         private CreaturePlaneswalkerBattleZone _creaturePlaneswalkerBattleZone { get; set; } = new CreaturePlaneswalkerBattleZone();
         private ArtifactEnchantmentZone _artifactEnchantmentZone { get; set; } = new ArtifactEnchantmentZone();
-        private PlaneswalkerAndBattleZone _planeswalkerAndBattleZone { get; set; } = new PlaneswalkerAndBattleZone();
         private LifeBar _lifeBar { get; set; } = new LifeBar();
 
         public void Draw(GameTime gameTime)
@@ -153,9 +152,6 @@ namespace LotusSimulator.Client.Layout
 
             _artifactEnchantmentZone.ConnectionId = ConnectionId;
             _artifactEnchantmentZone.Update(gameTime);
-
-            _planeswalkerAndBattleZone.ConnectionId = ConnectionId;
-            _planeswalkerAndBattleZone.Update(gameTime);
         }
     }
 }

@@ -88,6 +88,7 @@ namespace LotusSimulator.Client.Services
                 IsRevealed = gameObject.IsRevealed,
                 IsTapped = gameObject.IsTapped,
                 OracleId = gameObject.OracleId,
+                Types = gameObject.Types,
                 Playabilities = gameObject.Playabilities
             };
         }

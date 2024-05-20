@@ -2,12 +2,13 @@
 using LotusSimulator.Client.Models;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Linq;
 
 namespace LotusSimulator.Client.Layout
 {
     public class PermanentZone : IPlayerIdentity
     {
-        public const int PermanentWidth = 70;
+        public const int PermanentWidth = 50;
         public const int PermanentHeight = 70;
 
 
@@ -36,13 +37,24 @@ namespace LotusSimulator.Client.Layout
             if (OracleId != null)
             {
                 texture = GlobalInstances.LookupCardImageService.LookupCardImage(OracleId);
-                GlobalInstances.SpriteBatch.Draw(texture, new Rectangle(X, Y, Width, Height), Color.White);
+                var x = X + (Width - PermanentWidth) / 2;
+                var y = Y;
+                GlobalInstances.SpriteBatch.Draw(texture, new Rectangle(x, y, PermanentWidth, PermanentHeight), Color.White);
             }
         }
 
         public void Update(GameTime gameTime)
         {
-            //GlobalInstances.BattlefieldArrangeService.MoveGameObject
+            var player = GlobalInstances.GameDisplayModel.Players.FirstOrDefault(x => x.Id == ConnectionId);
+            var gameObject = player?.Battlefield?.GetGameObject(DisplayZone, Page, Index);
+            if (gameObject != null)
+            {
+                OracleId = gameObject.OracleId;
+            }
+            else
+            {
+                OracleId = null;
+            }
         }
     }
 }

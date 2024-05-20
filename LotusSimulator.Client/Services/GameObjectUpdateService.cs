@@ -19,6 +19,10 @@ namespace LotusSimulator.Client.Services
             var destZone = DetermineZone(to.PlayerId, to.Zone.Value);
 
             var gameObject = GlobalInstances.GameDisplayModel.GetGameObject(to.Object.Id);
+            if (gameObject == null)
+            {
+                gameObject = GlobalInstances.DisplayModelMapper.MapGameObject(to.Object);
+            }
 
             srcZone.Remove(from.Object.Id);
             destZone.Add(gameObject);

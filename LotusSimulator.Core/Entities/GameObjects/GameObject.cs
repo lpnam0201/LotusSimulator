@@ -13,7 +13,7 @@ namespace LotusSimulator.Core.Entities.GameObjects
         public string Name { get; set; }
         public ManaCostCollection ManaCost { get; set; }
         public IList<ObjectColor> Colors { get; set; }
-        public IList<ObjectType> Types { get; set; }
+        public List<ObjectType> Types { get; set; }
         public IList<ObjectSuperType> SuperTypes { get; set; }
         public IList<ObjectSubType> SubTypes { get; set; }
         public IList<Ability> Abilities { get; set; } = new List<Ability>();

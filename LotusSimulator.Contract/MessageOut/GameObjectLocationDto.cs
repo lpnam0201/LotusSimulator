@@ -9,7 +9,7 @@ namespace LotusSimulator.Contract.MessageOut
 {
     public class GameObjectLocationDto
     {
-        public GameObjectChangeZoneDto Object { get; set; }
+        public GameObjectDto Object { get; set; }
         public GameObjectZone? Zone { get; set; }
         public string PlayerId { get; set; }
     }

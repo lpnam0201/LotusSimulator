@@ -65,7 +65,11 @@ namespace LotusSimulator.Client.Layout
 
         public void Update(GameTime gameTime)
         {
-
+            foreach (var permanent in Permanents)
+            {
+                permanent.ConnectionId = ConnectionId;
+                permanent.Update(gameTime);
+            }
         }
     }
 }

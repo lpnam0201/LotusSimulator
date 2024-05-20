@@ -28,20 +28,24 @@ namespace LotusSimulator.Core.Services
             {
                 From = new GameObjectLocationDto
                 {
-                    Object = new GameObjectChangeZoneDto
+                    Object = new GameObjectDto
                     {
                         Id = srcObject.Id,
-                        OracleId = srcObject.OracleId
+                        OracleId = srcObject.OracleId,
+                        IsRevealed = true,
+                        Types = srcObject.Types,
                     },
                     Zone = srcZone,
                     PlayerId = srcPlayerId
                 },
                 To = new GameObjectLocationDto
                 {
-                    Object = new GameObjectChangeZoneDto
+                    Object = new GameObjectDto
                     {
                         Id = destObject.Id,
-                        OracleId = destObject.OracleId
+                        OracleId = destObject.OracleId,
+                        IsRevealed = true,
+                        Types = destObject.Types,
                     },
                     Zone = destZone,
                     PlayerId = destPlayerId

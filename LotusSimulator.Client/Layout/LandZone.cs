@@ -18,7 +18,7 @@ namespace LotusSimulator.Client.Layout
             {
                 Permanents.Add(new PermanentZone()
                 {
-                    DisplayZone = DisplayZone.ArtifactEnchantment,
+                    DisplayZone = DisplayZone.Land,
                     ConnectionId = ConnectionId,
                     Index = i
                 });
@@ -53,7 +53,11 @@ namespace LotusSimulator.Client.Layout
 
         public void Update(GameTime gameTime)
         {
-            
+            foreach (var permanent in Permanents)
+            {
+                permanent.ConnectionId = ConnectionId;
+                permanent.Update(gameTime);
+            }
         }
     }
 }

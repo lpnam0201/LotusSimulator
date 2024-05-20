@@ -13,7 +13,7 @@ namespace LotusSimulator.Contract.MessageOut
         public bool IsRevealed { get; set; }
         public string Id { get; set; }
         public bool IsTapped { get; set; }
-        public IList<ObjectType> Types { get; set; } = new List<ObjectType>();
+        public List<ObjectType> Types { get; set; } = new List<ObjectType>();
         public List<PlayabilityDto> Playabilities { get; set; } = new List<PlayabilityDto>();
     }
 }
