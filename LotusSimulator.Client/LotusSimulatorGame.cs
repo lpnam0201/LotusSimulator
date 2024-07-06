@@ -64,6 +64,7 @@ namespace LotusSimulator.Client
             ContentTextures.MTGBack = GlobalInstances.ContentManager.Load<Texture2D>("mtg_card_back");
             ContentTextures.Priority = GlobalInstances.ContentManager.Load<Texture2D>("priority");
             ContentTextures.LifeBar = GlobalInstances.ContentManager.Load<Texture2D>("life_bar");
+            ContentTextures.Font = GlobalInstances.ContentManager.Load<SpriteFont>("Arial");
         }
 
         protected override void Update(GameTime gameTime)

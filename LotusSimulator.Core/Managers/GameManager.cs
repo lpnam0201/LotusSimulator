@@ -28,6 +28,7 @@ namespace LotusSimulator.Managers
         private readonly StackService _stackService;
         private readonly TurnOrderService _turnOrderService;
         private readonly PlayerInputService _playerInputService;
+        private readonly PlayerService _playerService;
 
         public GameManager(GameStateService gameStateService,
             RandomService randomService,
@@ -41,7 +42,8 @@ namespace LotusSimulator.Managers
             PriorityService priorityService,
             StackService stackService,
             TurnOrderService turnOrderService,
-            PlayerInputService playerInputService)
+            PlayerInputService playerInputService,
+            PlayerService playerService)
         {
             _gameStateService = gameStateService;
             _randomService = randomService;
@@ -56,6 +58,7 @@ namespace LotusSimulator.Managers
             _stackService = stackService;
             _turnOrderService = turnOrderService;
             _playerInputService = playerInputService;
+            _playerService = playerService;
         }
 
         public void AddPlayerToGame(string connectionId)
@@ -120,6 +123,7 @@ namespace LotusSimulator.Managers
 
         public async Task StartGameAsync()
         {
+            await _playerService.InitializePlayers(_game);
             InitializeLibrary();
 
             DecidePlayerGoFirst();

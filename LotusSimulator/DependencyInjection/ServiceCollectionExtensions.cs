@@ -27,6 +27,7 @@ namespace LotusSimulator.DependencyInjection
             serviceCollection.AddTransient<TurnOrderService>();
             serviceCollection.AddTransient<StackService>();
             serviceCollection.AddTransient<LandService>();
+            serviceCollection.AddTransient<PlayerService>();
             serviceCollection.AddTransient<PlayerInputService>();
             serviceCollection.AddTransient<BeginningPhaseRunner>();
             serviceCollection.AddTransient<UntapStepRunner>();

@@ -75,6 +75,7 @@ namespace LotusSimulator.Core.Services
                         playerDto = MapForPlayerStrangerView(player);
                     }
                     playerDto.Id = player.ConnectionId;
+                    playerDto.LifeTotal = player.LifeTotal;
                     gameState.Players.Add(playerDto);
                 }
 

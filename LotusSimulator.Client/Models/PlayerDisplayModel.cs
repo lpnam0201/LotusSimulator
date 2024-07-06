@@ -10,6 +10,7 @@ namespace LotusSimulator.Client.Models
     public class PlayerDisplayModel
     {
         public string Id { get; set; }
+        public int LifeTotal { get; set; }
         public LibraryDisplayModel Library { get; set; } = new LibraryDisplayModel();
         public BattlefieldDisplayModel Battlefield { get; set; } = new BattlefieldDisplayModel();
         public GraveyardDisplayModel Graveyard { get; set; } = new GraveyardDisplayModel();

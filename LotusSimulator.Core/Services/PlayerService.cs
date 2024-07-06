@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LotusSimulator.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,12 @@ namespace LotusSimulator.Core.Services
 {
     public class PlayerService
     {
-
+        public async Task InitializePlayers(Game game)
+        {
+            foreach (var player in game.Players)
+            {
+                player.LifeTotal = 20;
+            }
+        }
     }
 }

@@ -26,6 +26,7 @@ namespace LotusSimulator.Client.Services
             return new PlayerDisplayModel
             {
                 Id = player.Id,
+                LifeTotal = player.LifeTotal,
                 Battlefield = MapBattlefield(player.Battlefield),
                 Hand = MapHand(player.Hand),
                 Graveyard = MapGraveyard(player.Graveyard),
