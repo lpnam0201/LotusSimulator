@@ -13,5 +13,7 @@ namespace LotusSimulator.Client.Authorization
         public int Slot { get; set; }
         public string Nickname { get; set; }
         public PlayerStatus Status { get; set; }
+
+        public Guid TestButtonGuid { get; set; }
     }
 }

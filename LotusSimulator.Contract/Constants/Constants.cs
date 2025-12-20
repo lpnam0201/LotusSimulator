@@ -19,5 +19,7 @@ namespace LotusSimulator.Contract.Constants
         public const string PassPriorityMethod = "PassPriority";
         public const string CardChangeZoneMethod = "CardChangeZone";
         public const string PlayerInputMethod = "PlayerInput";
+        public const string TestButtonMethod = "TestButton";
+        public const string TestButtonClientReceiveMethod = "TestButtonClientReceive";
     }
 }

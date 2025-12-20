@@ -29,6 +29,7 @@ namespace LotusSimulator.Client.Services
                 _hubConnection.On<PlayabilityCollectionDto>(Constants.PlayabilityUpdateMethod, PlayabilityUpdateHandler);
                 _hubConnection.On<PriorityUpdateDto>(Constants.PriorityUpdateMethod, PriorityUpdateHandler);
                 _hubConnection.On<GameChangeZoneCollectionDto>(Constants.CardChangeZoneMethod, CardChangeZoneHandler);
+                _hubConnection.On<TestButtonDto>(Constants.TestButtonClientReceiveMethod, TestButtonClientReceiveHandler);
                 //_hubConnection.On<InputRequestDto, InputResponseDto>("WaitForResponse", WaitForResponse);
                 await _hubConnection.StartAsync();
             }
@@ -118,9 +119,19 @@ namespace LotusSimulator.Client.Services
             GlobalInstances.ScreenManager.SetScreenKind(ScreenKind.MainGame);
         }
 
+        private void TestButtonClientReceiveHandler(TestButtonDto testButton)
+        {
+            GlobalInstances.GamePreparationState.Player.TestButtonGuid = testButton.Guid; 
+        }
+
         public async Task PassPriority(PassPriorityDto passPriority)
         {
             await _hubConnection.SendAsync(Constants.PassPriorityMethod, passPriority);
+        }
+
+        public async Task TestButton(TestButtonDataDto testButton)
+        {
+            await _hubConnection.SendAsync(Constants.TestButtonMethod, testButton);
         }
 
         public async Task SendPlayerInputAsync(PlayerInputDto playerInput)

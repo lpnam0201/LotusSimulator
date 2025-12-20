@@ -12,14 +12,16 @@ namespace LotusSimulator.Core.Services
     public class LandService
     {
         private readonly PermanentService _permanentService;
-        private readonly GameStateService _gameStateService;
+        private readonly IUserInputService _userInputService;
         private readonly GameStateMapper _gameStateMapper;
+        private readonly INotifyPlayerService _notifyPlayerService;
 
-        public LandService(PermanentService permanentService, GameStateService gameStateService, GameStateMapper gameStateMapper)
+        public LandService(PermanentService permanentService, IUserInputService userInputService, GameStateMapper gameStateMapper, INotifyPlayerService notifyPlayerService)
         {
             _permanentService = permanentService;
-            _gameStateService = gameStateService;
+            _userInputService = userInputService;
             _gameStateMapper = gameStateMapper;
+            _notifyPlayerService = notifyPlayerService;
         }
 
         public async Task PlayLand(Card card, Player playerWhoPlay)
@@ -49,7 +51,7 @@ namespace LotusSimulator.Core.Services
                 permanent,
                 battlefield.Zone,
                 playerWhoPlay.ConnectionId);
-            await _gameStateService.SendCardChangeZone(cardChangeZone);
+            await _notifyPlayerService.NotifyCardChangeZone(cardChangeZone);
         }
 
 

@@ -12,14 +12,15 @@ namespace LotusSimulator.Core.Services
     {
         private readonly LibraryService _libraryService;
         private readonly PriorityService _priorityService;
-        private readonly GameStateService _gameStateService;
+        private readonly IUserInputService _userInputService;
         private readonly GameStateMapper _gameStateMapper;
 
-        public DrawStepRunner(LibraryService libraryService, PriorityService priorityService, GameStateService gameStateService, GameStateMapper gameStateMapper)
+        public DrawStepRunner(LibraryService libraryService, PriorityService priorityService,
+            IUserInputService userInputService, GameStateMapper gameStateMapper)
         {
             _libraryService = libraryService;
             _priorityService = priorityService;
-            _gameStateService = gameStateService;
+            _userInputService = userInputService;
             _gameStateMapper = gameStateMapper;
         }
 

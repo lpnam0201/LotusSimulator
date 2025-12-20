@@ -62,6 +62,7 @@ namespace LotusSimulator.Client.GUIComponents.Screens
         {
             var startGameRequest = new StartGameRequestDto();
             startGameRequest.GameId = GlobalInstances.GamePreparationState.GameId;
+            startGameRequest.ConnectionId = GlobalInstances.GamePreparationState.Player.ConnectionId;
             GlobalInstances.GameStateService.StartGameAsync(startGameRequest).GetAwaiter().GetResult();
         }
 

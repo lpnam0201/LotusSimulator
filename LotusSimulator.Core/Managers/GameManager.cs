@@ -1,13 +1,11 @@
-﻿using LotusSimulator.Cards.F;
+﻿using log4net;
+using log4net.Core;
+using LotusSimulator.Cards.F;
 using LotusSimulator.Cards.L;
 using LotusSimulator.Contract.MessageIn;
-using LotusSimulator.Contract.MessageOut;
 using LotusSimulator.Core.Entities.Card;
 using LotusSimulator.Core.Entities.Players;
 using LotusSimulator.Core.Entities.Spell;
-using LotusSimulator.Core.Entities.Turn;
-using LotusSimulator.Core.Entities.Zones;
-using LotusSimulator.Core.MessageOut;
 using LotusSimulator.Core.Services;
 using LotusSimulator.Entities;
 
@@ -15,7 +13,7 @@ namespace LotusSimulator.Managers
 {
     public class GameManager
     {
-        private GameStateService _gameStateService;
+        private IUserInputService _userInputService;
         private RandomService _randomService;
         private Game _game;
         private readonly GameStateMapper _gameStateMapper;
@@ -29,8 +27,10 @@ namespace LotusSimulator.Managers
         private readonly TurnOrderService _turnOrderService;
         private readonly PlayerInputService _playerInputService;
         private readonly PlayerService _playerService;
+        private readonly INotifyPlayerService _notifyPlayerService;
+        private readonly ILog _logger = LogManager.GetLogger(typeof(GameManager));
 
-        public GameManager(GameStateService gameStateService,
+        public GameManager(IUserInputService userInputService,
             RandomService randomService,
             Game game,
             GameStateMapper gameStateMapper,
@@ -43,9 +43,10 @@ namespace LotusSimulator.Managers
             StackService stackService,
             TurnOrderService turnOrderService,
             PlayerInputService playerInputService,
-            PlayerService playerService)
+            PlayerService playerService,
+            INotifyPlayerService notifyPlayerService)
         {
-            _gameStateService = gameStateService;
+            _userInputService = userInputService;
             _randomService = randomService;
             _game = game;
             _gameStateMapper = gameStateMapper;
@@ -59,6 +60,7 @@ namespace LotusSimulator.Managers
             _turnOrderService = turnOrderService;
             _playerInputService = playerInputService;
             _playerService = playerService;
+            _notifyPlayerService = notifyPlayerService;
         }
 
         public void AddPlayerToGame(string connectionId)
@@ -121,7 +123,7 @@ namespace LotusSimulator.Managers
             }
         }
 
-        public async Task StartGameAsync()
+        public async Task StartGameAsync(StartGameRequestDto request)
         {
             await _playerService.InitializePlayers(_game);
             InitializeLibrary();
@@ -131,7 +133,7 @@ namespace LotusSimulator.Managers
             await _libraryService.DrawFirstHand(_game);
 
             var gameStateCollection = _gameStateMapper.BuildGameStateCollection(_game);
-            await _gameStateService.SendGameStarted(gameStateCollection);
+            await _notifyPlayerService.NotifyGameStarted(gameStateCollection);
 
             // Implement mulligan
             //var mulliganResult = await _gameStateService.SendMulliganOffer(_game.PlayerIds.Select(x => x.Key).ToList());
@@ -192,6 +194,14 @@ namespace LotusSimulator.Managers
             var priorityHolder = _game.PriorityHolder;
             await _priorityService.PassPriority(_game);
 
+            _logger.Info("Begin WaitForUserInput");
+            var data = await _userInputService.WaitForUserInput<TestButtonDto, TestButtonDataDto>(
+                connectionId, new TestButtonDto()
+                {
+                    GameId = _game.Id
+                });
+            _logger.Info("Escaped WaitForUserInput");
+            
 
             if (_priorityService.IsAllPlayerPassedInSuccession(_game))
             {
@@ -216,6 +226,11 @@ namespace LotusSimulator.Managers
         public async Task PlayerInput(PlayerInputDto playerInput)
         {
             await _playerInputService.Dispatch(playerInput, _game);
+        }
+
+        public async Task TestButton(TestButtonDataDto testButtonData)
+        {
+            _userInputService.CompleteWait(testButtonData);
         }
     }
 }

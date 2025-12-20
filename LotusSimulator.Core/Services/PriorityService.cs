@@ -1,28 +1,24 @@
 ﻿using LotusSimulator.Contract.MessageOut;
 using LotusSimulator.Core.Entities.Players;
-using LotusSimulator.Core.MessageOut;
 using LotusSimulator.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LotusSimulator.Core.Services
 {
     public class PriorityService
     {
         private readonly PlayabilityService _playabilityService;
-        private readonly GameStateService _gameStateService;
+        private readonly IUserInputService _userInputService;
         private readonly TurnOrderService _turnOrderService;
         private readonly GameStateMapper _gameStateMapper;
+        private readonly INotifyPlayerService _notifyPlayerService;
 
-        public PriorityService(PlayabilityService playableActionService, GameStateService gameStateService, TurnOrderService turnOrderService, GameStateMapper gameStateMapper)
+        public PriorityService(PlayabilityService playableActionService, IUserInputService userInputService, TurnOrderService turnOrderService, GameStateMapper gameStateMapper, INotifyPlayerService notifyPlayerService)
         {
             _playabilityService = playableActionService;
-            _gameStateService = gameStateService;
+            _userInputService = userInputService;
             _turnOrderService = turnOrderService;
             _gameStateMapper = gameStateMapper;
+            _notifyPlayerService = notifyPlayerService;
         }
 
         public async Task GrantPriority(Player player)
@@ -32,10 +28,10 @@ namespace LotusSimulator.Core.Services
 
             await _playabilityService.SetPlayabilityAllPlayers(game);
             var playabilityCollection = _gameStateMapper.BuildPlayabilityCollectionDto(game, player.ConnectionId);
-            await _gameStateService.SendPlayabilityUpdate(playabilityCollection);
+            await _notifyPlayerService.NotifyPlayabilityUpdate(playabilityCollection);
 
             var priorityConnectionId = game.Players.FirstOrDefault(x => x == game.PriorityHolder).ConnectionId;
-            await _gameStateService.SendPriorityUpdate(new PriorityUpdateDto
+            await _notifyPlayerService.NotifyPriorityUpdate(new PriorityUpdateDto
             {
                 PriorityHolderId = priorityConnectionId
             });

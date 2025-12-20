@@ -34,7 +34,8 @@ namespace LotusSimulator.DependencyInjection
             serviceCollection.AddTransient<UpkeepStepRunner>();
             serviceCollection.AddTransient<DrawStepRunner>();
             serviceCollection.AddTransient<PreCombatMainPhaseRunner>();
-            
+            serviceCollection.AddSingleton<IUserInputService, UserInputService>();
+            serviceCollection.AddSingleton<INotifyPlayerService, NotifyPlayerService>();
 
             return serviceCollection;
         }

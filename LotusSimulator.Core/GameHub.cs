@@ -1,6 +1,5 @@
 ﻿using LotusSimulator.Contract.Constants;
 using LotusSimulator.Contract.MessageIn;
-using LotusSimulator.Contract.MessageOut;
 using LotusSimulator.Core.Services;
 using Microsoft.AspNetCore.SignalR;
 
@@ -40,7 +39,7 @@ namespace LotusSimulator
         public async Task StartGame(StartGameRequestDto startGameRequest)
         {
             var gameManager = _gameContainer.GameManagers.First(x => x.GetGameId() == startGameRequest.GameId);
-            await gameManager.StartGameAsync();
+            await gameManager.StartGameAsync(startGameRequest);
         }
 
         public async Task PassPriority(PassPriorityDto passPriority)
@@ -53,6 +52,12 @@ namespace LotusSimulator
         {
             var gameManager = _gameContainer.GameManagers.First(x => x.GetGameId() == playerInput.GameId);
             await gameManager.PlayerInput(playerInput);
+        }
+
+        public async Task TestButton(TestButtonDataDto testButtonDataDto)
+        {
+            var gameManager = _gameContainer.GameManagers.First(x => x.GetGameId() == testButtonDataDto.GameId);
+            await gameManager.TestButton(testButtonDataDto);
         }
     }
 }

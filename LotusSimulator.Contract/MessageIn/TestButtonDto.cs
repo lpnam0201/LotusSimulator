@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace LotusSimulator.Contract.MessageIn
 {
-    public class StartGameRequestDto
+    public class TestButtonDto : IUserInputDto
     {
         public string GameId { get; set; }
-        public string ConnectionId { get; set; }
+        public Guid Guid { get; set; }
     }
 }

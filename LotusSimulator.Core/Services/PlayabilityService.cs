@@ -44,17 +44,13 @@ namespace LotusSimulator.Core.Services
             // Granted playability
             foreach (var ability in card.Abilities)
             {
-                // Mana ability doesn't require priority but can only be activated when game require mana payment
-                if (ability.IsManaAbility && game.IsManaPaymentRequested(player))
+                if (!player.HasPriority() && ability.IsManaAbility && game.IsManaPaymentRequested(player))
                 {
                     card.GrantedPlayabilities.AddIfNotSame(ability.GetPlayability(player));
                 }
-                else
+                if (player.HasPriority())
                 {
-                    if (player.HasPriority())
-                    {
-                        card.GrantedPlayabilities.AddIfNotSame(ability.GetPlayability(player));
-                    }
+                    card.GrantedPlayabilities.AddIfNotSame(ability.GetPlayability(player));
                 }
             }
         }
@@ -75,7 +71,7 @@ namespace LotusSimulator.Core.Services
             if (card.IsLand())
             {
                 if (game.Stack.IsEmpty()
-                && player.HasPriority()
+                    && player.HasPriority()
                     && game.CurrentTurn.IsMainPhase()
                     && game.CurrentTurn.Player == player)
                 {
@@ -114,7 +110,6 @@ namespace LotusSimulator.Core.Services
             foreach (var playability in playabilities)
             {
                 playability.PlayableBy = player;
-
             }
         }
     }

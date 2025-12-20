@@ -1,10 +1,15 @@
+using LotusSimulator.Managers;
+
 namespace LotusSimulator.Tests
 {
-    public class Tests
+    public class GameManagerTest
     {
-        [SetUp]
-        public void Setup()
+
+        private GameManager _gameManager;
+
+        public void OneTimeSetUp()
         {
+
         }
 
         [Test]

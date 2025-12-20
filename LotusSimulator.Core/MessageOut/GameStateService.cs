@@ -14,6 +14,7 @@ namespace LotusSimulator.Core.MessageOut
     public class GameStateService
     {
         private IHubContext<GameHub> _hubContext;
+        
 
         public GameStateService(IHubContext<GameHub> hubContext)
         {
@@ -28,20 +29,6 @@ namespace LotusSimulator.Core.MessageOut
                 var connectionId = kvp.Key;
                 var gameState = kvp.Value;
                 var task = _hubContext.Clients.Client(connectionId).SendAsync(Constants.ReceiveGameStateMethod, gameState);
-                sendToClientTasks.Add(task);
-            }
-
-            await Task.WhenAll(sendToClientTasks);
-        }
-
-        public async Task SendGameStarted(GameStateCollectionDto gameStateCollection)
-        {
-            var sendToClientTasks = new List<Task>();
-            foreach (var kvp in gameStateCollection.GameStates)
-            {
-                var connectionId = kvp.Key;
-                var gameState = kvp.Value;
-                var task = _hubContext.Clients.Client(connectionId).SendAsync(Constants.GameStartedMethod, gameState);
                 sendToClientTasks.Add(task);
             }
 
@@ -64,21 +51,6 @@ namespace LotusSimulator.Core.MessageOut
         public async Task SendGamePreparationResultAsync(GamePreparationResultDto gamePreparationResult)
         {
             await _hubContext.Clients.All.SendAsync(Constants.GamePreparationUpdatedMethod, gamePreparationResult);
-        }
-
-        public async Task SendPlayabilityUpdate(PlayabilityCollectionDto playabilityCollection)
-        {
-            await _hubContext.Clients.Client(playabilityCollection.ConnectionId).SendAsync(Constants.PlayabilityUpdateMethod, playabilityCollection);
-        }
-
-        public async Task SendPriorityUpdate(PriorityUpdateDto priorityUpdate)
-        {
-            await _hubContext.Clients.All.SendAsync(Constants.PriorityUpdateMethod, priorityUpdate);
-        }
-
-        public async Task SendCardChangeZone(GameChangeZoneCollectionDto cardChangeZone)
-        {
-            await _hubContext.Clients.All.SendAsync(Constants.CardChangeZoneMethod, cardChangeZone);
         }
     }
 }

@@ -10,12 +10,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddGameServices();
 builder.Services.AddCardLogic();
+builder.Logging.AddLog4Net("log4net.config");
 
 builder.Services.AddSignalR(o =>
 {
     o.EnableDetailedErrors = true;
     o.KeepAliveInterval = new TimeSpan(0, 30, 0);
     o.ClientTimeoutInterval = new TimeSpan(0, 5, 0);
+    o.MaximumParallelInvocationsPerClient = 10;
 });
 
 var app = builder.Build();

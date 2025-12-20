@@ -53,6 +53,7 @@ namespace LotusSimulator.Client.Layout
         private CreaturePlaneswalkerBattleZone _creaturePlaneswalkerBattleZone { get; set; } = new CreaturePlaneswalkerBattleZone();
         private ArtifactEnchantmentZone _artifactEnchantmentZone { get; set; } = new ArtifactEnchantmentZone();
         private Priority _priority { get; set; } = new Priority();
+        private TestButton _testButton { get; set; } = new TestButton();
 
         public void Draw(GameTime gameTime)
         {
@@ -69,6 +70,7 @@ namespace LotusSimulator.Client.Layout
 
             DrawCreaturePlaneswalkerBattleZone(gameTime);
             DrawPriority(gameTime);
+            DrawTestButton(gameTime);
         }
 
         private void DrawHand(GameTime gameTime)
@@ -163,6 +165,13 @@ namespace LotusSimulator.Client.Layout
             _priority.X = X + 500;
             _priority.Y = Y + LandZoneDistFromTop + LandZoneHeight + 10;
             _priority.Draw(gameTime);
+        }
+
+        private void DrawTestButton(GameTime gameTime)
+        {
+            _testButton.X = X + 800;
+            _testButton.Y = Y + LandZoneDistFromTop + LandZoneHeight + 10;
+            _testButton.Draw(gameTime);
         }
 
     }
